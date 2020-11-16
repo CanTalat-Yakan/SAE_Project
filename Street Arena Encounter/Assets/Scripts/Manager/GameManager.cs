@@ -83,9 +83,10 @@ public class GameManager : MonoBehaviour
 
     void MenuOverlay()
     {
-        //if (m_timer < m_loadingOverlayTimerDuration || !m_Spawned)
-        //return;
-        if(InputSystem.GetDevice<Gamepad>().startButton.wasPressedThisFrame)
+        if (m_timer < m_loadTimer)
+            return;
+
+        if (InputSystem.GetDevice<Gamepad>().startButton.wasPressedThisFrame)
         {
             LOCKED = true;
             Pause();
@@ -106,6 +107,8 @@ public class GameManager : MonoBehaviour
         }
         else if (SceneManager.GetSceneByName("Menu_Overlay").isLoaded)
                 SceneManager.UnloadSceneAsync("Menu_Overlay");
+
+        Time.timeScale = 0;
     }
 
     public void Continue()
@@ -121,6 +124,7 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetSceneByName("Menu_Overlay").isLoaded)
             SceneManager.UnloadSceneAsync("Menu_Overlay");
 
+        Time.timeScale = 1;
         LOCKED = false;
     }
     #endregion ----- Utilities -----
