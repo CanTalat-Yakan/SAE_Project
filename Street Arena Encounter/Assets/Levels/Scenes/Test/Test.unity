@@ -20,13 +20,13 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 0.14818439, g: 0.15539338, b: 0.16981131, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
-  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_AmbientMode: 3
+  m_SubtractiveShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 0dc8fdf32c6616c4cbdcea65f5ad4dd3, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2141540139}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: 0794168921b2bee4b9693164efbef7b6, type: 2}
+  m_LightingDataAsset: {fileID: 0}
   m_LightingSettings: {fileID: 4890085278179872738, guid: 0e8234bdeaade744298ece7b694d559c, type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -27750,7 +27750,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 861c861c74569d54785031ed47c6eb77, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 011fb1588fad90d47823d9f95d8e8cde, type: 2}
+      objectReference: {fileID: 2100000, guid: 986cf1e2da50dc04482afa88a6028971, type: 2}
     - target: {fileID: 919132149155446097, guid: 861c861c74569d54785031ed47c6eb77, type: 3}
       propertyPath: m_Name
       value: Suzanne Model
@@ -27842,19 +27842,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d823ce2bacbf13b4c9f5638179919120, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d823ce2bacbf13b4c9f5638179919120, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.1586679
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d823ce2bacbf13b4c9f5638179919120, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d823ce2bacbf13b4c9f5638179919120, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.98733205
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d823ce2bacbf13b4c9f5638179919120, type: 3}
       propertyPath: m_RootOrder
@@ -27866,7 +27866,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d823ce2bacbf13b4c9f5638179919120, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -18.259
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d823ce2bacbf13b4c9f5638179919120, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -27876,6 +27876,22 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 87ff0dabad1ad324f994445778ff435f, type: 2}
+    - target: {fileID: -7635826562936255635, guid: d823ce2bacbf13b4c9f5638179919120, type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7635826562936255635, guid: d823ce2bacbf13b4c9f5638179919120, type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7635826562936255635, guid: d823ce2bacbf13b4c9f5638179919120, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7635826562936255635, guid: d823ce2bacbf13b4c9f5638179919120, type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d823ce2bacbf13b4c9f5638179919120, type: 3}
       propertyPath: m_Name
       value: Cube (1)
@@ -29288,14 +29304,14 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -29345,13 +29361,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2141540138}
-  m_LocalRotation: {x: -0.56052476, y: 0.6662551, z: -0.473114, w: 0.1344591}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1275336384}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 28.665, y: -593.966, z: -94.972}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2141540141
 MonoBehaviour:
   m_ObjectHideFlags: 0

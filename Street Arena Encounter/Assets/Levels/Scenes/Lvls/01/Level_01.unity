@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: 1bbafe5d4a69cd8448ee2c0aabeaafc1, type: 2}
+  m_LightingDataAsset: {fileID: 112000004, guid: d96a02cbf25fc164eb1ef5809400be3b, type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: 6d9c3e46331f68941858598590c70688, type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -254,7 +254,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: df961decfcdf723429188940a4ccad41, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -293,7 +293,7 @@ Transform:
   m_GameObject: {fileID: 426732070}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -1, z: 0}
-  m_LocalScale: {x: 10, y: 1, z: 10}
+  m_LocalScale: {x: 10000, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 1066049746}
   m_RootOrder: 0
