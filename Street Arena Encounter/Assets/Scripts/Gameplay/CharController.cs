@@ -57,15 +57,17 @@ public class CharController : MonoBehaviour
     void Attack()
     {
         if (m_input.x && !m_ani.GetBool("HeadButt"))
-        StartCoroutine(headButt());
+            StartCoroutine(headButt());
 
         if (m_input.y && !m_ani.GetBool("FireBall"))
-        StartCoroutine(fireBall());
+            StartCoroutine(fireBall());
 
         if (m_input.b && !m_ani.GetBool("Block"))
             StartCoroutine(block());
 
-        m_ani.SetBool("Attack", m_input.x || m_input.y);
+        m_ani.SetBool("Attack", m_input.x || m_input.y || m_input.b);
+        if (!GameManager.Instance.STARTED)
+            m_ani.SetBool("Attack", false);
     }
 
     IEnumerator block()
@@ -79,20 +81,18 @@ public class CharController : MonoBehaviour
 
     IEnumerator headButt()
     {
-        m_ani.SetBool("Attack", true);
         m_ani.SetBool("HeadButt", true);
 
-         yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.5f);
 
         m_ani.SetBool("HeadButt", false);
     }
 
     IEnumerator fireBall()
     {
-        m_ani.SetBool("Attack", true);
         m_ani.SetBool("FireBall", true);
 
-         yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1f);
 
         m_ani.SetBool("FireBall", false);
     }

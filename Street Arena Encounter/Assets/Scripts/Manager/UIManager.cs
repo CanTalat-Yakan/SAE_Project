@@ -37,6 +37,7 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         m_commentGUI.SetText("Goo");
 
+        GameManager.Instance.STARTED = true;
         GameManager.Instance.ActivateChars();
 
         yield return new WaitForSeconds(1);
@@ -68,6 +69,7 @@ public class UIManager : MonoBehaviour
         GameManager.Instance.DeactivateChars();
         GameManager.Instance.m_playerLEFT.gameObject.transform.position = new Vector3(-4, 0, 0);
         GameManager.Instance.m_playerRIGHT.gameObject.transform.position = new Vector3(4, 0, 0);
+        GameManager.Instance.STARTED = false;
 
         yield return new WaitForSeconds(3);
 

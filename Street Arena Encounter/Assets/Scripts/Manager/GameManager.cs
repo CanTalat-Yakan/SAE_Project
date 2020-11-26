@@ -17,9 +17,11 @@ public class GameManager : MonoBehaviour
     public GameObject m_loadingScreen;
 
     float m_timer = 0;
+    float m_timeStamp = 0;
     [SerializeField] float m_loadTimer;
 
     [HideInInspector] public bool LOCKED;
+    [HideInInspector] public bool STARTED;
     [HideInInspector] public Camera MainCamera;
     #endregion ----- Variables -----
 
@@ -44,20 +46,11 @@ public class GameManager : MonoBehaviour
     }
 
     #region ----- Utilities -----
-    public void ActivateChars()
-    {
-        m_playerLEFT.enabled = true;
-        m_playerRIGHT.enabled = true;
-    }
-    public void DeactivateChars()
-    {
-        m_playerLEFT.enabled = false;
-        m_playerRIGHT.enabled = false;
-    }
+
 
     void MenuOverlay()
     {
-        if (m_timer < m_loadTimer)
+        if (!STARTED)
             return;
 
         if (InputSystem.GetDevice<Gamepad>().startButton.wasPressedThisFrame)
@@ -90,7 +83,6 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetSceneByName("Settings_Overlay").isLoaded)
         {
             SceneManager.UnloadSceneAsync("Settings_Overlay");
-            //SceneManager.LoadScene("Menu_Overlay", LoadSceneMode.Additive);
             LOCKED = true;
             return;
         }
@@ -137,6 +129,16 @@ public class GameManager : MonoBehaviour
 
         return Mathf.Clamp(newValue, _newMin, _newMax);
     }
+    public void ActivateChars()
+    {
+        m_playerLEFT.enabled = true;
+        m_playerRIGHT.enabled = true;
+    }
+    public void DeactivateChars()
+    {
+        m_playerLEFT.enabled = false;
+        m_playerRIGHT.enabled = false;
+    }
     #endregion ----- Helper -----
 
     #region ----- Coroutine -----
@@ -145,6 +147,7 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         LOCKED = false;
+        STARTED = false;
         m_input = new Gamepad_Input();
 
         DeactivateChars();
@@ -152,8 +155,8 @@ public class GameManager : MonoBehaviour
         if (!SceneManager.GetSceneByName(m_Init.m_Level.ToString()).isLoaded)
             SceneManager.LoadScene(m_Init.m_Level.ToString(), LoadSceneMode.Additive);
 
+        m_timeStamp = Time.time;
         StartCoroutine(UnloadScenes());
-
 
         yield return null;
     }
@@ -161,22 +164,23 @@ public class GameManager : MonoBehaviour
     IEnumerator UnloadScenes()
     {
         yield return new WaitForSeconds(1);
-        m_timer++;
-        if (m_timer < m_loadTimer)
+
+        while (Time.time - m_timeStamp < m_loadTimer)
         {
-            StartCoroutine(UnloadScenes());
-            yield return null;
+            m_loadingScreen.SetActive(!SceneManager.GetSceneByName("Menu").isLoaded);
+            yield return new WaitForSeconds(1);
         }
 
         if (SceneManager.GetSceneByName("Menu").isLoaded)
             SceneManager.UnloadSceneAsync("Menu");
 
-        m_loadingScreen.SetActive(true);
-
         if (!SceneManager.GetSceneByName("GUI_Overlay").isLoaded)
             SceneManager.LoadScene("GUI_Overlay", LoadSceneMode.Additive);
 
+
+
         m_timeline.Play();
+
         m_loadingScreen.SetActive(false);
 
         yield return null;
