@@ -14,6 +14,7 @@ public class InputMaster : MonoBehaviour
     public bool c = false;
     public bool x = false;
     public bool y = false;
+    public bool a = false;
     public bool b = false;
 
     void Awake()
@@ -97,6 +98,12 @@ public class InputMaster : MonoBehaviour
     }
 
     void OnB(InputAction.CallbackContext ctx)
+    {
+        var value = ctx.ReadValue<float>();
+        b = (value == 1) ? true : false;
+    }
+
+    void OnA(InputAction.CallbackContext ctx)
     {
         var value = ctx.ReadValue<float>();
         b = (value == 1) ? true : false;

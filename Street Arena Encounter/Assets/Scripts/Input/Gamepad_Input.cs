@@ -261,26 +261,55 @@ public class @Gamepad_Input : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
+                    ""name"": ""A"",
+                    ""type"": ""Button"",
+                    ""id"": ""821162ce-fc99-40d3-b488-6706833ea77a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
                     ""name"": ""B"",
                     ""type"": ""Button"",
                     ""id"": ""22b33805-cad5-47cf-be48-ec6aa5933a9c"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""RB"",
+                    ""type"": ""Button"",
+                    ""id"": ""338f5400-759c-41ea-ae2b-128107370c59"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""RT"",
+                    ""type"": ""Button"",
+                    ""id"": ""0b8d8bb0-7d27-4cbc-8215-b6338b10d465"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""LB"",
+                    ""type"": ""Button"",
+                    ""id"": ""3330ab96-c20b-4e92-9232-2168079e05a2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""LT"",
+                    ""type"": ""Button"",
+                    ""id"": ""897f2dad-07cc-4667-bbc7-b56fa40aefea"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""7f9f6ebd-e7a9-4d83-98fc-f182d9e2bd4d"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
                 {
                     ""name"": """",
                     ""id"": ""7fe7d952-e939-435d-a694-95023fcad1d7"",
@@ -304,7 +333,7 @@ public class @Gamepad_Input : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""1D Axis"",
+                    ""name"": ""L-Stick"",
                     ""id"": ""0290168f-a5ba-4d3c-b4a0-eaae1dc6f95a"",
                     ""path"": ""1DAxis"",
                     ""interactions"": """",
@@ -337,9 +366,53 @@ public class @Gamepad_Input : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
+                    ""name"": ""D-Pad"",
+                    ""id"": ""738df649-ffb3-4280-a020-e9c2439818a8"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""1cba0f84-0c6a-4cf5-a295-5477ddc7b5d5"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""69beec4c-076b-4fea-a61c-6fb537ce46f5"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
                     ""name"": """",
                     ""id"": ""5f284fbc-5dc9-4175-bbf0-4e140f8b679a"",
                     ""path"": ""<Gamepad>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f9d4ca19-9b08-4b5a-a41d-c583a94beedc"",
+                    ""path"": ""<Gamepad>/dpad/down"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -379,6 +452,61 @@ public class @Gamepad_Input : IInputActionCollection, IDisposable
                     ""action"": ""B"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cf59947c-5b8f-4ba7-8fe6-e91fbe9c305f"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""A"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""88a87f3e-d40b-41e3-9834-be868b3674c0"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RB"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6fe53380-1bad-4f96-9e49-f799838fdca1"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RT"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""663356b0-514e-43ef-8d16-0c9980f799db"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LB"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""64db78ff-5aba-4083-8290-a0734e7be8b0"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LT"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -399,7 +527,12 @@ public class @Gamepad_Input : IInputActionCollection, IDisposable
         m_Game_Crouch = m_Game.FindAction("Crouch", throwIfNotFound: true);
         m_Game_X = m_Game.FindAction("X", throwIfNotFound: true);
         m_Game_Y = m_Game.FindAction("Y", throwIfNotFound: true);
+        m_Game_A = m_Game.FindAction("A", throwIfNotFound: true);
         m_Game_B = m_Game.FindAction("B", throwIfNotFound: true);
+        m_Game_RB = m_Game.FindAction("RB", throwIfNotFound: true);
+        m_Game_RT = m_Game.FindAction("RT", throwIfNotFound: true);
+        m_Game_LB = m_Game.FindAction("LB", throwIfNotFound: true);
+        m_Game_LT = m_Game.FindAction("LT", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -519,7 +652,12 @@ public class @Gamepad_Input : IInputActionCollection, IDisposable
     private readonly InputAction m_Game_Crouch;
     private readonly InputAction m_Game_X;
     private readonly InputAction m_Game_Y;
+    private readonly InputAction m_Game_A;
     private readonly InputAction m_Game_B;
+    private readonly InputAction m_Game_RB;
+    private readonly InputAction m_Game_RT;
+    private readonly InputAction m_Game_LB;
+    private readonly InputAction m_Game_LT;
     public struct GameActions
     {
         private @Gamepad_Input m_Wrapper;
@@ -529,7 +667,12 @@ public class @Gamepad_Input : IInputActionCollection, IDisposable
         public InputAction @Crouch => m_Wrapper.m_Game_Crouch;
         public InputAction @X => m_Wrapper.m_Game_X;
         public InputAction @Y => m_Wrapper.m_Game_Y;
+        public InputAction @A => m_Wrapper.m_Game_A;
         public InputAction @B => m_Wrapper.m_Game_B;
+        public InputAction @RB => m_Wrapper.m_Game_RB;
+        public InputAction @RT => m_Wrapper.m_Game_RT;
+        public InputAction @LB => m_Wrapper.m_Game_LB;
+        public InputAction @LT => m_Wrapper.m_Game_LT;
         public InputActionMap Get() { return m_Wrapper.m_Game; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -554,9 +697,24 @@ public class @Gamepad_Input : IInputActionCollection, IDisposable
                 @Y.started -= m_Wrapper.m_GameActionsCallbackInterface.OnY;
                 @Y.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnY;
                 @Y.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnY;
+                @A.started -= m_Wrapper.m_GameActionsCallbackInterface.OnA;
+                @A.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnA;
+                @A.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnA;
                 @B.started -= m_Wrapper.m_GameActionsCallbackInterface.OnB;
                 @B.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnB;
                 @B.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnB;
+                @RB.started -= m_Wrapper.m_GameActionsCallbackInterface.OnRB;
+                @RB.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnRB;
+                @RB.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnRB;
+                @RT.started -= m_Wrapper.m_GameActionsCallbackInterface.OnRT;
+                @RT.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnRT;
+                @RT.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnRT;
+                @LB.started -= m_Wrapper.m_GameActionsCallbackInterface.OnLB;
+                @LB.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnLB;
+                @LB.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnLB;
+                @LT.started -= m_Wrapper.m_GameActionsCallbackInterface.OnLT;
+                @LT.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnLT;
+                @LT.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnLT;
             }
             m_Wrapper.m_GameActionsCallbackInterface = instance;
             if (instance != null)
@@ -576,9 +734,24 @@ public class @Gamepad_Input : IInputActionCollection, IDisposable
                 @Y.started += instance.OnY;
                 @Y.performed += instance.OnY;
                 @Y.canceled += instance.OnY;
+                @A.started += instance.OnA;
+                @A.performed += instance.OnA;
+                @A.canceled += instance.OnA;
                 @B.started += instance.OnB;
                 @B.performed += instance.OnB;
                 @B.canceled += instance.OnB;
+                @RB.started += instance.OnRB;
+                @RB.performed += instance.OnRB;
+                @RB.canceled += instance.OnRB;
+                @RT.started += instance.OnRT;
+                @RT.performed += instance.OnRT;
+                @RT.canceled += instance.OnRT;
+                @LB.started += instance.OnLB;
+                @LB.performed += instance.OnLB;
+                @LB.canceled += instance.OnLB;
+                @LT.started += instance.OnLT;
+                @LT.performed += instance.OnLT;
+                @LT.canceled += instance.OnLT;
             }
         }
     }
@@ -598,6 +771,11 @@ public class @Gamepad_Input : IInputActionCollection, IDisposable
         void OnCrouch(InputAction.CallbackContext context);
         void OnX(InputAction.CallbackContext context);
         void OnY(InputAction.CallbackContext context);
+        void OnA(InputAction.CallbackContext context);
         void OnB(InputAction.CallbackContext context);
+        void OnRB(InputAction.CallbackContext context);
+        void OnRT(InputAction.CallbackContext context);
+        void OnLB(InputAction.CallbackContext context);
+        void OnLT(InputAction.CallbackContext context);
     }
 }
