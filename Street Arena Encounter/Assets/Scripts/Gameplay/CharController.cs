@@ -31,30 +31,40 @@ public class CharController : MonoBehaviour
 
     void Move()
     {
+
         m_Ani.SetBool("Jump", false);
         desiredDirection.x = m_input.m * m_Ani.gameObject.transform.localScale.x;
+
         if (Constrain())
         {
             if (m_Ani.gameObject.transform.localScale.x != 1)
             {
                 if (desiredDirection.x > 0)
                 {
+                    //desiredDirection = Vector3.zero;
                     Fall();
                     m_Ani.SetFloat("Move", 0);
+                    m_Ani.SetBool("Crouch", false);
                     return;
                 }
             }
             else if (desiredDirection.x < 0)
             {
+                //desiredDirection = Vector3.zero;
                 Fall();
                 m_Ani.SetFloat("Move", 0);
+                m_Ani.SetBool("Crouch", false);
                 return;
             }
         }
 
 
-        if (desiredDirection.x < 0 && m_input.c)
+        if (desiredDirection.x * m_Ani.gameObject.transform.localScale.x < 0 && m_input.c)
+        {
+            m_Ani.SetFloat("Move", 0);
+            m_Ani.SetBool("Crouch", false);
             return;
+        }
 
         m_Ani.SetFloat("Move", m_input.m);
 
@@ -78,6 +88,7 @@ public class CharController : MonoBehaviour
     }
     void Fall()
     {
+        desiredDirection.x = 0;
         desiredDirection.y += Physics.gravity.y * Time.deltaTime * 4;
         desiredDirection.y = Mathf.Clamp(desiredDirection.y, Physics.gravity.y, 10);
 

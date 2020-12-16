@@ -52,9 +52,6 @@ public class GameManager : MonoBehaviour
         if (!STARTED)
             return;
 
-        if (InputSystem.GetDevice<Gamepad>() != null)
-            return;
-
 
         if (InputSystem.GetDevice<Gamepad>().startButton.wasPressedThisFrame)
         {
