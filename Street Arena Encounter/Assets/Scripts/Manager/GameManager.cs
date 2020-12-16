@@ -10,11 +10,10 @@ public class GameManager : MonoBehaviour
 
     #region ----- Variables -----
     public Main_Init m_Init;
-    public Gamepad_Input m_input;
+    public Gamepad_Input m_Input;
     [SerializeField] PlayableDirector m_timeline;
-    public CharacterController m_playerLEFT;
-    public CharacterController m_playerRIGHT;
-    public GameObject m_loadingScreen;
+    public CharacterController m_PlayerLEFT;
+    public CharacterController m_PlayerRIGHT;
 
     float m_timer = 0;
     float m_timeStamp = 0;
@@ -52,6 +51,10 @@ public class GameManager : MonoBehaviour
     {
         if (!STARTED)
             return;
+
+        if (InputSystem.GetDevice<Gamepad>() != null)
+            return;
+
 
         if (InputSystem.GetDevice<Gamepad>().startButton.wasPressedThisFrame)
         {
@@ -93,6 +96,20 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         LOCKED = false;
     }
+
+    public void ResetPlayer()
+    {
+        m_PlayerLEFT.gameObject.transform.position = new Vector3(-4, 0, 0);
+        m_PlayerRIGHT.gameObject.transform.position = new Vector3(4, 0, 0);
+        m_PlayerLEFT.height = 3.1f;
+        m_PlayerRIGHT.height = 3.1f;
+        m_PlayerRIGHT.GetComponent<CharController>().m_Ani.SetBool("Jump", false);
+        m_PlayerRIGHT.GetComponent<CharController>().m_Ani.SetBool("Crouch", false);
+        m_PlayerRIGHT.GetComponent<CharController>().m_Ani.SetFloat("Move", 0);
+        m_PlayerLEFT.GetComponent<CharController>().m_Ani.SetBool("Jump", false);
+        m_PlayerLEFT.GetComponent<CharController>().m_Ani.SetBool("Crouch", false);
+        m_PlayerLEFT.GetComponent<CharController>().m_Ani.SetFloat("Move", 0);
+    }
     #endregion ----- Utilities -----
 
     #region ----- Helper -----
@@ -131,13 +148,13 @@ public class GameManager : MonoBehaviour
     }
     public void ActivateChars()
     {
-        m_playerLEFT.enabled = true;
-        m_playerRIGHT.enabled = true;
+        m_PlayerLEFT.enabled = true;
+        m_PlayerRIGHT.enabled = true;
     }
     public void DeactivateChars()
     {
-        m_playerLEFT.enabled = false;
-        m_playerRIGHT.enabled = false;
+        m_PlayerLEFT.enabled = false;
+        m_PlayerRIGHT.enabled = false;
     }
     #endregion ----- Helper -----
 
@@ -148,7 +165,7 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
         LOCKED = false;
         STARTED = false;
-        m_input = new Gamepad_Input();
+        m_Input = new Gamepad_Input();
 
         DeactivateChars();
 
@@ -167,12 +184,14 @@ public class GameManager : MonoBehaviour
 
         while (Time.time - m_timeStamp < m_loadTimer)
         {
-            m_loadingScreen.SetActive(!SceneManager.GetSceneByName("Menu").isLoaded);
             yield return new WaitForSeconds(1);
         }
 
         if (SceneManager.GetSceneByName("Menu").isLoaded)
             SceneManager.UnloadSceneAsync("Menu");
+
+        if (SceneManager.GetSceneByName("EndScreen_Overlay").isLoaded)
+            SceneManager.UnloadSceneAsync("EndScreen_Overlay");
 
         if (!SceneManager.GetSceneByName("GUI_Overlay").isLoaded)
             SceneManager.LoadScene("GUI_Overlay", LoadSceneMode.Additive);
@@ -180,8 +199,6 @@ public class GameManager : MonoBehaviour
 
 
         m_timeline.Play();
-
-        m_loadingScreen.SetActive(false);
 
         yield return null;
     }

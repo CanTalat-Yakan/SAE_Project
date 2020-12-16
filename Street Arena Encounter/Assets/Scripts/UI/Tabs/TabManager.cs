@@ -11,25 +11,28 @@ public class TabManager : MonoBehaviour
 {
     #region ------ Variables -----
     [SerializeField] bool firstPanelOpen = true;
+    [SerializeField] InputSystemUIInputModule m_uiInput;
     [SerializeField] List<GameObject> m_panels = new List<GameObject>();
 
     int? m_panelIndex = 0;
     int m_tmpPanelIndex;
     #endregion ------ Variables -----
-    [SerializeField] InputSystemUIInputModule m_uiInput;
 
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
+        m_uiInput = FindObjectOfType<InputSystemUIInputModule>();
         m_tmpPanelIndex = m_panelIndex.Value;
+
+        if (m_panels.Count == 0)
+            return;
 
         if (firstPanelOpen)
         {
             m_panels[0].gameObject.SetActive(true);
 
-            if (m_panels[0].GetComponent<FirstSelected>().m_firstSelected != null)
+            if (m_panels[0].GetComponent<FirstSelected>() != null)
                 EventSystem.current.SetSelectedGameObject(m_panels[0].GetComponent<FirstSelected>().m_firstSelected);
 
             m_panelIndex = 0;
@@ -42,6 +45,9 @@ public class TabManager : MonoBehaviour
 
     void Update()
     {
+        if (m_panels.Count == 0)
+            return;
+
         if (m_uiInput.cancel.action.ReadValue<float>() != 0 && m_panelIndex <= 3)
         {
             if (SceneManager.GetSceneByName("Settings_Overlay").isLoaded)

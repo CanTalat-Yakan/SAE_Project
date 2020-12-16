@@ -8,10 +8,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject m_panel;
     [SerializeField] TextMeshProUGUI m_timerGUI;
     [SerializeField] TextMeshProUGUI m_commentGUI;
-    float m_timer = 60;
+    [SerializeField] float m_timer = 60;
+    [SerializeField] float m_rounds = 1;
 
     void Start()
     {
+        m_timerGUI.SetText((GameManager.Instance.m_Init.m_GameMode == E_GameModes.TRAINING) ? "/" : GameManager.Instance.m_Init.m_Timer.ToString());
+
         StartCoroutine(StartCoroutine());
     }
 
@@ -20,12 +23,14 @@ public class UIManager : MonoBehaviour
         m_panel.SetActive(false);
         yield return new WaitForSeconds(10);
         m_panel.SetActive(true);
-        StartCoroutine(Comment());
+        StartCoroutine(Begin());
+        m_timer = GameManager.Instance.m_Init.m_Timer;
+        m_rounds = 1;
 
         yield return null;
     }
 
-    IEnumerator Comment()
+    IEnumerator Begin()
     {
         GameManager.Instance.DeactivateChars();
 
@@ -50,32 +55,71 @@ public class UIManager : MonoBehaviour
 
     IEnumerator Timer()
     {
-        m_timer--;
-        m_timerGUI.SetText("{00}", m_timer);
-        yield return new WaitForSeconds(1);
+        switch (GameManager.Instance.m_Init.m_GameMode)
+        {
+            case E_GameModes.TRAINING:
+                {
+                    m_timerGUI.SetText("{/}");
 
-        if (m_timer > 0)
-            StartCoroutine(Timer());
-        else
-            StartCoroutine(End());
+                    yield return null;
+                }
+                break;
+            case E_GameModes.MULTIPLAYER:
+                break;
+            case E_GameModes.LOCAL:
+                {
+                    m_timer--;
+                    m_timerGUI.SetText("{00}", m_timer);
+                    yield return new WaitForSeconds(1);
 
-        yield return null;
+                    if (m_timer > 1)
+                        StartCoroutine(Timer());
+                    else if (m_rounds == GameManager.Instance.m_Init.m_Rounds)
+                        StartCoroutine(End());
+                    else
+                        StartCoroutine(Round());
+
+                    yield return null;
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     IEnumerator End()
     {
+        m_timerGUI.SetText("0");
         m_commentGUI.gameObject.SetActive(true);
-        m_commentGUI.SetText("WIN WIN");
-        GameManager.Instance.DeactivateChars();
-        GameManager.Instance.m_playerLEFT.gameObject.transform.position = new Vector3(-4, 0, 0);
-        GameManager.Instance.m_playerRIGHT.gameObject.transform.position = new Vector3(4, 0, 0);
+        m_commentGUI.SetText(EvaluateWinner());
+        GameManager.Instance.ResetPlayer();
         GameManager.Instance.STARTED = false;
-
         yield return new WaitForSeconds(3);
 
-        m_timerGUI.SetText("0");
         SceneHandler.ChangeSceneByName("EndScreen_Overlay");
 
         yield return null;
+    }
+    IEnumerator Round()
+    {
+        m_rounds++;
+
+        m_timerGUI.SetText("0");
+        m_commentGUI.gameObject.SetActive(true);
+        m_commentGUI.SetText(EvaluateWinner());
+        GameManager.Instance.ResetPlayer();
+        GameManager.Instance.STARTED = false;
+        yield return new WaitForSeconds(3);
+
+        m_timer = GameManager.Instance.m_Init.m_Timer;
+        m_timerGUI.SetText("{00}", m_timer);
+        StartCoroutine(Begin());
+
+        yield return null;
+    }
+
+    string EvaluateWinner()
+    {
+        return "Draw";
     }
 }

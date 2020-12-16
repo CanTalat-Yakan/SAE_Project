@@ -17,9 +17,6 @@ public class SceneHandler : MonoBehaviour
     public static void AddSceneByName(string _sceneName)
     {
         SceneManager.LoadScene(_sceneName, LoadSceneMode.Additive);
-
-        if (_sceneName == "Main")
-            GameObject.Find("TabManager").GetComponent<TabManager>().SetPageIndex(1);
     }
 
     public static void UnloadSceneByName(string _sceneName)
