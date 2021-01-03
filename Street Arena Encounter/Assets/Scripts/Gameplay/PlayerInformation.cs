@@ -16,4 +16,5 @@ public struct PlayerInformation
     [Header("Current State in Game")]
     public float Health;
     public int RoundsWon;
+    public string Name;
 }

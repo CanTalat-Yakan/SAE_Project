@@ -23,6 +23,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] float m_rounds = 1;
 
     float tmpValue, tmpValue2;
+    string tmpPlayerWON;
     #endregion
 
     void Start()
@@ -33,6 +34,7 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         ReadDamage();
+
     }
 
     #region -Coroutine
@@ -87,13 +89,14 @@ public class UIManager : MonoBehaviour
                 break;
             case E_GameModes.LOCAL:
                 {
-                    m_timer--;
-                    m_timerGUI.SetText("{00}", m_timer);
                     yield return new WaitForSeconds(1);
 
-                    if (m_timer > 1)
+                    m_timer--;
+                    m_timerGUI.SetText("{00}", m_timer);
+
+                    if (m_timer != 0)
                         StartCoroutine(Timer());
-                    else if (m_rounds == GameManager.Instance.m_Init.m_Rounds * 2 - 1)
+                    else if (ResultWinner())
                         StartCoroutine(End());
                     else
                         StartCoroutine(Round());
@@ -105,77 +108,115 @@ public class UIManager : MonoBehaviour
                 break;
         }
     }
-    IEnumerator End()
-    {
-        m_timerGUI.SetText("0");
-        m_commentGUI.gameObject.SetActive(true);
-        m_commentGUI.SetText(EvaluateWinner());
-        GameManager.Instance.ResetPlayers();
-        GameManager.Instance.STARTED = false;
-        yield return new WaitForSeconds(3);
-
-        SceneHandler.ChangeSceneByName("EndScreen_Overlay");
-
-        yield return null;
-    }
     IEnumerator Round()
     {
         m_rounds++;
 
         m_timerGUI.SetText("0");
         m_commentGUI.gameObject.SetActive(true);
-        m_commentGUI.SetText(EvaluateWinner());
+        m_commentGUI.SetText(tmpPlayerWON);
         GameManager.Instance.DeactivateChars();
-        //GameManager.Instance.ResetPlayers();
+        GameManager.Instance.ResetPlayers();
         GameManager.Instance.STARTED = false;
+
         yield return new WaitForSeconds(3);
 
         m_timer = GameManager.Instance.m_Init.m_Timer;
         m_timerGUI.SetText("{00}", m_timer);
+
         StartCoroutine(Begin());
+
+        yield return null;
+    }
+    IEnumerator End()
+    {
+        m_timerGUI.SetText("0");
+        m_commentGUI.gameObject.SetActive(true);
+        m_commentGUI.SetText(EvaluateWinner_End());
+        GameManager.Instance.ResetPlayers();
+        GameManager.Instance.STARTED = false;
+        yield return new WaitForSeconds(6);
+
+        SceneHandler.ChangeSceneByName("EndScreen_Overlay");
 
         yield return null;
     }
     #endregion
 
     #region -Utilities
-    string EvaluateWinner()
+    string EvaluateWinner_Round()
     {
-        //Round
+        //Player Left Won
         if (GameManager.Instance.m_Player_L.Health > GameManager.Instance.m_Player_R.Health)
         {
             GameManager.Instance.m_Player_L.RoundsWon++;
-            return "Player Left\nWon";
+            return GameManager.Instance.m_Player_L.Name + "\nWon";
         }
-        //Round
+        //Player Right Won
         if (GameManager.Instance.m_Player_L.Health < GameManager.Instance.m_Player_R.Health)
         {
             GameManager.Instance.m_Player_R.RoundsWon++;
-            return "Player Right\nWon";
+            return GameManager.Instance.m_Player_R.Name + "\nWon";
         }
-        //Round
-        if (GameManager.Instance.m_Player_L.Health == GameManager.Instance.m_Player_R.Health)
-        {
-            GameManager.Instance.m_Player_L.RoundsWon++;
-            GameManager.Instance.m_Player_R.RoundsWon++;
+
+        GameManager.Instance.m_Player_L.RoundsWon++;
+        GameManager.Instance.m_Player_R.RoundsWon++;
+        return "Draw";
+    }
+    string EvaluateWinner_End()
+    {
+        //Draw
+        if (GameManager.Instance.m_Player_L.RoundsWon == GameManager.Instance.m_Player_R.RoundsWon)
             return "Draw";
-        }
 
-
-        //End
+        //Player Left Won
         if (GameManager.Instance.m_Player_L.RoundsWon == GameManager.Instance.m_Init.m_Rounds)
-        {
-            SetupRound();
-            return "Player Left\nWon";
-        }
-        //End
+            return GameManager.Instance.m_Player_L.Name + "\nWon";
+        //Player Right Won
         if (GameManager.Instance.m_Player_R.RoundsWon == GameManager.Instance.m_Init.m_Rounds)
-        {
-            SetupRound();
-            return "Player Right\nWon";
-        }
+            return GameManager.Instance.m_Player_R.Name + "\nWon";
 
         return "Draw";
+    }
+    bool ResultWinner()
+    {
+        tmpPlayerWON = EvaluateWinner_Round();
+        SetupRound();
+
+        //End
+        if (GameManager.Instance.m_Player_L.RoundsWon == GameManager.Instance.m_Init.m_Rounds
+            || GameManager.Instance.m_Player_R.RoundsWon == GameManager.Instance.m_Init.m_Rounds)
+            return true;
+
+        return false;
+    }
+    bool PlayerDead()
+    {
+        //Player Left Dead
+        if (GameManager.Instance.m_Player_L.Health <= 0
+            || GameManager.Instance.m_Player_R.Health <= 0)
+        {
+            ResultWinner();
+            return true;
+        }
+
+        return false;
+    }
+    void ReadDamage()
+    {
+        if (tmpValue != (m_playerHealthBar_L.fillAmount = GameManager.Instance.m_Player_L.Health / GameManager.Instance.m_Player_L.GP.Health))
+            StartCoroutine(ShadowAni());
+        if (tmpValue2 != (m_playerHealthBar_R.fillAmount = GameManager.Instance.m_Player_R.Health / GameManager.Instance.m_Player_R.GP.Health))
+            StartCoroutine(ShadowAni());
+
+        tmpValue = m_playerHealthBar_L.fillAmount;
+        tmpValue2 = m_playerHealthBar_R.fillAmount;
+
+        if (PlayerDead())
+        {
+            StopAllCoroutines();
+            StartCoroutine(Round());
+        }
     }
     void SetupRound()
     {
@@ -192,16 +233,6 @@ public class UIManager : MonoBehaviour
             m_roundsGO_L.transform.GetChild(i).GetChild(1).gameObject.SetActive(true);
         for (int i = 0; i < GameManager.Instance.m_Player_R.RoundsWon; i++)
             m_roundsGO_R.transform.GetChild(i).GetChild(1).gameObject.SetActive(true);
-    }
-    void ReadDamage()
-    {
-        if (tmpValue != (m_playerHealthBar_L.fillAmount = GameManager.Instance.m_Player_L.Health / GameManager.Instance.m_Player_L.GP.PlayerHealth))
-            StartCoroutine(ShadowAni());
-        if (tmpValue2 != (m_playerHealthBar_R.fillAmount = GameManager.Instance.m_Player_R.Health / GameManager.Instance.m_Player_R.GP.PlayerHealth))
-            StartCoroutine(ShadowAni());
-
-        tmpValue = m_playerHealthBar_L.fillAmount;
-        tmpValue2 = m_playerHealthBar_R.fillAmount;
     }
     #endregion
 

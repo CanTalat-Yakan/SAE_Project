@@ -14,5 +14,5 @@ public class GP_Settings : ScriptableObject
     public float PlayerStartPos = 3;
     [Range(0.1f, 1)] public float CrouchHeightRatio = 0.74f;
     [HideInInspector] public float CrouchHeight { get => PlayerHeight * CrouchHeightRatio; set => CrouchHeight = value; }
-    public float PlayerHealth = 100f;
+    public float Health = 100f;
 }

@@ -15,4 +15,4 @@ MonoBehaviour:
   m_GameMode: 2
   m_Level: 0
   m_Rounds: 3
-  m_Timer: 5
+  m_Timer: 30

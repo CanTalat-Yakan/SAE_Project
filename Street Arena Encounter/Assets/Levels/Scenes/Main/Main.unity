@@ -157,6 +157,50 @@ Transform:
   m_Father: {fileID: 945673949}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &323735866
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 323735867}
+  - component: {fileID: 323735868}
+  m_Layer: 0
+  m_Name: PlayerPlatform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &323735867
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323735866}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalScale: {x: 100, y: 2, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1023166837}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &323735868
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323735866}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &378409829
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,6 +256,7 @@ MonoBehaviour:
     GP: {fileID: 0}
     Health: 0
     RoundsWon: 0
+    Name: 
   m_attackState: 0
   m_Attacking: 0
 --- !u!114 &378409832
@@ -234,6 +279,7 @@ MonoBehaviour:
     GP: {fileID: 0}
     Health: 0
     RoundsWon: 0
+    Name: 
   m_movementState: 0
 --- !u!143 &378409833
 CharacterController:
@@ -1754,6 +1800,7 @@ MonoBehaviour:
     GP: {fileID: 11400000, guid: 36a3a49ea9a8d1d409717af0da21a8ed, type: 2}
     Health: 100
     RoundsWon: 0
+    Name: Planty
   m_Player_R:
     Player: {fileID: 1965195723}
     Char: {fileID: 1965195722}
@@ -1762,6 +1809,7 @@ MonoBehaviour:
     GP: {fileID: 11400000, guid: 36a3a49ea9a8d1d409717af0da21a8ed, type: 2}
     Health: 100
     RoundsWon: 0
+    Name: Swirly
   m_loadTimer: 5
   m_SkipIntro: 1
   LOCKED: 0
@@ -1859,6 +1907,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1355934111}
+  - {fileID: 323735867}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3187,6 +3236,7 @@ MonoBehaviour:
     GP: {fileID: 0}
     Health: 0
     RoundsWon: 0
+    Name: 
   m_attackState: 0
   m_Attacking: 0
 --- !u!114 &1965195721
@@ -3209,6 +3259,7 @@ MonoBehaviour:
     GP: {fileID: 0}
     Health: 0
     RoundsWon: 0
+    Name: 
   m_movementState: 0
 --- !u!143 &1965195722
 CharacterController:

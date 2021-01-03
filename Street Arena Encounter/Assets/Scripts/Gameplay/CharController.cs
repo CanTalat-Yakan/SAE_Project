@@ -47,7 +47,7 @@ public class CharController : MonoBehaviour
     {
         m_movementController.ResetValues(m_leftSide);
         m_attackController.ResetValues();
-        GameManager.Instance.m_Player_L.Health = GameManager.Instance.m_Player_L.GP.PlayerHealth;
-        GameManager.Instance.m_Player_R.Health = GameManager.Instance.m_Player_R.GP.PlayerHealth;
+        GameManager.Instance.m_Player_L.Health = GameManager.Instance.m_Player_L.GP.Health;
+        GameManager.Instance.m_Player_R.Health = GameManager.Instance.m_Player_R.GP.Health;
     }
 }

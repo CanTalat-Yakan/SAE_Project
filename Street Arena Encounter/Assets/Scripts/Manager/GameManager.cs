@@ -37,10 +37,8 @@ public class GameManager : MonoBehaviour
         Instance = this;
 
 #if !UNITY_EDITOR
-        m_skipIntro = false;
+        m_SkipIntro = false;
 #endif
-
-        m_Player_R.Input = null;
 
         StartCoroutine(Init());
     }
@@ -53,7 +51,7 @@ public class GameManager : MonoBehaviour
             return;
     }
 
-#region -Utilities
+    #region -Utilities
     void MenuOverlay()
     {
         if (!STARTED)
@@ -100,11 +98,12 @@ public class GameManager : MonoBehaviour
     public void ResetPlayers()
     {
         m_Player_L.Player.ResetValues();
-        m_Player_R.Player.ResetValues();
+        if (m_Player_R.Player.isActiveAndEnabled)
+            m_Player_R.Player.ResetValues();
     }
-#endregion
+    #endregion
 
-#region -Helper
+    #region -Helper
     public RaycastHit HitRayCast(Vector3 _origin, Vector3 _direction, float _maxDistance)
     {
         RaycastHit hit;
@@ -156,9 +155,9 @@ public class GameManager : MonoBehaviour
 
         return length > _threshold;
     }
-#endregion
+    #endregion
 
-#region -Coroutine
+    #region -Coroutine
     IEnumerator Init()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -201,5 +200,5 @@ public class GameManager : MonoBehaviour
 
         yield return null;
     }
-#endregion
+    #endregion
 }
