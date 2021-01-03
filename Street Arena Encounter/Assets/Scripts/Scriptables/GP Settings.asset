@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bed93cd90067a07469d3c287903227f9, type: 3}
   m_Name: GP Settings
   m_EditorClassIdentifier: 
-  MinDistance: 2
+  MinDistance: 1.5
   MaxDistance: 25
   JumpForce: 10
-  JumpDashForce: 15
-  DashForce: 30
+  JumpDashForce: 5
+  DashForce: 10
   GravityForce: -40
   Speed: 1
   PlayerHeight: 3.1

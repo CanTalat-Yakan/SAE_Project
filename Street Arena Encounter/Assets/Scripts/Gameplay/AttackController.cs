@@ -43,10 +43,10 @@ public class AttackController : MonoBehaviour
             StartCoroutine(Base("Heavy_B", EAttackStates.B_HeavyAttack, Hit(), 0.2f));
 
         if (m_PlayerInfo.Input.m_attacks.low)
-            StartCoroutine(Base("Low", EAttackStates.F_LowAttack, Hit(), 0.2f));
+            StartCoroutine(Base("Low", EAttackStates.F_LowAttack, HitLow(), 0.2f));
 
         if (m_PlayerInfo.Input.m_attacks.b_low)
-            StartCoroutine(Base("Low_B", EAttackStates.B_LowAttack, Hit(), 0.2f));
+            StartCoroutine(Base("Low_B", EAttackStates.B_LowAttack, HitLow(), 0.2f));
     }
 
     void LateUpdate()
@@ -81,9 +81,11 @@ public class AttackController : MonoBehaviour
     }
     public IEnumerator Hit(float _dealDamageAfter = 0.1f)
     {
+        m_PlayerInfo.Char.height = m_PlayerInfo.GP.PlayerHeight;
+
         yield return new WaitForSeconds(0.1f);
 
-        if (GameManager.Instance.GetDistance(2))
+        if (GameManager.Instance.GetDistance(m_PlayerInfo.GP.MinDistance))
         {
             float targetX = m_PlayerInfo.Player.transform.localPosition.x + m_PlayerInfo.Forward * 0.8f;
             m_PlayerInfo.Player.transform.DOLocalMoveX(targetX, 0.25f).SetEase(Ease.OutCubic);
@@ -92,6 +94,25 @@ public class AttackController : MonoBehaviour
         yield return new WaitForSeconds(_dealDamageAfter - 0.1f);
         DamageManager.Instance.DealDamage(10, m_PlayerInfo.Forward == -1);
 
+        m_PlayerInfo.Char.height = m_PlayerInfo.Input.m_controls.c ? m_PlayerInfo.GP.PlayerHeight : m_PlayerInfo.GP.CrouchHeight;
+        yield return null;
+    }
+    public IEnumerator HitLow(float _dealDamageAfter = 0.1f)
+    {
+        m_PlayerInfo.Char.height = m_PlayerInfo.GP.CrouchHeight;
+
+        yield return new WaitForSeconds(0.1f);
+
+        if (GameManager.Instance.GetDistance(m_PlayerInfo.GP.MinDistance))
+        {
+            float targetX = m_PlayerInfo.Player.transform.localPosition.x + m_PlayerInfo.Forward * 0.8f;
+            m_PlayerInfo.Player.transform.DOLocalMoveX(targetX, 0.25f).SetEase(Ease.OutCubic);
+        }
+
+        yield return new WaitForSeconds(_dealDamageAfter - 0.1f);
+        DamageManager.Instance.DealDamage(10, m_PlayerInfo.Forward == -1);
+
+        m_PlayerInfo.Char.height = m_PlayerInfo.Input.m_controls.c ? m_PlayerInfo.GP.PlayerHeight : m_PlayerInfo.GP.CrouchHeight;
         yield return null;
     }
     #endregion

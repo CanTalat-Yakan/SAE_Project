@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -10,12 +11,18 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject m_panel;
     [SerializeField] TextMeshProUGUI m_timerGUI;
     [SerializeField] TextMeshProUGUI m_commentGUI;
-    [SerializeField] float m_timer = 60;
-    [SerializeField] float m_rounds = 1;
+
     [SerializeField] Image m_playerHealthBar_L;
+    [SerializeField] Image m_playerHealthBarShadow_L;
     [SerializeField] Image m_playerHealthBar_R;
+    [SerializeField] Image m_playerHealthBarShadow_R;
     [SerializeField] GameObject m_roundsGO_L;
     [SerializeField] GameObject m_roundsGO_R;
+
+    [SerializeField] float m_timer = 60;
+    [SerializeField] float m_rounds = 1;
+
+    float tmpValue, tmpValue2;
     #endregion
 
     void Start()
@@ -118,7 +125,8 @@ public class UIManager : MonoBehaviour
         m_timerGUI.SetText("0");
         m_commentGUI.gameObject.SetActive(true);
         m_commentGUI.SetText(EvaluateWinner());
-        GameManager.Instance.ResetPlayers();
+        GameManager.Instance.DeactivateChars();
+        //GameManager.Instance.ResetPlayers();
         GameManager.Instance.STARTED = false;
         yield return new WaitForSeconds(3);
 
@@ -133,22 +141,39 @@ public class UIManager : MonoBehaviour
     #region -Utilities
     string EvaluateWinner()
     {
-        //End
-        if (GameManager.Instance.m_Player_L.RoundsWon == GameManager.Instance.m_Init.m_Rounds)
-            return "Player Left\nWon";
-        //End
-        if (GameManager.Instance.m_Player_R.RoundsWon == GameManager.Instance.m_Init.m_Rounds)
-            return "Player Right\nWon";
-
         //Round
         if (GameManager.Instance.m_Player_L.Health > GameManager.Instance.m_Player_R.Health)
+        {
+            GameManager.Instance.m_Player_L.RoundsWon++;
             return "Player Left\nWon";
+        }
         //Round
         if (GameManager.Instance.m_Player_L.Health < GameManager.Instance.m_Player_R.Health)
-            return "Player Left\nWon";
+        {
+            GameManager.Instance.m_Player_R.RoundsWon++;
+            return "Player Right\nWon";
+        }
         //Round
         if (GameManager.Instance.m_Player_L.Health == GameManager.Instance.m_Player_R.Health)
+        {
+            GameManager.Instance.m_Player_L.RoundsWon++;
+            GameManager.Instance.m_Player_R.RoundsWon++;
             return "Draw";
+        }
+
+
+        //End
+        if (GameManager.Instance.m_Player_L.RoundsWon == GameManager.Instance.m_Init.m_Rounds)
+        {
+            SetupRound();
+            return "Player Left\nWon";
+        }
+        //End
+        if (GameManager.Instance.m_Player_R.RoundsWon == GameManager.Instance.m_Init.m_Rounds)
+        {
+            SetupRound();
+            return "Player Right\nWon";
+        }
 
         return "Draw";
     }
@@ -164,14 +189,38 @@ public class UIManager : MonoBehaviour
                 Instantiate(go, m_roundsGO_R.transform);
 
         for (int i = 0; i < GameManager.Instance.m_Player_L.RoundsWon; i++)
-            m_roundsGO_L.transform.GetChild(i);
+            m_roundsGO_L.transform.GetChild(i).GetChild(1).gameObject.SetActive(true);
         for (int i = 0; i < GameManager.Instance.m_Player_R.RoundsWon; i++)
-            m_roundsGO_R.transform.GetChild(i);
+            m_roundsGO_R.transform.GetChild(i).GetChild(1).gameObject.SetActive(true);
     }
     void ReadDamage()
     {
-        m_playerHealthBar_L.fillAmount = GameManager.Instance.m_Player_L.Health / GameManager.Instance.m_Player_L.GP.PlayerHealth;
-        m_playerHealthBar_R.fillAmount = GameManager.Instance.m_Player_L.Health / GameManager.Instance.m_Player_R.GP.PlayerHealth;
+        if (tmpValue != (m_playerHealthBar_L.fillAmount = GameManager.Instance.m_Player_L.Health / GameManager.Instance.m_Player_L.GP.PlayerHealth))
+            StartCoroutine(ShadowAni());
+        if (tmpValue2 != (m_playerHealthBar_R.fillAmount = GameManager.Instance.m_Player_R.Health / GameManager.Instance.m_Player_R.GP.PlayerHealth))
+            StartCoroutine(ShadowAni());
+
+        tmpValue = m_playerHealthBar_L.fillAmount;
+        tmpValue2 = m_playerHealthBar_R.fillAmount;
+    }
+    #endregion
+
+    #region -Enumerators
+    IEnumerator ShadowAni()
+    {
+        yield return new WaitForSeconds(1);
+
+        DOTween.To(() => m_playerHealthBarShadow_L.fillAmount,
+            x => m_playerHealthBarShadow_L.fillAmount = x,
+                 m_playerHealthBar_L.fillAmount,
+                 0.2f);
+
+        DOTween.To(() => m_playerHealthBarShadow_R.fillAmount,
+            x => m_playerHealthBarShadow_R.fillAmount = x,
+                 m_playerHealthBar_R.fillAmount,
+                 0.2f);
+
+        yield return null;
     }
     #endregion
 }

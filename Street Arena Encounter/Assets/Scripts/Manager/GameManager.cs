@@ -40,6 +40,8 @@ public class GameManager : MonoBehaviour
         m_skipIntro = false;
 #endif
 
+        m_Player_R.Input = null;
+
         StartCoroutine(Init());
     }
 

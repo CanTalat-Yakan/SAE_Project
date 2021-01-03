@@ -11,7 +11,7 @@ public struct PlayerInformation
     public Animator Ani;
     public InputMaster Input;
     public GP_Settings GP;
-    [HideInInspector] public float Forward { get => Ani.transform.localScale.x; }
+    [HideInInspector] public float Forward { get => Ani.transform.localScale.x; set => Forward = value; }
 
     [Header("Current State in Game")]
     public float Health;

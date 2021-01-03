@@ -14,10 +14,16 @@ public class CharController : MonoBehaviour
     [SerializeField] bool m_leftSide;
     #endregion
 
+    void Awake()
+    {
+        m_movementController = GetComponent<MovementController>();
+        m_attackController = GetComponent<AttackController>();
+    }
+
     void Start()
     {
-        m_movementController.m_PlayerInfo = GameManager.Instance.m_Player_L;
-        m_attackController.m_PlayerInfo = GameManager.Instance.m_Player_R;
+        m_movementController.m_PlayerInfo = m_leftSide ? GameManager.Instance.m_Player_L : GameManager.Instance.m_Player_R;
+        m_attackController.m_PlayerInfo = m_leftSide ? GameManager.Instance.m_Player_L : GameManager.Instance.m_Player_R;
     }
 
     void Update()
