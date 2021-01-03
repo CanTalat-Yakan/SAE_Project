@@ -3,13 +3,15 @@
 [CreateAssetMenu(menuName = "Settings/Gameplay Settings", fileName = "GP Settings", order = 1)]
 public class GP_Settings : ScriptableObject
 {
-    [Header("Movement")]
-    public float JumpForce = 5;
-    public float GravityForce = 12;
-    [Tooltip("0 is sneaking, 1 is walking, 2 is running")]
-    public float[] Speed = new float[3] { 1.5f, 3f, 6f };
-    [Header("Setter")]
-    public float PlayerHeight = 2f;
-    [Range(0.1f, 10)] public float CrouchTimeRatio = 5;
-    [Range(0.1f, 1)] public float CrouchHeightRatio = 0.75f;
+    public float MinDistance = 2;
+    public float MaxDistance = 25;
+    public float JumpForce = 10;
+    public float JumpDashForce = 15;
+    public float DashForce = 30;
+    public float GravityForce = -40;
+    public float Speed = 1;
+    public float PlayerHeight = 3.1f;
+    [Range(0.1f, 1)] public float CrouchHeightRatio = 0.74f;
+    [HideInInspector] public float CrouchHeight { get => PlayerHeight * CrouchHeightRatio; }
+    public float PlayerHealth = 100;
 }

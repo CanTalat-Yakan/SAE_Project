@@ -2,6 +2,128 @@
     "name": "Gamepad_Input",
     "maps": [
         {
+            "name": "Game",
+            "id": "35dd0c91-2dd5-4a4f-ac8c-6f77133e7cec",
+            "actions": [
+                {
+                    "name": "L-Stick",
+                    "type": "Value",
+                    "id": "57f30d21-0501-4698-83fa-0587bf56b31a",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "D-Pad",
+                    "type": "Value",
+                    "id": "153f9eda-6172-481c-b4fc-3bbfcccdc4bc",
+                    "expectedControlType": "Dpad",
+                    "processors": "StickDeadzone",
+                    "interactions": ""
+                },
+                {
+                    "name": "Light",
+                    "type": "Button",
+                    "id": "8e2c57aa-8b4f-48c0-b406-d562403151e8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Heavy",
+                    "type": "Button",
+                    "id": "e60bcf93-744c-4a58-a448-795d1ca37ba6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Block",
+                    "type": "Button",
+                    "id": "50cc7379-018b-4667-9e97-58002cbf47f7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Low",
+                    "type": "Button",
+                    "id": "2a99424b-52ed-4b6d-9ea6-8aba460887a2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "f9d4ca19-9b08-4b5a-a41d-c583a94beedc",
+                    "path": "<Gamepad>/dpad",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "D-Pad",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a63419f4-5c5a-43dd-98b2-5950b72f3755",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "L-Stick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3d38e195-6d78-4897-967e-7b8b1e2a0942",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Light",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dc256dee-269b-4480-a5d2-e2715bd77a1a",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Heavy",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b09e79bf-c349-419e-8f5b-3afa83d1fb51",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Block",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cf79dbc0-deb1-4dfd-8ed9-56ea455ba953",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Low",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
             "name": "Menu",
             "id": "94f37f89-3efc-47f3-9956-4e461993508a",
             "actions": [
@@ -198,300 +320,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Select",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Game",
-            "id": "35dd0c91-2dd5-4a4f-ac8c-6f77133e7cec",
-            "actions": [
-                {
-                    "name": "Jump",
-                    "type": "Button",
-                    "id": "0b6846da-cd39-49ba-af0b-3453104a957f",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Move",
-                    "type": "Value",
-                    "id": "57f30d21-0501-4698-83fa-0587bf56b31a",
-                    "expectedControlType": "Axis",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Crouch",
-                    "type": "Value",
-                    "id": "153f9eda-6172-481c-b4fc-3bbfcccdc4bc",
-                    "expectedControlType": "Axis",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "X",
-                    "type": "Button",
-                    "id": "dce72765-a40c-4c6e-a1d1-d8b6f176ca8a",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Y",
-                    "type": "Button",
-                    "id": "87e5cf60-f5e7-4945-97f1-965cb19e3e13",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "A",
-                    "type": "Button",
-                    "id": "821162ce-fc99-40d3-b488-6706833ea77a",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "B",
-                    "type": "Button",
-                    "id": "22b33805-cad5-47cf-be48-ec6aa5933a9c",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "RB",
-                    "type": "Button",
-                    "id": "338f5400-759c-41ea-ae2b-128107370c59",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "RT",
-                    "type": "Button",
-                    "id": "0b8d8bb0-7d27-4cbc-8215-b6338b10d465",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "LB",
-                    "type": "Button",
-                    "id": "3330ab96-c20b-4e92-9232-2168079e05a2",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "LT",
-                    "type": "Button",
-                    "id": "897f2dad-07cc-4667-bbc7-b56fa40aefea",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "7fe7d952-e939-435d-a694-95023fcad1d7",
-                    "path": "<Gamepad>/leftStick/up",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "4abd3c1a-b600-4482-9254-1d840d6b5bc7",
-                    "path": "<Gamepad>/dpad/up",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "L-Stick",
-                    "id": "0290168f-a5ba-4d3c-b4a0-eaae1dc6f95a",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "56c91865-c8d3-4c6e-a42f-1cd6b74d3b32",
-                    "path": "<Gamepad>/leftStick/left",
-                    "interactions": "",
-                    "processors": "StickDeadzone(min=0.35)",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "8bcbc0e7-6f26-4b9a-a378-9e194567b1bb",
-                    "path": "<Gamepad>/leftStick/right",
-                    "interactions": "",
-                    "processors": "StickDeadzone(min=0.35)",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "D-Pad",
-                    "id": "738df649-ffb3-4280-a020-e9c2439818a8",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "1cba0f84-0c6a-4cf5-a295-5477ddc7b5d5",
-                    "path": "<Gamepad>/dpad/left",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "69beec4c-076b-4fea-a61c-6fb537ce46f5",
-                    "path": "<Gamepad>/dpad/right",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "5f284fbc-5dc9-4175-bbf0-4e140f8b679a",
-                    "path": "<Gamepad>/leftStick/down",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Crouch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f9d4ca19-9b08-4b5a-a41d-c583a94beedc",
-                    "path": "<Gamepad>/dpad/down",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Crouch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e3144dd7-f65a-4e1d-9ac0-ebee9446b798",
-                    "path": "<Gamepad>/buttonWest",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "X",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "649dfd50-b680-4054-a13d-bb4b223c5352",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Y",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3e2895ce-534c-478d-8424-8ebfff809342",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "B",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "cf59947c-5b8f-4ba7-8fe6-e91fbe9c305f",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "A",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "88a87f3e-d40b-41e3-9834-be868b3674c0",
-                    "path": "<Gamepad>/rightShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "RB",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "6fe53380-1bad-4f96-9e49-f799838fdca1",
-                    "path": "<Gamepad>/rightTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "RT",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "663356b0-514e-43ef-8d16-0c9980f799db",
-                    "path": "<Gamepad>/leftShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "LB",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "64db78ff-5aba-4083-8290-a0734e7be8b0",
-                    "path": "<Gamepad>/leftTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "LT",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

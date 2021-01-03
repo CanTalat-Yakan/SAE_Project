@@ -8,21 +8,24 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    #region ----- Variables -----
+    #region -Values
+    [Header("Level Attributes")]
     public Main_Init m_Init;
-    public Gamepad_Input m_Input;
     [SerializeField] PlayableDirector m_timeline;
-    public CharacterController m_PlayerLEFT;
-    public CharacterController m_PlayerRIGHT;
 
-    float m_timer = 0;
-    float m_timeStamp = 0;
+    [Header("Player Attributes")]
+    public PlayerInformation m_Player_L;
+    public PlayerInformation m_Player_R;
+
+    [Header("Start Attributes")]
     [SerializeField] float m_loadTimer;
+    public bool m_SkipIntro;
 
+    float m_timeStamp = 0;
     [HideInInspector] public bool LOCKED;
     [HideInInspector] public bool STARTED;
     [HideInInspector] public Camera MainCamera;
-    #endregion ----- Variables -----
+    #endregion
 
     void Awake()
     {
@@ -32,6 +35,10 @@ public class GameManager : MonoBehaviour
             return;
         }
         Instance = this;
+
+#if !UNITY_EDITOR
+        m_skipIntro = false;
+#endif
 
         StartCoroutine(Init());
     }
@@ -44,14 +51,11 @@ public class GameManager : MonoBehaviour
             return;
     }
 
-    #region ----- Utilities -----
-
-
+#region -Utilities
     void MenuOverlay()
     {
         if (!STARTED)
             return;
-
 
         if (InputSystem.GetDevice<Gamepad>().startButton.wasPressedThisFrame)
         {
@@ -64,7 +68,6 @@ public class GameManager : MonoBehaviour
         if (!LOCKED)
             Continue();
     }
-
     public void Pause()
     {
         if (!SceneManager.GetSceneByName("Settings_Overlay").isLoaded)
@@ -77,7 +80,6 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 0;
     }
-
     public void Continue()
     {
         if (SceneManager.GetSceneByName("Settings_Overlay").isLoaded)
@@ -93,23 +95,14 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         LOCKED = false;
     }
-
-    public void ResetPlayer()
+    public void ResetPlayers()
     {
-        m_PlayerLEFT.gameObject.transform.position = new Vector3(-4, 0, 0);
-        m_PlayerRIGHT.gameObject.transform.position = new Vector3(4, 0, 0);
-        m_PlayerLEFT.height = 3.1f;
-        m_PlayerRIGHT.height = 3.1f;
-        m_PlayerRIGHT.GetComponent<CharController>().m_Ani.SetBool("Jump", false);
-        m_PlayerRIGHT.GetComponent<CharController>().m_Ani.SetBool("Crouch", false);
-        m_PlayerRIGHT.GetComponent<CharController>().m_Ani.SetFloat("Move", 0);
-        m_PlayerLEFT.GetComponent<CharController>().m_Ani.SetBool("Jump", false);
-        m_PlayerLEFT.GetComponent<CharController>().m_Ani.SetBool("Crouch", false);
-        m_PlayerLEFT.GetComponent<CharController>().m_Ani.SetFloat("Move", 0);
+        m_Player_L.Player.ResetValues();
+        m_Player_R.Player.ResetValues();
     }
-    #endregion ----- Utilities -----
+#endregion
 
-    #region ----- Helper -----
+#region -Helper
     public RaycastHit HitRayCast(Vector3 _origin, Vector3 _direction, float _maxDistance)
     {
         RaycastHit hit;
@@ -145,24 +138,31 @@ public class GameManager : MonoBehaviour
     }
     public void ActivateChars()
     {
-        m_PlayerLEFT.enabled = true;
-        m_PlayerRIGHT.enabled = true;
+        m_Player_L.Char.enabled = true;
+        m_Player_R.Char.enabled = true;
     }
     public void DeactivateChars()
     {
-        m_PlayerLEFT.enabled = false;
-        m_PlayerRIGHT.enabled = false;
+        m_Player_L.Char.enabled = false;
+        m_Player_R.Char.enabled = false;
     }
-    #endregion ----- Helper -----
+    public bool GetDistance(float _threshold)
+    {
+        float length = Vector3.Distance(
+            m_Player_L.Player.transform.localPosition,
+            m_Player_R.Player.transform.localPosition);
 
-    #region ----- Coroutine -----
+        return length > _threshold;
+    }
+#endregion
+
+#region -Coroutine
     IEnumerator Init()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         LOCKED = false;
         STARTED = false;
-        m_Input = new Gamepad_Input();
 
         DeactivateChars();
 
@@ -174,15 +174,15 @@ public class GameManager : MonoBehaviour
 
         yield return null;
     }
-
     IEnumerator UnloadScenes()
     {
         yield return new WaitForSeconds(1);
 
-        while (Time.time - m_timeStamp < m_loadTimer)
-        {
-            yield return new WaitForSeconds(1);
-        }
+        if (!m_SkipIntro)
+            while (Time.time - m_timeStamp < m_loadTimer)
+            {
+                yield return new WaitForSeconds(1);
+            }
 
         if (SceneManager.GetSceneByName("Menu").isLoaded)
             SceneManager.UnloadSceneAsync("Menu");
@@ -194,10 +194,10 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("GUI_Overlay", LoadSceneMode.Additive);
 
 
-
-        m_timeline.Play();
+        if (!m_SkipIntro)
+            m_timeline.Play();
 
         yield return null;
     }
-    #endregion
+#endregion
 }

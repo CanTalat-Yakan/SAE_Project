@@ -1,21 +1,44 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
+public struct SControls
+{
+    public float m;
+    public bool j;
+    public bool c;
+    public bool d;
+}
+public struct SAttacks
+{
+    public bool light;
+    public bool b_light;
+    public bool heavy;
+    public bool b_heavy;
+    public bool low;
+    public bool b_low;
+
+    public bool block;
+
+    public void ResetValues()
+    {
+        light =
+        b_light =
+        heavy =
+        b_heavy =
+        low =
+        b_low =
+        block = false;
+    }
+}
 public class InputMaster : MonoBehaviour
 {
     public static InputMaster Instance { get; private set; }
-    public Gamepad_Input input;
 
-    public float m = 0;
-    public bool j = false;
-    public bool c = false;
-    public bool x = false;
-    public bool y = false;
-    public bool a = false;
-    public bool b = false;
+    #region -Values
+    public PlayerInput m_input;
+    public SControls m_controls;
+    public SAttacks m_attacks;
+    #endregion
 
     void Awake()
     {
@@ -25,87 +48,60 @@ public class InputMaster : MonoBehaviour
             return;
         }
         Instance = this;
-
-        input = new Gamepad_Input();
-
-        input.Game.Move.performed += OnMove;
-        input.Game.Jump.performed += OnJump;
-        input.Game.Crouch.performed += OnCrouch;
-        input.Game.X.performed += OnX;
-        input.Game.Y.performed += OnY;
-        input.Game.B.performed += OnB;
     }
 
     void LateUpdate()
     {
-        j = false;
-        x = false;
-        y = false;
-        b = false;
-        
+        m_attacks.ResetValues();
     }
 
-    void OnEnable()
+    #region -Input
+    #region --Movement
+    void OnLStick(InputValue _i)
     {
-        input.Enable();
-        input.Game.Jump.Enable();
-        input.Game.Move.Enable();
-        input.Game.Crouch.Enable();
+        m_controls.m = _i.Get<Vector2>().x > 0.25f ? 1 : _i.Get<Vector2>().x < -0.25f ? -1 : 0;
+        m_controls.j = _i.Get<Vector2>().y > 0.75f ? true : false;
+        m_controls.c = _i.Get<Vector2>().y < -0.75f ? true : false;
     }
-    void OnDisable()
+    void OnDPad(InputValue _i)
     {
-        input.Game.Jump.Disable();
-        input.Game.Move.Disable();
-        input.Game.Crouch.Disable();
-        input.Disable();
+        m_controls.m = _i.Get<Vector2>().x;
+        m_controls.j = _i.Get<Vector2>().y == 1 ? true : false;
+        m_controls.c = _i.Get<Vector2>().y == -1 ? true : false;
     }
+    void OnDash(InputValue _i)
+    {
+        m_controls.m = _i.Get<Vector2>().x;
+        m_controls.d = _i.Get<Vector2>().x != 0 ? true : false;
+    }
+    #endregion
 
-    void OnMove(InputAction.CallbackContext ctx)
+    #region --Attacks
+    void OnLight(InputValue _i)
     {
-        var value = ctx.ReadValue<float>();
-        if (Mathf.Abs(value) > 0.7f)
-            m = value;
+        if (m_controls.m < 0)
+            m_attacks.b_light = true;
         else
-            m = 0;
+            m_attacks.light = true;
     }
-
-    void OnJump(InputAction.CallbackContext ctx)
+    void OnHeavy(InputValue _i)
     {
-        var value = ctx.ReadValue<float>();
-        if (Mathf.Abs(value) > 0.7f)
-            j = true;
-    }
-
-    void OnCrouch(InputAction.CallbackContext ctx)
-    {
-        var value = ctx.ReadValue<float>();
-        if (Mathf.Abs(value) > 0.7f)
-            c = true;
+        if (m_controls.m < 0)
+            m_attacks.b_heavy = true;
         else
-            c = false;
+            m_attacks.heavy = true;
     }
-
-    void OnX(InputAction.CallbackContext ctx)
+    void OnBlock(InputValue _i)
     {
-        var value = ctx.ReadValue<float>();
-        x = (value == 1) ? true : false;
+        m_attacks.block = true;
     }
-
-    void OnY(InputAction.CallbackContext ctx)
+    void OnLow(InputValue _i)
     {
-        var value = ctx.ReadValue<float>();
-        y = (value == 1) ? true : false;
+        if (m_controls.m < 0)
+            m_attacks.b_low = true;
+        else
+            m_attacks.low = true;
     }
-
-    void OnB(InputAction.CallbackContext ctx)
-    {
-        var value = ctx.ReadValue<float>();
-        b = (value == 1) ? true : false;
-    }
-
-    void OnA(InputAction.CallbackContext ctx)
-    {
-        var value = ctx.ReadValue<float>();
-        b = (value == 1) ? true : false;
-    }
+    #endregion
+    #endregion
 }

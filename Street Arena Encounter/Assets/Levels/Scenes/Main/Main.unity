@@ -166,8 +166,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 378409830}
-  - component: {fileID: 378409831}
+  - component: {fileID: 378409834}
+  - component: {fileID: 378409833}
   - component: {fileID: 378409832}
+  - component: {fileID: 378409831}
   m_Layer: 0
   m_Name: Left
   m_TagString: Untagged
@@ -190,7 +192,50 @@ Transform:
   m_Father: {fileID: 1355934111}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!143 &378409831
+--- !u!114 &378409831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378409829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41177cbce819c8d47af61361e252b768, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlayerInfo:
+    Player: {fileID: 0}
+    Char: {fileID: 0}
+    Ani: {fileID: 0}
+    Input: {fileID: 0}
+    GP: {fileID: 0}
+    Health: 0
+    RoundsWon: 0
+  m_attackState: 0
+  m_Attacking: 0
+--- !u!114 &378409832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378409829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 765be501901576145a9b02da070529ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlayerInfo:
+    Player: {fileID: 0}
+    Char: {fileID: 0}
+    Ani: {fileID: 0}
+    Input: {fileID: 0}
+    GP: {fileID: 0}
+    Health: 0
+    RoundsWon: 0
+  m_movementState: 0
+--- !u!143 &378409833
 CharacterController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -201,14 +246,14 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 3.2
-  m_Radius: 0.75
+  m_Height: 2
+  m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1.6, z: 0}
---- !u!114 &378409832
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &378409834
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -220,9 +265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1624d69194c1d341aa64ce3dbd80861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_charController: {fileID: 378409831}
-  m_input: {fileID: 631771555}
-  m_Ani: {fileID: 1439122167}
+  m_leftSide: 1
 --- !u!1 &446492916
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,6 +394,7 @@ GameObject:
   - component: {fileID: 631771554}
   - component: {fileID: 631771555}
   - component: {fileID: 631771556}
+  - component: {fileID: 631771557}
   m_Layer: 0
   m_Name: InputSystem
   m_TagString: Untagged
@@ -384,13 +428,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f608661829dc684db1172169d940aad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m: 0
-  j: 0
-  c: 0
-  x: 0
-  y: 0
-  a: 0
-  b: 0
+  m_input: {fileID: 631771557}
 --- !u!114 &631771556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -434,6 +472,79 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &631771557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 631771553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 2cdd3f3508cafeb479d8447a15c3d7fc, type: 3}
+  m_NotificationBehavior: 1
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Game
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!1 &745491764
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 745491765}
+  - component: {fileID: 745491766}
+  m_Layer: 0
+  m_Name: DamageManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &745491765
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 745491764}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1508592290}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &745491766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 745491764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2895b2d8829cf7c4e862c3b3e4d275f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &784319731
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1588,7 +1699,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee402b484b16968479683efc6de458cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_fireBall: {fileID: 8007803811408411881, guid: f78da8501aeaf4842a91d800343dbff0, type: 3}
+  m_object:
+    fireBall: {fileID: 0}
 --- !u!1 &981719734
 GameObject:
   m_ObjectHideFlags: 0
@@ -1634,9 +1746,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Init: {fileID: 11400000, guid: 3dde9488ed206674f99a7a736da5a296, type: 2}
   m_timeline: {fileID: 993288319}
-  m_PlayerLEFT: {fileID: 378409831}
-  m_PlayerRIGHT: {fileID: 1965195720}
+  m_Player_L:
+    Player: {fileID: 378409834}
+    Char: {fileID: 378409833}
+    Ani: {fileID: 1439122167}
+    Input: {fileID: 631771555}
+    GP: {fileID: 11400000, guid: 36a3a49ea9a8d1d409717af0da21a8ed, type: 2}
+    Health: 100
+    RoundsWon: 0
+  m_Player_R:
+    Player: {fileID: 1965195723}
+    Char: {fileID: 1965195722}
+    Ani: {fileID: 631684837}
+    Input: {fileID: 631771555}
+    GP: {fileID: 11400000, guid: 36a3a49ea9a8d1d409717af0da21a8ed, type: 2}
+    Health: 100
+    RoundsWon: 0
   m_loadTimer: 5
+  m_SkipIntro: 1
   LOCKED: 0
   STARTED: 0
   MainCamera: {fileID: 840521269}
@@ -2793,6 +2920,7 @@ Transform:
   - {fileID: 981719735}
   - {fileID: 631771554}
   - {fileID: 981369237}
+  - {fileID: 745491765}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3013,8 +3141,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1965195719}
-  - component: {fileID: 1965195720}
+  - component: {fileID: 1965195723}
+  - component: {fileID: 1965195722}
   - component: {fileID: 1965195721}
+  - component: {fileID: 1965195720}
   m_Layer: 0
   m_Name: Right
   m_TagString: Untagged
@@ -3037,7 +3167,50 @@ Transform:
   m_Father: {fileID: 1355934111}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!143 &1965195720
+--- !u!114 &1965195720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965195718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41177cbce819c8d47af61361e252b768, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlayerInfo:
+    Player: {fileID: 0}
+    Char: {fileID: 0}
+    Ani: {fileID: 0}
+    Input: {fileID: 0}
+    GP: {fileID: 0}
+    Health: 0
+    RoundsWon: 0
+  m_attackState: 0
+  m_Attacking: 0
+--- !u!114 &1965195721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965195718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 765be501901576145a9b02da070529ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlayerInfo:
+    Player: {fileID: 0}
+    Char: {fileID: 0}
+    Ani: {fileID: 0}
+    Input: {fileID: 0}
+    GP: {fileID: 0}
+    Health: 0
+    RoundsWon: 0
+  m_movementState: 0
+--- !u!143 &1965195722
 CharacterController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3048,14 +3221,14 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 3.2
-  m_Radius: 0.75
+  m_Height: 2
+  m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1.6, z: 0}
---- !u!114 &1965195721
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1965195723
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3067,6 +3240,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1624d69194c1d341aa64ce3dbd80861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_charController: {fileID: 1965195720}
-  m_input: {fileID: 631771555}
-  m_Ani: {fileID: 631684837}
+  m_leftSide: 0
