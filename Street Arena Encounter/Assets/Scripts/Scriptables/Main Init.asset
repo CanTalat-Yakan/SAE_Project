@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Main Init
   m_EditorClassIdentifier: 
   m_GameMode: 2
-  m_Level: 0
+  m_Level: 1
   m_Rounds: 3
   m_Timer: 30
