@@ -57,6 +57,10 @@ public class InputMaster : MonoBehaviour
 
     #region -Input
     #region --Movement
+    void OnMovement(InputValue _i)
+    {
+
+    }
     void OnLStick(InputValue _i)
     {
         m_controls.m = _i.Get<Vector2>().x > 0.25f ? 1 : _i.Get<Vector2>().x < -0.25f ? -1 : 0;
