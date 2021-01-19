@@ -11,10 +11,16 @@ public class GameManager : MonoBehaviour
     #region -Values
     [Header("Level Attributes")]
     public Main_Init m_Init;
+    public GP_Settings m_GP_S;
     [SerializeField] PlayableDirector m_timeline;
 
     [Header("Player Attributes")]
+    [SerializeField] InputActionAsset m_inputActionAsset;
+    [Space(15)]
+    [SerializeField] GameObject m_PlayerGO_L;
     public PlayerInformation m_Player_L;
+    [Space(15)]
+    [SerializeField] GameObject m_PlayerGO_R;
     public PlayerInformation m_Player_R;
 
     [Header("Start Attributes")]
@@ -38,7 +44,30 @@ public class GameManager : MonoBehaviour
 
 #if !UNITY_EDITOR
         m_SkipIntro = false;
+
 #endif
+        #region //Setup Playerinformation
+        m_Init.m_Player_L.Char = m_PlayerGO_L.GetComponent<CharacterController>();
+        m_Init.m_Player_L.Player = m_PlayerGO_L.GetComponent<PlayerController>();
+        m_Init.m_Player_L.Ani = m_PlayerGO_L.transform.GetChild(0).GetComponent<Animator>();
+        m_Init.m_Player_R.Char = m_PlayerGO_R.GetComponent<CharacterController>();
+        m_Init.m_Player_R.Player = m_PlayerGO_R.GetComponent<PlayerController>();
+        m_Init.m_Player_R.Ani = m_PlayerGO_R.transform.GetChild(0).GetComponent<Animator>();
+
+        m_Init.m_Player_L.ResetValues();
+        m_Init.m_Player_L.Name = "1";
+        m_Init.m_Player_R.ResetValues();
+        m_Init.m_Player_R.Name = "2";
+
+        m_Player_L.Input.m_input.actions = m_inputActionAsset;
+        m_Player_R.Input.m_input.actions = m_inputActionAsset;
+
+        m_Player_L.GP = m_GP_S;
+        m_Player_R.GP = m_GP_S;
+
+        m_Player_L = m_Init.m_Player_L;
+        m_Player_R = m_Init.m_Player_R;
+        #endregion
 
         StartCoroutine(Init());
     }
@@ -57,12 +86,15 @@ public class GameManager : MonoBehaviour
         if (!STARTED)
             return;
 
-        if (InputSystem.GetDevice<Gamepad>().startButton.wasPressedThisFrame)
-        {
-            LOCKED = true;
-            Pause();
-        }
-        if (InputSystem.GetDevice<Gamepad>().buttonEast.wasPressedThisFrame)
+        if (!LOCKED)
+            if (InputSystem.GetDevice<Gamepad>().startButton.wasPressedThisFrame
+                || InputSystem.GetDevice<Keyboard>().escapeKey.wasPressedThisFrame)
+            {
+                LOCKED = true;
+                Pause();
+            }
+        if (InputSystem.GetDevice<Gamepad>().buttonEast.wasPressedThisFrame
+            || InputSystem.GetDevice<Keyboard>().escapeKey.wasPressedThisFrame)
             LOCKED = false;
 
         if (!LOCKED)

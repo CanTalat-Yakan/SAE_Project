@@ -55,11 +55,17 @@ public class InputMaster : MonoBehaviour
         m_attacks.ResetValues();
     }
 
-    #region -Input
+    void OnPlayerJoined()
+    {
+
+    }
+
     #region --Movement
     void OnMovement(InputValue _i)
     {
-
+        m_controls.m = _i.Get<Vector2>().x;
+        m_controls.j = _i.Get<Vector2>().y > 0;
+        m_controls.c = _i.Get<Vector2>().y < 0;
     }
     void OnLStick(InputValue _i)
     {
@@ -73,11 +79,10 @@ public class InputMaster : MonoBehaviour
         m_controls.j = _i.Get<Vector2>().y == 1 ? true : false;
         m_controls.c = _i.Get<Vector2>().y == -1 ? true : false;
     }
-    void OnDash(InputValue _i)
-    {
-        m_controls.m = _i.Get<Vector2>().x;
-        m_controls.d = _i.Get<Vector2>().x != 0 ? true : false;
-    }
+    //void OnDash(InputValue _i)
+    //{
+    //    m_controls.d = _i.Get<float>() != 0;
+    //}
     #endregion
 
     #region --Attacks
@@ -106,6 +111,5 @@ public class InputMaster : MonoBehaviour
         else
             m_attacks.low = true;
     }
-    #endregion
     #endregion
 }

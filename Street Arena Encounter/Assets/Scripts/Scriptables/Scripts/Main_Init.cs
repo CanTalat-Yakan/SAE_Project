@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [CreateAssetMenu(menuName = "Init/Main Init", fileName = "Main Init", order = 0)]
 public class Main_Init : ScriptableObject
@@ -12,6 +13,9 @@ public class Main_Init : ScriptableObject
 
     public int m_Rounds;
     public int m_Timer;
+
+    public PlayerInformation m_Player_L;
+    public PlayerInformation m_Player_R;
 }
 public enum E_GameModes
 {

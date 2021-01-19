@@ -2,11 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [Serializable]
 public struct PlayerInformation
 {
-    public CharController Player;
+    public PlayerController Player;
     public CharacterController Char;
     public Animator Ani;
     public InputMaster Input;
@@ -17,4 +18,9 @@ public struct PlayerInformation
     public float Health;
     public int RoundsWon;
     public string Name;
+    public void ResetValues()
+    {
+        Health = 100;
+        RoundsWon = 0;
+    }
 }

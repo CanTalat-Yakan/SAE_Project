@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(MovementController))]
 [RequireComponent(typeof(AttackController))]
-public class CharController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     #region -Values
     MovementController m_movementController;
