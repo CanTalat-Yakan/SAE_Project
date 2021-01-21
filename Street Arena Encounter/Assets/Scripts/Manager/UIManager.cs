@@ -40,7 +40,7 @@ public class UIManager : MonoBehaviour
     #region -Coroutine
     IEnumerator StartCoroutine()
     {
-        m_timerGUI.SetText((GameManager.Instance.m_Init.m_GameMode == E_GameModes.TRAINING) ? "/" : GameManager.Instance.m_Init.m_Timer.ToString());
+        m_timerGUI.SetText((GameManager.Instance.m_Init.m_GameMode == EGameModes.TRAINING) ? "/" : GameManager.Instance.m_Init.m_Timer.ToString());
         m_panel.SetActive(false);
         if (!GameManager.Instance.m_SkipIntro)
             yield return new WaitForSeconds(10);
@@ -78,16 +78,16 @@ public class UIManager : MonoBehaviour
     {
         switch (GameManager.Instance.m_Init.m_GameMode)
         {
-            case E_GameModes.TRAINING:
+            case EGameModes.TRAINING:
                 {
                     m_timerGUI.SetText("{/}");
 
                     yield return null;
                 }
                 break;
-            case E_GameModes.MULTIPLAYER:
+            case EGameModes.MULTIPLAYER:
                 break;
-            case E_GameModes.LOCAL:
+            case EGameModes.LOCAL:
                 {
                     yield return new WaitForSeconds(1);
 

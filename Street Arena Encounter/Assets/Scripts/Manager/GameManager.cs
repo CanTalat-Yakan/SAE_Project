@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
 #endif
 
         #region //Setup Playerinformation
-        if (m_Init.m_GameMode == E_GameModes.LOCAL)
+        if (m_Init.m_GameMode == EGameModes.LOCAL)
         {
             m_Player_L.ResetValues();
             m_Player_L.Name = m_Init.m_Player_L.Name;
@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
             //m_Player_L.Input.m_input.actions = m_inputActionAsset;
             //m_Player_R.Input.m_input.actions = m_inputActionAsset;
         }
-        if(m_Init.m_GameMode == E_GameModes.TRAINING)
+        if(m_Init.m_GameMode == EGameModes.TRAINING)
         {
             m_Training_Input.SetActive(true);
             m_Player_L.Char.enabled = false;
@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour
                 Pause();
             }
         if (InputSystem.GetDevice<Gamepad>().buttonEast.wasPressedThisFrame
-            || InputSystem.GetDevice<Keyboard>().escapeKey.wasPressedThisFrame)
+            || InputSystem.GetDevice<Keyboard>().enterKey.wasPressedThisFrame)
             LOCKED = false;
 
         if (!LOCKED)

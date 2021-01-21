@@ -13,24 +13,12 @@ MonoBehaviour:
   m_Name: Main Init
   m_EditorClassIdentifier: 
   m_GameMode: 2
-  m_Level: 2
-  m_Rounds: 2
+  m_Level: 1
+  m_Rounds: 3
   m_Timer: 30
   m_Player_L:
-    Player: {fileID: 0}
-    Char: {fileID: 0}
-    Ani: {fileID: 0}
     Input: {fileID: 0}
-    GP: {fileID: 0}
-    Health: 100
-    RoundsWon: 0
     Name: 1
   m_Player_R:
-    Player: {fileID: 0}
-    Char: {fileID: 0}
-    Ani: {fileID: 0}
     Input: {fileID: 0}
-    GP: {fileID: 0}
-    Health: 100
-    RoundsWon: 0
     Name: 2

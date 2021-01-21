@@ -14,10 +14,10 @@ public struct SInitInfo
 [CreateAssetMenu(menuName = "Init/Main Init", fileName = "Main Init", order = 0)]
 public class Main_Init : ScriptableObject
 {
-    public int GameMode { set => m_GameMode = (E_GameModes)value; }
-    public E_GameModes m_GameMode;
-    public int Level { set => m_Level = (E_Levels)value; }
-    public E_Levels m_Level;
+    public int GameMode { set => m_GameMode = (EGameModes)value; }
+    public EGameModes m_GameMode;
+    public int Level { set => m_Level = (ELevels)value; }
+    public ELevels m_Level;
 
     public int m_Rounds;
     public int m_Timer;
@@ -25,14 +25,14 @@ public class Main_Init : ScriptableObject
     public SInitInfo m_Player_L;
     public SInitInfo m_Player_R;
 }
-public enum E_GameModes
+public enum EGameModes
 {
     SOLO,
     MULTIPLAYER,
     LOCAL,
     TRAINING,
 }
-public enum E_Levels
+public enum ELevels
 {
     Level_01,
     Level_02,
