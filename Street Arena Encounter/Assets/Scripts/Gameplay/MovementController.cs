@@ -27,7 +27,7 @@ public class MovementController : MonoBehaviour
     public void Move()
     {
         //InputValues
-        desiredDirection.x = m_PlayerInfo.Input.m_controls.m * m_PlayerInfo.Forward;
+        desiredDirection.x = m_PlayerInfo.Input.m_controls.m;
 
         //Lock target in movable space
         if (Constraint())
@@ -44,7 +44,7 @@ public class MovementController : MonoBehaviour
         }
 
         //SetAnimator Pramater for Movement
-        m_PlayerInfo.Ani.SetFloat("Move", m_PlayerInfo.Input.m_controls.m);
+        m_PlayerInfo.Ani.SetFloat("Move", m_PlayerInfo.Input.m_controls.m * m_PlayerInfo.Forward);
 
         //Jumping
         m_PlayerInfo.Ani.SetBool("Jump", false);

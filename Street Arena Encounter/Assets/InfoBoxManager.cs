@@ -17,18 +17,18 @@ public class InfoBoxManager : MonoBehaviour
             GameObject gobj = Instantiate(m_playerInfo_Prefab, m_userList.transform);
             gobj.transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = m_init.m_Player_L.Name;
 
-            if(m_init.m_Player_L.Input.m_input.currentControlScheme == "Gamepad")
+            if(m_init.m_Player_L.Input.currentControlScheme == "Gamepad")
                 Instantiate(m_pi_controller_Prefab, gobj.transform.GetChild(2).GetChild(1).transform);
-            if(m_init.m_Player_L.Input.m_input.currentControlScheme == "Keyboard")
+            if(m_init.m_Player_L.Input.currentControlScheme == "Keyboard")
                 Instantiate(m_pi_keyboard_Prefab, gobj.transform.GetChild(2).GetChild(1).transform);
         }
         {
             GameObject gobj = Instantiate(m_playerInfo_Prefab, m_userList.transform);
             gobj.transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = m_init.m_Player_R.Name;
 
-            if(m_init.m_Player_R.Input.m_input.currentControlScheme == "Gamepad")
+            if(m_init.m_Player_R.Input.currentControlScheme == "Gamepad")
                 Instantiate(m_pi_controller_Prefab, gobj.transform.GetChild(2).GetChild(1).transform);
-            if(m_init.m_Player_R.Input.m_input.currentControlScheme == "Keyboard")
+            if(m_init.m_Player_R.Input.currentControlScheme == "Keyboard")
                 Instantiate(m_pi_keyboard_Prefab, gobj.transform.GetChild(2).GetChild(1).transform);
         }
     }

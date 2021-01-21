@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     #region -Values
     [Header("Level Attributes")]
     public Main_Init m_Init;
-    public GP_Settings m_GP_S;
+    public GameObject m_Training_Input;
     [SerializeField] PlayableDirector m_timeline;
 
     [Header("Player Attributes")]
@@ -44,29 +44,27 @@ public class GameManager : MonoBehaviour
 
 #if !UNITY_EDITOR
         m_SkipIntro = false;
-
 #endif
+
         #region //Setup Playerinformation
-        m_Init.m_Player_L.Char = m_PlayerGO_L.GetComponent<CharacterController>();
-        m_Init.m_Player_L.Player = m_PlayerGO_L.GetComponent<PlayerController>();
-        m_Init.m_Player_L.Ani = m_PlayerGO_L.transform.GetChild(0).GetComponent<Animator>();
-        m_Init.m_Player_R.Char = m_PlayerGO_R.GetComponent<CharacterController>();
-        m_Init.m_Player_R.Player = m_PlayerGO_R.GetComponent<PlayerController>();
-        m_Init.m_Player_R.Ani = m_PlayerGO_R.transform.GetChild(0).GetComponent<Animator>();
+        if (m_Init.m_GameMode == E_GameModes.LOCAL)
+        {
+            m_Player_L.ResetValues();
+            m_Player_L.Name = m_Init.m_Player_L.Name;
+            m_Player_R.ResetValues();
+            m_Player_R.Name = m_Init.m_Player_R.Name;
 
-        m_Init.m_Player_L.ResetValues();
-        m_Init.m_Player_L.Name = "1";
-        m_Init.m_Player_R.ResetValues();
-        m_Init.m_Player_R.Name = "2";
+            m_Player_L.Input = GameObject.Find("P_Input(Clone)0").GetComponent<InputMaster>();
+            m_Player_R.Input = GameObject.Find("P_Input(Clone)1").GetComponent<InputMaster>();
 
-        m_Player_L.Input.m_input.actions = m_inputActionAsset;
-        m_Player_R.Input.m_input.actions = m_inputActionAsset;
-
-        m_Player_L.GP = m_GP_S;
-        m_Player_R.GP = m_GP_S;
-
-        m_Player_L = m_Init.m_Player_L;
-        m_Player_R = m_Init.m_Player_R;
+            //m_Player_L.Input.m_input.actions = m_inputActionAsset;
+            //m_Player_R.Input.m_input.actions = m_inputActionAsset;
+        }
+        if(m_Init.m_GameMode == E_GameModes.TRAINING)
+        {
+            m_Training_Input.SetActive(true);
+            m_Player_L.Char.enabled = false;
+        }
         #endregion
 
         StartCoroutine(Init());

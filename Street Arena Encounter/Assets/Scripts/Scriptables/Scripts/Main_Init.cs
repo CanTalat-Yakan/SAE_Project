@@ -1,7 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
+[Serializable]
+public struct SInitInfo
+{
+    public PlayerInput Input;
+    public string Name;
+}
 
 [CreateAssetMenu(menuName = "Init/Main Init", fileName = "Main Init", order = 0)]
 public class Main_Init : ScriptableObject
@@ -14,14 +22,15 @@ public class Main_Init : ScriptableObject
     public int m_Rounds;
     public int m_Timer;
 
-    public PlayerInformation m_Player_L;
-    public PlayerInformation m_Player_R;
+    public SInitInfo m_Player_L;
+    public SInitInfo m_Player_R;
 }
 public enum E_GameModes
 {
-    TRAINING,
+    SOLO,
     MULTIPLAYER,
     LOCAL,
+    TRAINING,
 }
 public enum E_Levels
 {

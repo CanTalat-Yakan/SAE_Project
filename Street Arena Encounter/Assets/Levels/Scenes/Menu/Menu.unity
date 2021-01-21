@@ -475,6 +475,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 3dde9488ed206674f99a7a736da5a296, type: 2}
+        m_TargetAssemblyTypeName: Main_Init, Assembly-CSharp
+        m_MethodName: set_GameMode
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &23288220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24705,7 +24717,7 @@ MonoBehaviour:
         m_Action: Join
         m_Flags: 0
     m_Reference: {fileID: 0}
-  m_PlayerPrefab: {fileID: 4450829784310448334, guid: 7480f6d9da5e82b4baf3ec7f473f408d, type: 3}
+  m_PlayerPrefab: {fileID: 6809057812409335654, guid: 32732b53e7b3d8b4c97b912c604a81a0, type: 3}
   m_SplitScreen: 0
   m_MaintainAspectRatioInSplitScreen: 0
   m_FixedNumberOfSplitScreens: -1
@@ -24731,7 +24743,7 @@ MonoBehaviour:
   m_continue_Button: {fileID: 841377993}
   m_pi_controller: {fileID: 8233595791837300225, guid: cc180f7857a6d8e478e6774605c05ac9, type: 3}
   m_pi_keyboard: {fileID: 2593641887524526055, guid: 8639ae680dba5a34f96349749702f7a4, type: 3}
-  m_init: {fileID: 11400000, guid: 3dde9488ed206674f99a7a736da5a296, type: 2}
+  m_Init: {fileID: 11400000, guid: 3dde9488ed206674f99a7a736da5a296, type: 2}
 --- !u!1 &496218958
 GameObject:
   m_ObjectHideFlags: 0
@@ -25308,26 +25320,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1381541905}
-        m_TargetAssemblyTypeName: TabManager, Assembly-CSharp
-        m_MethodName: SetPageIndex
+      - m_Target: {fileID: 11400000, guid: 3dde9488ed206674f99a7a736da5a296, type: 2}
+        m_TargetAssemblyTypeName: Main_Init, Assembly-CSharp
+        m_MethodName: set_GameMode
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 7
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 495244757}
-        m_TargetAssemblyTypeName: InputSelectionManager, Assembly-CSharp
-        m_MethodName: ActivateJoining
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -37228,22 +37228,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1381541905}
-        m_TargetAssemblyTypeName: TabManager, Assembly-CSharp
-        m_MethodName: SetPageIndex
+      - m_Target: {fileID: 11400000, guid: 3dde9488ed206674f99a7a736da5a296, type: 2}
+        m_TargetAssemblyTypeName: Main_Init, Assembly-CSharp
+        m_MethodName: set_GameMode
         m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 7
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 495244757}
-        m_TargetAssemblyTypeName: InputSelectionManager, Assembly-CSharp
-        m_MethodName: ActivateJoining
-        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -37871,7 +37859,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Char
+  m_text: Fighter
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fce9d4f84204b8f44aba7c3ef0ce59f5, type: 2}
   m_sharedMaterial: {fileID: 6684518082999479254, guid: fce9d4f84204b8f44aba7c3ef0ce59f5, type: 2}
@@ -64782,6 +64770,18 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 3dde9488ed206674f99a7a736da5a296, type: 2}
+        m_TargetAssemblyTypeName: Main_Init, Assembly-CSharp
+        m_MethodName: set_GameMode
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

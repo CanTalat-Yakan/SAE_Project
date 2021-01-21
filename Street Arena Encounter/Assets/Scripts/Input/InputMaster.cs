@@ -32,22 +32,15 @@ public struct SAttacks
 }
 public class InputMaster : MonoBehaviour
 {
-    public static InputMaster Instance { get; private set; }
-
     #region -Values
-    public PlayerInput m_input;
+    [HideInInspector] public PlayerInput m_input;
     public SControls m_controls;
     public SAttacks m_attacks;
     #endregion
 
     void Awake()
     {
-        if (Instance)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
+        m_input = GetComponent<PlayerInput>();
     }
 
     void LateUpdate()
