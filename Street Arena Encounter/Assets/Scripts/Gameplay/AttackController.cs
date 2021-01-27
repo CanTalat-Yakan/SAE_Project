@@ -79,11 +79,12 @@ public class AttackController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.4f);
     }
-    public IEnumerator Hit(float _dealDamageAfter = 0.1f)
+    public IEnumerator Hit(float _activation = 8, float _damage = 3, float _recovery = 4)
     {
         m_PlayerInfo.Char.height = m_PlayerInfo.GP.PlayerHeight;
 
-        yield return new WaitForSeconds(0.1f);
+        for (int i = 0; i < _activation; i++)
+            yield return new WaitForEndOfFrame();
 
         if (GameManager.Instance.GetDistance(m_PlayerInfo.GP.MinDistance))
         {
@@ -91,13 +92,15 @@ public class AttackController : MonoBehaviour
             m_PlayerInfo.Player.transform.DOLocalMoveX(targetX, 0.25f).SetEase(Ease.OutCubic);
         }
 
-        yield return new WaitForSeconds(_dealDamageAfter - 0.1f);
+        for (int i = 0; i < _activation; i++)
+            yield return new WaitForEndOfFrame();
+
         DamageManager.Instance.DealDamage(10, m_PlayerInfo.Forward == -1);
 
         m_PlayerInfo.Char.height = m_PlayerInfo.Input.m_controls.c ? m_PlayerInfo.GP.PlayerHeight : m_PlayerInfo.GP.CrouchHeight;
         yield return null;
     }
-    public IEnumerator HitLow(float _dealDamageAfter = 0.1f)
+    public IEnumerator HitLow(float _dealDamageAfterXFrames = 8)
     {
         m_PlayerInfo.Char.height = m_PlayerInfo.GP.CrouchHeight;
 
@@ -108,8 +111,9 @@ public class AttackController : MonoBehaviour
             float targetX = m_PlayerInfo.Player.transform.localPosition.x + m_PlayerInfo.Forward * 0.8f;
             m_PlayerInfo.Player.transform.DOLocalMoveX(targetX, 0.25f).SetEase(Ease.OutCubic);
         }
+        for (int i = 0; i < _dealDamageAfterXFrames; i++)
+            yield return new WaitForEndOfFrame();
 
-        yield return new WaitForSeconds(_dealDamageAfter - 0.1f);
         DamageManager.Instance.DealDamage(10, m_PlayerInfo.Forward == -1);
 
         m_PlayerInfo.Char.height = m_PlayerInfo.Input.m_controls.c ? m_PlayerInfo.GP.PlayerHeight : m_PlayerInfo.GP.CrouchHeight;

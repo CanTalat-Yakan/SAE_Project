@@ -56,16 +56,14 @@ public class GameManager : MonoBehaviour
 
             m_Player_L.Input = GameObject.Find("P_Input(Clone)0").GetComponent<InputMaster>();
             m_Player_R.Input = GameObject.Find("P_Input(Clone)1").GetComponent<InputMaster>();
-
-            //m_Player_L.Input.m_input.actions = m_inputActionAsset;
-            //m_Player_R.Input.m_input.actions = m_inputActionAsset;
         }
-        if(m_Init.m_GameMode == EGameModes.TRAINING)
+        if (m_Init.m_GameMode == EGameModes.TRAINING)
         {
             m_Training_Input.SetActive(true);
-            m_Player_L.Char.enabled = false;
+            m_Player_R.Player.enabled = false;
         }
         #endregion
+        Application.targetFrameRate = 60;
 
         StartCoroutine(Init());
     }
@@ -84,16 +82,30 @@ public class GameManager : MonoBehaviour
         if (!STARTED)
             return;
 
-        if (!LOCKED)
-            if (InputSystem.GetDevice<Gamepad>().startButton.wasPressedThisFrame
-                || InputSystem.GetDevice<Keyboard>().escapeKey.wasPressedThisFrame)
+        if (InputSystem.GetDevice<Gamepad>() != null)
+        {
+            if (InputSystem.GetDevice<Gamepad>().startButton.wasPressedThisFrame)
             {
                 LOCKED = true;
                 Pause();
             }
-        if (InputSystem.GetDevice<Gamepad>().buttonEast.wasPressedThisFrame
-            || InputSystem.GetDevice<Keyboard>().enterKey.wasPressedThisFrame)
-            LOCKED = false;
+            if (InputSystem.GetDevice<Gamepad>().buttonEast.wasPressedThisFrame)
+            {
+                LOCKED = false;
+            }
+        }
+        if (InputSystem.GetDevice<Keyboard>() != null)
+        {
+            if (InputSystem.GetDevice<Keyboard>().escapeKey.wasPressedThisFrame)
+            {
+                LOCKED = true;
+                Pause();
+            }
+            if (InputSystem.GetDevice<Keyboard>().enterKey.wasPressedThisFrame)
+            {
+                LOCKED = false;
+            }
+        }
 
         if (!LOCKED)
             Continue();

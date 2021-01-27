@@ -5,7 +5,7 @@ using TMPro;
 using DG.Tweening;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+public class UI_RoundManager : MonoBehaviour
 {
     #region -Values
     [SerializeField] GameObject m_panel;
@@ -54,7 +54,8 @@ public class UIManager : MonoBehaviour
     IEnumerator Begin()
     {
         GameManager.Instance.DeactivateChars();
-        SetupRound();
+        if (GameManager.Instance.m_Init.m_GameMode != EGameModes.TRAINING)
+            SetupRound();
 
         m_commentGUI.SetText("In 3");
         yield return new WaitForSeconds(1);
@@ -80,7 +81,7 @@ public class UIManager : MonoBehaviour
         {
             case EGameModes.TRAINING:
                 {
-                    m_timerGUI.SetText("{/}");
+                    m_timerGUI.SetText("/");
 
                     yield return null;
                 }
@@ -220,19 +221,39 @@ public class UIManager : MonoBehaviour
     }
     void SetupRound()
     {
-        GameObject go = m_roundsGO_L.transform.GetChild(0).gameObject;
+        switch (GameManager.Instance.m_Init.m_GameMode)
+        {
+            case EGameModes.SOLO:
+                break;
+            case EGameModes.MULTIPLAYER:
+                break;
+            case EGameModes.LOCAL:
+                {
+                    m_roundsGO_L.transform.GetChild(0).gameObject.SetActive(true);
+                    m_roundsGO_R.transform.GetChild(0).gameObject.SetActive(true);
+                    GameObject go = m_roundsGO_L.transform.GetChild(0).gameObject;
 
-        if (m_roundsGO_L.transform.childCount != GameManager.Instance.m_Init.m_Rounds)
-            for (int i = 1; i < GameManager.Instance.m_Init.m_Rounds; i++)
-                Instantiate(go, m_roundsGO_L.transform);
-        if (m_roundsGO_R.transform.childCount != GameManager.Instance.m_Init.m_Rounds)
-            for (int i = 1; i < GameManager.Instance.m_Init.m_Rounds; i++)
-                Instantiate(go, m_roundsGO_R.transform);
+                    if (m_roundsGO_L.transform.childCount != GameManager.Instance.m_Init.m_Rounds)
+                        for (int i = 1; i < GameManager.Instance.m_Init.m_Rounds; i++)
+                            Instantiate(go, m_roundsGO_L.transform);
+                    if (m_roundsGO_R.transform.childCount != GameManager.Instance.m_Init.m_Rounds)
+                        for (int i = 1; i < GameManager.Instance.m_Init.m_Rounds; i++)
+                            Instantiate(go, m_roundsGO_R.transform);
 
-        for (int i = 0; i < GameManager.Instance.m_Player_L.RoundsWon; i++)
-            m_roundsGO_L.transform.GetChild(i).GetChild(1).gameObject.SetActive(true);
-        for (int i = 0; i < GameManager.Instance.m_Player_R.RoundsWon; i++)
-            m_roundsGO_R.transform.GetChild(i).GetChild(1).gameObject.SetActive(true);
+                    for (int i = 0; i < GameManager.Instance.m_Player_L.RoundsWon; i++)
+                        m_roundsGO_L.transform.GetChild(i).GetChild(1).gameObject.SetActive(true);
+                    for (int i = 0; i < GameManager.Instance.m_Player_R.RoundsWon; i++)
+                        m_roundsGO_R.transform.GetChild(i).GetChild(1).gameObject.SetActive(true);
+                }
+                break;
+            case EGameModes.TRAINING:
+                {
+
+                }
+                break;
+            default:
+                break;
+        }
     }
     #endregion
 

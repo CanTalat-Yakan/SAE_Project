@@ -48,11 +48,6 @@ public class InputMaster : MonoBehaviour
         m_attacks.ResetValues();
     }
 
-    void OnPlayerJoined()
-    {
-
-    }
-
     #region --Movement
     void OnMovement(InputValue _i)
     {

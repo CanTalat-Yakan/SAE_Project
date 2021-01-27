@@ -18,6 +18,9 @@ public class DamageManager : MonoBehaviour
 
     public void DealDamage(float _amount, bool _toLeftSide)
     {
+        if (GameManager.Instance.m_Init.m_GameMode == EGameModes.TRAINING)
+            return;
+
         if (_toLeftSide)
             GameManager.Instance.m_Player_L.Health -= _amount;
         else

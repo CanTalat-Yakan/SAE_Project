@@ -1791,6 +1791,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Init: {fileID: 11400000, guid: 3dde9488ed206674f99a7a736da5a296, type: 2}
+  m_Training_Input: {fileID: 631771553}
   m_timeline: {fileID: 993288319}
   m_inputActionAsset: {fileID: -944628639613478452, guid: 2cdd3f3508cafeb479d8447a15c3d7fc, type: 3}
   m_PlayerGO_L: {fileID: 378409829}
