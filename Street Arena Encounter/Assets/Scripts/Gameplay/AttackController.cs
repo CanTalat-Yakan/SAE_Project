@@ -112,13 +112,20 @@ public class AttackController : MonoBehaviour
     {
         m_PlayerInfo.Char.height = m_PlayerInfo.GP.PlayerHeight;
 
-            AttackManager.Instance.Throwback(m_PlayerInfo, 0.8f, 0.25f);
+        AttackManager.Instance.Throwback(m_PlayerInfo, 0.8f, 0.25f);
 
         bool tmpDamaged = false;
         for (int i = 0; i < _damage; i++)
         {
             if (!tmpDamaged)
                 tmpDamaged = DamageManager.Instance.DealDamage(10, m_PlayerInfo.Forward == -1);
+            else
+            {
+                //Time.timeScale = 0;
+                //yield return new WaitForSeconds(0.3f);
+                //Time.timeScale = 1;
+            }
+
             yield return new WaitForEndOfFrame();
         }
 

@@ -251,7 +251,6 @@ MonoBehaviour:
   m_PlayerInfo:
     Player: {fileID: 0}
     Char: {fileID: 0}
-    RB: {fileID: 0}
     Ani: {fileID: 0}
     Input: {fileID: 0}
     GP: {fileID: 0}
@@ -275,7 +274,6 @@ MonoBehaviour:
   m_PlayerInfo:
     Player: {fileID: 0}
     Char: {fileID: 0}
-    RB: {fileID: 0}
     Ani: {fileID: 0}
     Input: {fileID: 0}
     GP: {fileID: 0}
@@ -595,26 +593,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2895b2d8829cf7c4e862c3b3e4d275f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Player_L:
-    Player: {fileID: 0}
-    Char: {fileID: 0}
-    RB: {fileID: 0}
-    Ani: {fileID: 0}
-    Input: {fileID: 0}
-    GP: {fileID: 0}
-    Health: 0
-    RoundsWon: 0
-    Name: 
-  m_Player_R:
-    Player: {fileID: 0}
-    Char: {fileID: 0}
-    RB: {fileID: 0}
-    Ani: {fileID: 0}
-    Input: {fileID: 0}
-    GP: {fileID: 0}
-    Health: 0
-    RoundsWon: 0
-    Name: 
 --- !u!1001 &784319731
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1771,7 +1749,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_object:
     rhoeObjKind: {fileID: 0}
-  Overrider: {fileID: 22100000, guid: 0da52d42d37f3d742b4b8d8911b054dc, type: 2}
   clips:
   - {fileID: 7400000, guid: 8826886ac1b3e714d8a65039a9bb0f6c, type: 2}
   - {fileID: 7400000, guid: d1d451d8e71bb364f92a6ab2e3762ce0, type: 2}
@@ -1825,12 +1802,12 @@ MonoBehaviour:
   m_Init: {fileID: 11400000, guid: 3dde9488ed206674f99a7a736da5a296, type: 2}
   m_Training_Input: {fileID: 631771553}
   m_timeline: {fileID: 993288319}
+  m_CMVCamera: {fileID: 494674800}
   m_inputActionAsset: {fileID: -944628639613478452, guid: 2cdd3f3508cafeb479d8447a15c3d7fc, type: 3}
   m_PlayerGO_L: {fileID: 378409829}
   m_Player_L:
     Player: {fileID: 378409834}
     Char: {fileID: 378409833}
-    RB: {fileID: 0}
     Ani: {fileID: 1439122167}
     Input: {fileID: 631771555}
     GP: {fileID: 11400000, guid: 36a3a49ea9a8d1d409717af0da21a8ed, type: 2}
@@ -1841,7 +1818,6 @@ MonoBehaviour:
   m_Player_R:
     Player: {fileID: 1965195723}
     Char: {fileID: 1965195722}
-    RB: {fileID: 0}
     Ani: {fileID: 631684837}
     Input: {fileID: 631771555}
     GP: {fileID: 11400000, guid: 36a3a49ea9a8d1d409717af0da21a8ed, type: 2}
@@ -3133,7 +3109,7 @@ MonoBehaviour:
   m_NoiseProfile: {fileID: 11400000, guid: a3dacaec0287d7444b4bd276816e1666, type: 2}
   m_PivotOffset: {x: 0, y: 0, z: 0}
   m_AmplitudeGain: 0.5
-  m_FrequencyGain: 0.5
+  m_FrequencyGain: 0.69
   mNoiseOffsets: {x: 784.0879, y: -838.3977, z: 896.682}
 --- !u!1 &1851666790
 GameObject:
@@ -3269,7 +3245,6 @@ MonoBehaviour:
   m_PlayerInfo:
     Player: {fileID: 0}
     Char: {fileID: 0}
-    RB: {fileID: 0}
     Ani: {fileID: 0}
     Input: {fileID: 0}
     GP: {fileID: 0}
@@ -3293,7 +3268,6 @@ MonoBehaviour:
   m_PlayerInfo:
     Player: {fileID: 0}
     Char: {fileID: 0}
-    RB: {fileID: 0}
     Ani: {fileID: 0}
     Input: {fileID: 0}
     GP: {fileID: 0}

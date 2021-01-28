@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using UnityEngine.Playables;
+using Cinemachine;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class GameManager : MonoBehaviour
     public Main_Init m_Init;
     public GameObject m_Training_Input;
     [SerializeField] PlayableDirector m_timeline;
+    public CinemachineVirtualCamera m_CMVCamera;
 
     [Header("Player Attributes")]
     [SerializeField] InputActionAsset m_inputActionAsset;

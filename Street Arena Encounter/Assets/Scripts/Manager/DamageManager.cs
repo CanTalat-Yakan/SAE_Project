@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Cinemachine;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,27 +22,10 @@ public class DamageManager : MonoBehaviour
     {
         m_toLeftSide = _toLeftSide;
 
-        if (_toLeftSide)
+        if (EvaluateDamage())
         {
-            if (EvaluateDamage())
-            {
-                if (GameManager.Instance.m_Init.m_GameMode != EGameModes.TRAINING)
-                    GameManager.Instance.m_Player_L.Health -= _amount;
-                AttackManager.Instance.Throwback(GameManager.Instance.m_Player_L, -0.3f, 0.25f, false);
-                GameManager.Instance.m_Player_L.Ani.SetTrigger("Damaged");
-                return true;
-            }
-        }
-        else
-        {
-            if (EvaluateDamage())
-            {
-                if (GameManager.Instance.m_Init.m_GameMode != EGameModes.TRAINING)
-                    GameManager.Instance.m_Player_R.Health -= _amount;
-                AttackManager.Instance.Throwback(GameManager.Instance.m_Player_R, -0.3f, 0.25f, false);
-                GameManager.Instance.m_Player_R.Ani.SetTrigger("Damaged");
-                return true;
-            }
+            StartCoroutine(PerformDamage(_amount));
+            return true;
         }
 
         return false;
@@ -73,5 +57,40 @@ public class DamageManager : MonoBehaviour
         }
 
         return true;
+    }
+
+    IEnumerator PerformDamage(float _damageAmount)
+    {
+        if (m_toLeftSide)
+        {
+            if (GameManager.Instance.m_Init.m_GameMode != EGameModes.TRAINING)
+                GameManager.Instance.m_Player_L.Health -= _damageAmount;
+            GameManager.Instance.m_Player_L.Ani.SetTrigger("Damaged");
+        }
+        else
+        {
+            if (GameManager.Instance.m_Init.m_GameMode != EGameModes.TRAINING)
+                GameManager.Instance.m_Player_R.Health -= _damageAmount;
+            GameManager.Instance.m_Player_R.Ani.SetTrigger("Damaged");
+        }
+
+        AttackManager.Instance.Throwback(GameManager.Instance.m_Player_R, -0.3f, 0.25f, false);
+
+        StartCoroutine(Shake(55, 0.2f));
+
+        yield return null;
+    }
+
+    IEnumerator Shake(float _intensity, float _duration)
+    {
+        CinemachineBasicMultiChannelPerlin noise = GameManager.Instance.m_CMVCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+
+        float tmpValue = noise.m_FrequencyGain;
+        noise.m_FrequencyGain = _intensity;
+
+        yield return new WaitForSeconds(_duration);
+        noise.m_FrequencyGain = tmpValue;
+
+        yield return null;
     }
 }
