@@ -43,11 +43,14 @@ public class AttackController : MonoBehaviour
 
     public void Start()
     {
-        animatorOverrideController = new AnimatorOverrideController(m_PlayerInfo.Ani.runtimeAnimatorController);
-        m_PlayerInfo.Ani.runtimeAnimatorController = animatorOverrideController;
+        if (m_PlayerInfo.Ani != null)
+        {
+            animatorOverrideController = new AnimatorOverrideController(m_PlayerInfo.Ani.runtimeAnimatorController);
+            m_PlayerInfo.Ani.runtimeAnimatorController = animatorOverrideController;
 
-        clipOverrides = new AnimationClipOverrides(animatorOverrideController.overridesCount);
-        animatorOverrideController.GetOverrides(clipOverrides);
+            clipOverrides = new AnimationClipOverrides(animatorOverrideController.overridesCount);
+            animatorOverrideController.GetOverrides(clipOverrides);
+        }
     }
 
     /// <summary>

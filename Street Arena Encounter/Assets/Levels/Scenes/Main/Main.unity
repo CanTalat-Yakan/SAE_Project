@@ -383,8 +383,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 494674798}
-  m_LocalRotation: {x: 0.05131543, y: -0, z: -0, w: 0.9986825}
-  m_LocalPosition: {x: 0, y: 3.05, z: -7.57}
+  m_LocalRotation: {x: 0.07890374, y: 0.000000017590471, z: -0.000000001392295, w: 0.99688226}
+  m_LocalPosition: {x: 0, y: 2.47, z: -4.82}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1644893971}
@@ -1612,8 +1612,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 840521268}
-  m_LocalRotation: {x: 0.04132547, y: -0, z: -0, w: 0.9991458}
-  m_LocalPosition: {x: 0, y: 1.0983903, z: 2.4085135}
+  m_LocalRotation: {x: 0.068930395, y: 0.000000017575667, z: -0.0000000015681401, w: 0.9976215}
+  m_LocalPosition: {x: 0, y: 1.2675484, z: 3.7457337}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1851666791}
@@ -3034,7 +3034,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 3.05, z: -7.57}
+  m_FollowOffset: {x: 0, y: 2.47, z: -4.82}
   m_XDamping: 1
   m_YDamping: 17.7
   m_ZDamping: 1
@@ -3055,7 +3055,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f7633c93f0364a418841eeb8b058634, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TrackedObjectOffset: {x: 0, y: 2.27, z: 0}
+  m_TrackedObjectOffset: {x: 0, y: 2.2, z: 0}
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 0
   m_LookaheadIgnoreY: 0
@@ -3106,10 +3106,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_NoiseProfile: {fileID: 11400000, guid: a3dacaec0287d7444b4bd276816e1666, type: 2}
+  m_NoiseProfile: {fileID: 11400000, guid: 554b0ed52734c154eab51f6cedd3a7d7, type: 2}
   m_PivotOffset: {x: 0, y: 0, z: 0}
-  m_AmplitudeGain: 0.5
-  m_FrequencyGain: 0.69
+  m_AmplitudeGain: 1
+  m_FrequencyGain: 1
   mNoiseOffsets: {x: 784.0879, y: -838.3977, z: 896.682}
 --- !u!1 &1851666790
 GameObject:

@@ -48,12 +48,9 @@ public class DamageManager : MonoBehaviour
         }
         else
         {
-            if (GameManager.Instance.m_Init.m_GameMode != EGameModes.TRAINING)
-            {
-                if (GameManager.Instance.m_Player_R.Player.m_AttackController.m_CurrentState == EAttackStates.Block
-                    || GameManager.Instance.m_Player_R.Player.m_MovementController.m_CurrentState == EMovementStates.MoveBackwards)
-                    return false;
-            }
+            if (GameManager.Instance.m_Player_R.Player.m_AttackController.m_CurrentState == EAttackStates.Block
+                || GameManager.Instance.m_Player_R.Player.m_MovementController.m_CurrentState == EMovementStates.MoveBackwards)
+                return false;
         }
 
         return true;

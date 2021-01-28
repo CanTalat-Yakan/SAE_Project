@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Main Init
   m_EditorClassIdentifier: 
   m_GameMode: 3
-  m_Level: 2
+  m_Level: 3
   m_Rounds: 3
-  m_Timer: 30
+  m_Timer: 45
   m_Player_L:
     Input: {fileID: 0}
     Name: 1
