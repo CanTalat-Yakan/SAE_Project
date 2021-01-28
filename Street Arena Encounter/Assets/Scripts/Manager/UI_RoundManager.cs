@@ -34,7 +34,6 @@ public class UI_RoundManager : MonoBehaviour
     void Update()
     {
         ReadDamage();
-
     }
 
     #region -Coroutine
@@ -193,6 +192,10 @@ public class UI_RoundManager : MonoBehaviour
     }
     bool PlayerDead()
     {
+        if (GameManager.Instance.m_Player_L.RoundsWon == GameManager.Instance.m_Init.m_Rounds
+            || GameManager.Instance.m_Player_R.RoundsWon == GameManager.Instance.m_Init.m_Rounds)
+        return false;
+
         //Player Left Dead
         if (GameManager.Instance.m_Player_L.Health <= 0
             || GameManager.Instance.m_Player_R.Health <= 0)
@@ -241,9 +244,11 @@ public class UI_RoundManager : MonoBehaviour
                             Instantiate(go, m_roundsGO_R.transform);
 
                     for (int i = 0; i < GameManager.Instance.m_Player_L.RoundsWon; i++)
-                        m_roundsGO_L.transform.GetChild(i).GetChild(1).gameObject.SetActive(true);
+                        if (m_roundsGO_L.transform.childCount >= i)
+                            m_roundsGO_L.transform.GetChild(i).GetChild(1).gameObject.SetActive(true);
                     for (int i = 0; i < GameManager.Instance.m_Player_R.RoundsWon; i++)
-                        m_roundsGO_R.transform.GetChild(i).GetChild(1).gameObject.SetActive(true);
+                        if (m_roundsGO_R.transform.childCount >= i)
+                            m_roundsGO_R.transform.GetChild(i).GetChild(1).gameObject.SetActive(true);
                 }
                 break;
             case EGameModes.TRAINING:

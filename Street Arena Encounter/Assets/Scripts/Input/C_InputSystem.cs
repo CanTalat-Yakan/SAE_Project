@@ -150,7 +150,7 @@ public class @C_InputSystem : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""b82ff787-cdea-40b7-861c-3ec1219949ed"",
-                    ""path"": ""<Keyboard>/l"",
+                    ""path"": ""<Keyboard>/h"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -172,7 +172,18 @@ public class @C_InputSystem : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""8df23a44-041d-49bb-87a5-ec9583c5c3ca"",
-                    ""path"": ""<Keyboard>/n"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Block"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e53b6641-5f69-49cf-94ae-a4b1d2979240"",
+                    ""path"": ""<Keyboard>/shift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",

@@ -16,14 +16,16 @@ public class DamageManager : MonoBehaviour
         Instance = this;
     }
 
-    public void DealDamage(float _amount, bool _toLeftSide)
+    public bool DealDamage(float _amount, bool _toLeftSide)
     {
         if (GameManager.Instance.m_Init.m_GameMode == EGameModes.TRAINING)
-            return;
+            return false;
 
         if (_toLeftSide)
             GameManager.Instance.m_Player_L.Health -= _amount;
         else
             GameManager.Instance.m_Player_R.Health -= _amount;
+
+        return true;
     }
 }

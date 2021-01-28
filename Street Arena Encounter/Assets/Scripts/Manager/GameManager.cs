@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour
             m_Training_Input.SetActive(true);
             m_Player_R.Player.enabled = false;
         }
+
         #endregion
         Application.targetFrameRate = 60;
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
@@ -13,14 +14,41 @@ public enum EAttackStates
     F_LowAttack,
     B_LowAttack,
 }
+public class AnimationClipOverrides : List<KeyValuePair<AnimationClip, AnimationClip>>
+{
+    public AnimationClipOverrides(int capacity) : base(capacity) { }
+
+    public AnimationClip this[string name]
+    {
+        get { return this.Find(x => x.Key.name.Equals(name)).Value; }
+        set
+        {
+            int index = this.FindIndex(x => x.Key.name.Equals(name));
+            if (index != -1)
+                this[index] = new KeyValuePair<AnimationClip, AnimationClip>(this[index].Key, value);
+        }
+    }
+}
 public class AttackController : MonoBehaviour
 {
     #region -Values
     [HideInInspector] public PlayerInformation m_PlayerInfo;
-    [HideInInspector] public EAttackStates m_attackState;
+    [HideInInspector] public EAttackStates m_currentState;
 
     [HideInInspector] public bool m_Attacking;
+
+    protected AnimatorOverrideController animatorOverrideController;
+    protected AnimationClipOverrides clipOverrides;
     #endregion
+
+    public void Start()
+    {
+        animatorOverrideController = new AnimatorOverrideController(GameManager.Instance.m_Player_L.Ani.runtimeAnimatorController);
+        GameManager.Instance.m_Player_L.Ani.runtimeAnimatorController = animatorOverrideController;
+
+        clipOverrides = new AnimationClipOverrides(animatorOverrideController.overridesCount);
+        animatorOverrideController.GetOverrides(clipOverrides);
+    }
 
     /// <summary>
     /// Sets the current Attack animation and state according to the Values of the InputMaster
@@ -28,50 +56,58 @@ public class AttackController : MonoBehaviour
     public void Attack()
     {
         if (m_PlayerInfo.Input.m_attacks.block)
-            StartCoroutine(Base("Block", EAttackStates.Block, Block(), 0.4f));
+            StartCoroutine(Base(EAttackStates.Block, Block()));
 
         if (m_PlayerInfo.Input.m_attacks.light)
-            StartCoroutine(Base("Light", EAttackStates.F_LightAttack, Hit(), 0.2f));
+            StartCoroutine(Base(EAttackStates.F_LightAttack, Hit()));
 
-        if (m_PlayerInfo.Input.m_attacks.b_light)
-            StartCoroutine(Base("Light_B", EAttackStates.B_LightAttack, Hit(), 0.2f));
+        //if (m_PlayerInfo.Input.m_attacks.b_light)
+        //    StartCoroutine(Base(EAttackStates.B_LightAttack, Hit()));
 
         if (m_PlayerInfo.Input.m_attacks.heavy)
-            StartCoroutine(Base("Heavy", EAttackStates.F_LowAttack, Hit(), 0.2f));
+            StartCoroutine(Base(EAttackStates.F_LowAttack, Hit()));
 
-        if (m_PlayerInfo.Input.m_attacks.b_heavy)
-            StartCoroutine(Base("Heavy_B", EAttackStates.B_HeavyAttack, Hit(), 0.2f));
+        //if (m_PlayerInfo.Input.m_attacks.b_heavy)
+        //    StartCoroutine(Base(EAttackStates.B_HeavyAttack, Hit()));
 
-        if (m_PlayerInfo.Input.m_attacks.low)
-            StartCoroutine(Base("Low", EAttackStates.F_LowAttack, HitLow(), 0.2f));
+        //if (m_PlayerInfo.Input.m_attacks.low)
+        //    StartCoroutine(Base(EAttackStates.F_LowAttack, HitLow()));
 
-        if (m_PlayerInfo.Input.m_attacks.b_low)
-            StartCoroutine(Base("Low_B", EAttackStates.B_LowAttack, HitLow(), 0.2f));
+        //if (m_PlayerInfo.Input.m_attacks.b_low)
+        //    StartCoroutine(Base(EAttackStates.B_LowAttack, HitLow()));
     }
 
     void LateUpdate()
     {
-        m_attackState = EAttackStates.NONE;
+        //m_currentState = EAttackStates.NONE;
     }
 
     #region -Enumerators
-    public IEnumerator Base(string _parameterTag, EAttackStates _state, IEnumerator _content, float _duration)
+    public IEnumerator Base(EAttackStates _state, IEnumerator _content, float _activation = 8, float _recovery = 4)
     {
-        if (m_attackState != _state)
+        if (m_currentState != _state)
         {
-            m_PlayerInfo.Ani.SetTrigger("Attack");
-            m_attackState = _state;
+            //clipOverrides["Punching"] = AttackManager.Instance.clips[Random.Range(0, 5)];
+            //animatorOverrideController.ApplyOverrides(clipOverrides);
+            animatorOverrideController.clips[5].overrideClip = AttackManager.Instance.clips[Random.Range(0, 5)];
+            m_PlayerInfo.Ani.runtimeAnimatorController = animatorOverrideController;
 
-            m_Attacking = true;
-            m_PlayerInfo.Ani.SetBool(_parameterTag, true);
+            GameManager.Instance.DeactivateChars();
+            m_currentState = _state;
+            m_PlayerInfo.Ani.SetBool((_state != EAttackStates.Block) ? "Attacking" : "Block", m_Attacking = true);
+
+            for (int i = 0; i < _activation; i++)
+                yield return new WaitForEndOfFrame();
 
             StartCoroutine(_content);
-            yield return new WaitForSeconds(_duration);
 
-            m_Attacking = false;
-            m_PlayerInfo.Ani.SetBool(_parameterTag, false);
+            m_PlayerInfo.Ani.SetBool((_state != EAttackStates.Block) ? "Attacking" : "Block", m_Attacking = false);
 
-            m_attackState = EAttackStates.NONE;
+            for (int i = 0; i < _recovery; i++)
+                yield return new WaitForEndOfFrame();
+
+            m_currentState = EAttackStates.NONE;
+            GameManager.Instance.ActivateChars();
         }
         yield return null;
     }
@@ -79,46 +115,25 @@ public class AttackController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.4f);
     }
-    public IEnumerator Hit(float _activation = 8, float _damage = 3, float _recovery = 4)
+    public IEnumerator Hit(float _damage = 3)
     {
         m_PlayerInfo.Char.height = m_PlayerInfo.GP.PlayerHeight;
 
-        for (int i = 0; i < _activation; i++)
-            yield return new WaitForEndOfFrame();
-
         if (GameManager.Instance.GetDistance(m_PlayerInfo.GP.MinDistance))
         {
-            float targetX = m_PlayerInfo.Player.transform.localPosition.x + m_PlayerInfo.Forward * 0.8f;
-            m_PlayerInfo.Player.transform.DOLocalMoveX(targetX, 0.25f).SetEase(Ease.OutCubic);
+            float targetX = m_PlayerInfo.Char.gameObject.transform.localPosition.x + m_PlayerInfo.Forward * 0.8f;
+            m_PlayerInfo.Char.gameObject.transform.DOLocalMoveX(targetX, 0.25f).SetEase(Ease.OutCubic);
         }
 
-        for (int i = 0; i < _activation; i++)
-            yield return new WaitForEndOfFrame();
-
-        DamageManager.Instance.DealDamage(10, m_PlayerInfo.Forward == -1);
-
-        m_PlayerInfo.Char.height = m_PlayerInfo.Input.m_controls.c ? m_PlayerInfo.GP.PlayerHeight : m_PlayerInfo.GP.CrouchHeight;
-        yield return null;
-    }
-    public IEnumerator HitLow(float _activation = 8, float _damage = 3, float _recovery = 4)
-    {
-        m_PlayerInfo.Char.height = m_PlayerInfo.GP.CrouchHeight;
-
-        for (int i = 0; i < _activation; i++)
-            yield return new WaitForEndOfFrame();
-
-        if (GameManager.Instance.GetDistance(m_PlayerInfo.GP.MinDistance))
+        bool tmpDamaged = false;
+        for (int i = 0; i < _damage; i++)
         {
-            float targetX = m_PlayerInfo.Player.transform.localPosition.x + m_PlayerInfo.Forward * 0.8f;
-            m_PlayerInfo.Player.transform.DOLocalMoveX(targetX, 0.25f).SetEase(Ease.OutCubic);
+            if (!tmpDamaged)
+                tmpDamaged = DamageManager.Instance.DealDamage(10, m_PlayerInfo.Forward == -1);
+            yield return new WaitForEndOfFrame();
         }
 
-        for (int i = 0; i < _activation; i++)
-            yield return new WaitForEndOfFrame();
-
-        DamageManager.Instance.DealDamage(10, m_PlayerInfo.Forward == -1);
-
-        m_PlayerInfo.Char.height = m_PlayerInfo.Input.m_controls.c ? m_PlayerInfo.GP.PlayerHeight : m_PlayerInfo.GP.CrouchHeight;
+        //m_PlayerInfo.Char.height = m_PlayerInfo.Input.m_controls.c ? m_PlayerInfo.GP.PlayerHeight : m_PlayerInfo.GP.CrouchHeight;
         yield return null;
     }
     #endregion

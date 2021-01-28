@@ -251,13 +251,14 @@ MonoBehaviour:
   m_PlayerInfo:
     Player: {fileID: 0}
     Char: {fileID: 0}
+    RB: {fileID: 0}
     Ani: {fileID: 0}
     Input: {fileID: 0}
     GP: {fileID: 0}
     Health: 0
     RoundsWon: 0
     Name: 
-  m_attackState: 0
+  m_currentState: 0
   m_Attacking: 0
 --- !u!114 &378409832
 MonoBehaviour:
@@ -274,6 +275,7 @@ MonoBehaviour:
   m_PlayerInfo:
     Player: {fileID: 0}
     Char: {fileID: 0}
+    RB: {fileID: 0}
     Ani: {fileID: 0}
     Input: {fileID: 0}
     GP: {fileID: 0}
@@ -1746,7 +1748,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_object:
-    fireBall: {fileID: 0}
+    rhoeObjKind: {fileID: 0}
+  Overrider: {fileID: 22100000, guid: 0da52d42d37f3d742b4b8d8911b054dc, type: 2}
+  clips:
+  - {fileID: 7400000, guid: 8826886ac1b3e714d8a65039a9bb0f6c, type: 2}
+  - {fileID: 7400000, guid: d1d451d8e71bb364f92a6ab2e3762ce0, type: 2}
+  - {fileID: 7400000, guid: a007b748dd4bca54ab3dddc381ae8a96, type: 2}
+  - {fileID: 7400000, guid: 6ed9100aaf639af4b863a6feeb209130, type: 2}
+  - {fileID: 7400000, guid: 2a5440c185bcd5340b10768f7505ec90, type: 2}
+  - {fileID: 7400000, guid: a01ba11347c55d348b5e71d7a6fa1d65, type: 2}
 --- !u!1 &981719734
 GameObject:
   m_ObjectHideFlags: 0
@@ -1798,6 +1808,7 @@ MonoBehaviour:
   m_Player_L:
     Player: {fileID: 378409834}
     Char: {fileID: 378409833}
+    RB: {fileID: 0}
     Ani: {fileID: 1439122167}
     Input: {fileID: 631771555}
     GP: {fileID: 11400000, guid: 36a3a49ea9a8d1d409717af0da21a8ed, type: 2}
@@ -1808,6 +1819,7 @@ MonoBehaviour:
   m_Player_R:
     Player: {fileID: 1965195723}
     Char: {fileID: 1965195722}
+    RB: {fileID: 0}
     Ani: {fileID: 631684837}
     Input: {fileID: 631771555}
     GP: {fileID: 11400000, guid: 36a3a49ea9a8d1d409717af0da21a8ed, type: 2}
@@ -3235,13 +3247,14 @@ MonoBehaviour:
   m_PlayerInfo:
     Player: {fileID: 0}
     Char: {fileID: 0}
+    RB: {fileID: 0}
     Ani: {fileID: 0}
     Input: {fileID: 0}
     GP: {fileID: 0}
     Health: 0
     RoundsWon: 0
     Name: 
-  m_attackState: 0
+  m_currentState: 0
   m_Attacking: 0
 --- !u!114 &1965195721
 MonoBehaviour:
@@ -3258,6 +3271,7 @@ MonoBehaviour:
   m_PlayerInfo:
     Player: {fileID: 0}
     Char: {fileID: 0}
+    RB: {fileID: 0}
     Ani: {fileID: 0}
     Input: {fileID: 0}
     GP: {fileID: 0}

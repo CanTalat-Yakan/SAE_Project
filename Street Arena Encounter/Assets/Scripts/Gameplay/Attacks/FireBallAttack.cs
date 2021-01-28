@@ -15,7 +15,7 @@ public class FireBallAttack : StateMachineBehaviour
         origin += Vector3.up * 1.3f;
         origin += front * 1.2f;
 
-        AttackManager.Instance.InitFireBall(origin, front.x, 5);
+        AttackManager.Instance.InitThrowObj(origin, front.x, 5);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

@@ -9,6 +9,7 @@ public struct PlayerInformation
 {
     public PlayerController Player;
     public CharacterController Char;
+    public Rigidbody RB;
     public Animator Ani;
     public InputMaster Input;
     public GP_Settings GP;
