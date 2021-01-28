@@ -57,6 +57,8 @@ public class UI_RoundManager : MonoBehaviour
         if (GameManager.Instance.m_Init.m_GameMode != EGameModes.TRAINING)
             SetupRound();
 
+        ReadDamage();
+
         m_commentGUI.SetText("In 3");
         yield return new WaitForSeconds(1);
         m_commentGUI.SetText("In 2");
@@ -117,11 +119,12 @@ public class UI_RoundManager : MonoBehaviour
         m_commentGUI.gameObject.SetActive(true);
         m_commentGUI.SetText(tmpPlayerWON);
         DOTween.Clear();
-        GameManager.Instance.DeactivateChars();
-        GameManager.Instance.ResetPlayers();
         GameManager.Instance.STARTED = false;
 
         yield return new WaitForSeconds(3);
+
+        GameManager.Instance.DeactivateChars();
+        GameManager.Instance.ResetPlayers();
 
         m_timer = GameManager.Instance.m_Init.m_Timer;
         m_timerGUI.SetText("{00}", m_timer);
@@ -213,9 +216,9 @@ public class UI_RoundManager : MonoBehaviour
     void ReadDamage()
     {
         if (tmpValue != (m_playerHealthBar_L.fillAmount = GameManager.Instance.m_Player_L.Health / GameManager.Instance.m_Player_L.GP.Health))
-            StartCoroutine(ShadowAni());
+            StartCoroutine(DamageShadowAni());
         if (tmpValue2 != (m_playerHealthBar_R.fillAmount = GameManager.Instance.m_Player_R.Health / GameManager.Instance.m_Player_R.GP.Health))
-            StartCoroutine(ShadowAni());
+            StartCoroutine(DamageShadowAni());
 
         tmpValue = m_playerHealthBar_L.fillAmount;
         tmpValue2 = m_playerHealthBar_R.fillAmount;
@@ -267,7 +270,7 @@ public class UI_RoundManager : MonoBehaviour
     #endregion
 
     #region -Enumerators
-    IEnumerator ShadowAni()
+    IEnumerator DamageShadowAni()
     {
         yield return new WaitForSeconds(1);
 

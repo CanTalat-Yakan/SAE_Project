@@ -50,8 +50,8 @@ public class AttackManager : MonoBehaviour
             return;
 
         float targetX = _PlayerInfo.Char.gameObject.transform.localPosition.x + _PlayerInfo.Forward * _distance;
-        //if (_map)
-            //targetX *= GameManager.Instance.MapDistance(_PlayerInfo.GP.MinDistance);
+        if (_map)
+            targetX *= GameManager.Instance.MapDistance(_PlayerInfo.GP.MinDistance);
 
         _PlayerInfo.Char.gameObject.transform.DOLocalMoveX(targetX, _time).SetEase(Ease.OutCubic);
     }
