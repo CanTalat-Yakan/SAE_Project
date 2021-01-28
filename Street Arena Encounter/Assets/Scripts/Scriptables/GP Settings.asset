@@ -15,7 +15,7 @@ MonoBehaviour:
   MinDistance: 1.5
   MaxDistance: 9
   JumpForce: 10
-  JumpDashForce: 5
+  JumpDashForce: 8
   DashForce: 10
   GravityForce: -40
   Speed: 1

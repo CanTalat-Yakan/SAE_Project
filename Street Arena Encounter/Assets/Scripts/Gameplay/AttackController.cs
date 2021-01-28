@@ -37,8 +37,8 @@ public class AttackController : MonoBehaviour
 
     [HideInInspector] public bool m_Attacking;
 
-    protected AnimatorOverrideController animatorOverrideController;
-    protected AnimationClipOverrides clipOverrides;
+    AnimatorOverrideController animatorOverrideController;
+    AnimationClipOverrides clipOverrides;
     #endregion
 
     public void Start()
@@ -77,11 +77,6 @@ public class AttackController : MonoBehaviour
         //    StartCoroutine(Base(EAttackStates.B_LowAttack, HitLow()));
     }
 
-    void LateUpdate()
-    {
-        //m_currentState = EAttackStates.NONE;
-    }
-
     #region -Enumerators
     public IEnumerator Base(EAttackStates _state, IEnumerator _content, float _activation = 8, float _recovery = 4)
     {
@@ -89,8 +84,6 @@ public class AttackController : MonoBehaviour
         {
             clipOverrides["Punching"] = AttackManager.Instance.clips[Random.Range(0, 5)];
             animatorOverrideController.ApplyOverrides(clipOverrides);
-            //animatorOverrideController.clips[5].overrideClip = AttackManager.Instance.clips[Random.Range(0, 5)];
-            m_PlayerInfo.Ani.runtimeAnimatorController = animatorOverrideController;
 
             GameManager.Instance.DeactivateChars();
             m_CurrentState = _state;
@@ -139,6 +132,7 @@ public class AttackController : MonoBehaviour
     /// </summary>
     public void ResetValues()
     {
+        m_CurrentState = EAttackStates.NONE;
         m_PlayerInfo.Ani.SetBool("Block", false);
         m_Attacking = false;
     }

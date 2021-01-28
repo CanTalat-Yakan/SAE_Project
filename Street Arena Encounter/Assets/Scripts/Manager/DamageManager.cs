@@ -36,6 +36,7 @@ public class DamageManager : MonoBehaviour
                 m_Player_L.Health -= _amount;
                 AttackManager.Instance.Throwback(m_Player_L, -0.3f, 0.25f, false);
                 m_Player_L.Ani.SetTrigger("Damaged");
+                return true;
             }
         }
         else
@@ -45,10 +46,11 @@ public class DamageManager : MonoBehaviour
                 m_Player_R.Health -= _amount;
                 AttackManager.Instance.Throwback(m_Player_R, -0.3f, 0.25f, false);
                 m_Player_R.Ani.SetTrigger("Damaged");
+                return true;
             }
         }
 
-        return true;
+        return false;
     }
 
     bool EvaluateDamage()
