@@ -258,7 +258,7 @@ MonoBehaviour:
     Health: 0
     RoundsWon: 0
     Name: 
-  m_currentState: 0
+  m_CurrentState: 0
   m_Attacking: 0
 --- !u!114 &378409832
 MonoBehaviour:
@@ -282,7 +282,7 @@ MonoBehaviour:
     Health: 0
     RoundsWon: 0
     Name: 
-  m_movementState: 0
+  m_CurrentState: 0
 --- !u!143 &378409833
 CharacterController:
   m_ObjectHideFlags: 0
@@ -313,6 +313,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1624d69194c1d341aa64ce3dbd80861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_MovementController: {fileID: 0}
+  m_AttackController: {fileID: 0}
   m_leftSide: 1
 --- !u!1 &446492916
 GameObject:
@@ -358,7 +360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_target: {fileID: 378409829}
-  m_2D: 1
+  m_2D: 0
 --- !u!1 &494674798
 GameObject:
   m_ObjectHideFlags: 0
@@ -593,6 +595,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2895b2d8829cf7c4e862c3b3e4d275f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Player_L:
+    Player: {fileID: 0}
+    Char: {fileID: 0}
+    RB: {fileID: 0}
+    Ani: {fileID: 0}
+    Input: {fileID: 0}
+    GP: {fileID: 0}
+    Health: 0
+    RoundsWon: 0
+    Name: 
+  m_Player_R:
+    Player: {fileID: 0}
+    Char: {fileID: 0}
+    RB: {fileID: 0}
+    Ani: {fileID: 0}
+    Input: {fileID: 0}
+    GP: {fileID: 0}
+    Health: 0
+    RoundsWon: 0
+    Name: 
 --- !u!1001 &784319731
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2035,7 +2057,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_target: {fileID: 1965195718}
-  m_2D: 1
+  m_2D: 0
 --- !u!95 &1439122167 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 1b3817891e5da4f4eb6348b90e5ffc7c, type: 3}
@@ -3254,7 +3276,7 @@ MonoBehaviour:
     Health: 0
     RoundsWon: 0
     Name: 
-  m_currentState: 0
+  m_CurrentState: 0
   m_Attacking: 0
 --- !u!114 &1965195721
 MonoBehaviour:
@@ -3278,7 +3300,7 @@ MonoBehaviour:
     Health: 0
     RoundsWon: 0
     Name: 
-  m_movementState: 0
+  m_CurrentState: 0
 --- !u!143 &1965195722
 CharacterController:
   m_ObjectHideFlags: 0
@@ -3309,4 +3331,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1624d69194c1d341aa64ce3dbd80861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_MovementController: {fileID: 0}
+  m_AttackController: {fileID: 0}
   m_leftSide: 0

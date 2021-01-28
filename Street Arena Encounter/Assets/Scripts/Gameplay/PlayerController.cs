@@ -8,19 +8,19 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     #region -Values
-    MovementController m_movementController;
-    AttackController m_attackController;
+    public MovementController m_MovementController;
+    public AttackController m_AttackController;
 
     [SerializeField] bool m_leftSide;
     #endregion
 
     void Start()
     {
-        m_movementController = GetComponent<MovementController>();
-        m_attackController = GetComponent<AttackController>();
+        m_MovementController = GetComponent<MovementController>();
+        m_AttackController = GetComponent<AttackController>();
 
-        m_movementController.m_PlayerInfo = m_leftSide ? GameManager.Instance.m_Player_L : GameManager.Instance.m_Player_R;
-        m_attackController.m_PlayerInfo = m_leftSide ? GameManager.Instance.m_Player_L : GameManager.Instance.m_Player_R;
+        m_MovementController.m_PlayerInfo = m_leftSide ? GameManager.Instance.m_Player_L : GameManager.Instance.m_Player_R;
+        m_AttackController.m_PlayerInfo = m_leftSide ? GameManager.Instance.m_Player_L : GameManager.Instance.m_Player_R;
     }
 
     void Update()
@@ -28,13 +28,13 @@ public class PlayerController : MonoBehaviour
         if (!GameManager.Instance.STARTED || GameManager.Instance.LOCKED)
             return;
 
-        m_attackController.Attack();
-        if (!m_attackController.m_Attacking)
-            m_movementController.Move();
+        m_AttackController.Attack();
+        if (!m_AttackController.m_Attacking)
+            m_MovementController.Move();
         else
-            m_movementController.Fall();
+            m_MovementController.Fall();
 
-        m_movementController.SetState();
+        m_MovementController.SetState();
     }
 
     /// <summary>
@@ -42,8 +42,8 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void ResetValues()
     {
-        m_movementController.ResetValues(m_leftSide);
-        m_attackController.ResetValues();
+        m_MovementController.ResetValues(m_leftSide);
+        m_AttackController.ResetValues();
         GameManager.Instance.m_Player_L.Health = GameManager.Instance.m_Player_L.GP.Health;
         GameManager.Instance.m_Player_R.Health = GameManager.Instance.m_Player_R.GP.Health;
     }

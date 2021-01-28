@@ -33,7 +33,7 @@ public class AttackController : MonoBehaviour
 {
     #region -Values
     [HideInInspector] public PlayerInformation m_PlayerInfo;
-    [HideInInspector] public EAttackStates m_currentState;
+    [HideInInspector] public EAttackStates m_CurrentState;
 
     [HideInInspector] public bool m_Attacking;
 
@@ -43,8 +43,8 @@ public class AttackController : MonoBehaviour
 
     public void Start()
     {
-        animatorOverrideController = new AnimatorOverrideController(GameManager.Instance.m_Player_L.Ani.runtimeAnimatorController);
-        GameManager.Instance.m_Player_L.Ani.runtimeAnimatorController = animatorOverrideController;
+        animatorOverrideController = new AnimatorOverrideController(m_PlayerInfo.Ani.runtimeAnimatorController);
+        m_PlayerInfo.Ani.runtimeAnimatorController = animatorOverrideController;
 
         clipOverrides = new AnimationClipOverrides(animatorOverrideController.overridesCount);
         animatorOverrideController.GetOverrides(clipOverrides);
@@ -85,15 +85,15 @@ public class AttackController : MonoBehaviour
     #region -Enumerators
     public IEnumerator Base(EAttackStates _state, IEnumerator _content, float _activation = 8, float _recovery = 4)
     {
-        if (m_currentState != _state)
+        if (m_CurrentState != _state)
         {
-            //clipOverrides["Punching"] = AttackManager.Instance.clips[Random.Range(0, 5)];
-            //animatorOverrideController.ApplyOverrides(clipOverrides);
-            animatorOverrideController.clips[5].overrideClip = AttackManager.Instance.clips[Random.Range(0, 5)];
+            clipOverrides["Punching"] = AttackManager.Instance.clips[Random.Range(0, 5)];
+            animatorOverrideController.ApplyOverrides(clipOverrides);
+            //animatorOverrideController.clips[5].overrideClip = AttackManager.Instance.clips[Random.Range(0, 5)];
             m_PlayerInfo.Ani.runtimeAnimatorController = animatorOverrideController;
 
             GameManager.Instance.DeactivateChars();
-            m_currentState = _state;
+            m_CurrentState = _state;
             m_PlayerInfo.Ani.SetBool((_state != EAttackStates.Block) ? "Attacking" : "Block", m_Attacking = true);
 
             for (int i = 0; i < _activation; i++)
@@ -106,7 +106,7 @@ public class AttackController : MonoBehaviour
             for (int i = 0; i < _recovery; i++)
                 yield return new WaitForEndOfFrame();
 
-            m_currentState = EAttackStates.NONE;
+            m_CurrentState = EAttackStates.NONE;
             GameManager.Instance.ActivateChars();
         }
         yield return null;
@@ -119,11 +119,7 @@ public class AttackController : MonoBehaviour
     {
         m_PlayerInfo.Char.height = m_PlayerInfo.GP.PlayerHeight;
 
-        if (GameManager.Instance.GetDistance(m_PlayerInfo.GP.MinDistance))
-        {
-            float targetX = m_PlayerInfo.Char.gameObject.transform.localPosition.x + m_PlayerInfo.Forward * 0.8f;
-            m_PlayerInfo.Char.gameObject.transform.DOLocalMoveX(targetX, 0.25f).SetEase(Ease.OutCubic);
-        }
+            AttackManager.Instance.Throwback(m_PlayerInfo, 0.8f, 0.25f);
 
         bool tmpDamaged = false;
         for (int i = 0; i < _damage; i++)
@@ -133,7 +129,6 @@ public class AttackController : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
 
-        //m_PlayerInfo.Char.height = m_PlayerInfo.Input.m_controls.c ? m_PlayerInfo.GP.PlayerHeight : m_PlayerInfo.GP.CrouchHeight;
         yield return null;
     }
     #endregion

@@ -190,13 +190,25 @@ public class GameManager : MonoBehaviour
         m_Player_L.Char.enabled = false;
         m_Player_R.Char.enabled = false;
     }
-    public bool GetDistance(float _threshold)
+    public bool BoolDistance(float _threshold)
     {
         float length = Vector3.Distance(
             m_Player_L.Player.transform.localPosition,
             m_Player_R.Player.transform.localPosition);
 
         return length > _threshold;
+    }
+    public float GetDistance()
+    {
+        return Vector3.Distance(
+            m_Player_L.Player.transform.localPosition,
+            m_Player_R.Player.transform.localPosition);
+    }
+    public float MapDistance(float _threshold)
+    {
+        return Map(Mathf.Abs(GetDistance()), 
+            _threshold, 2.3f, 
+            0, 1);
     }
     #endregion
 

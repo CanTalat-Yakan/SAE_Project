@@ -33,7 +33,8 @@ public class UI_RoundManager : MonoBehaviour
 
     void Update()
     {
-        ReadDamage();
+        if (GameManager.Instance.STARTED)
+            ReadDamage();
     }
 
     #region -Coroutine
@@ -115,6 +116,7 @@ public class UI_RoundManager : MonoBehaviour
         m_timerGUI.SetText("0");
         m_commentGUI.gameObject.SetActive(true);
         m_commentGUI.SetText(tmpPlayerWON);
+        DOTween.Clear();
         GameManager.Instance.DeactivateChars();
         GameManager.Instance.ResetPlayers();
         GameManager.Instance.STARTED = false;
@@ -133,6 +135,8 @@ public class UI_RoundManager : MonoBehaviour
         m_timerGUI.SetText("0");
         m_commentGUI.gameObject.SetActive(true);
         m_commentGUI.SetText(EvaluateWinner_End());
+        DOTween.Clear();
+        GameManager.Instance.DeactivateChars();
         GameManager.Instance.ResetPlayers();
         GameManager.Instance.STARTED = false;
         yield return new WaitForSeconds(6);
@@ -194,7 +198,7 @@ public class UI_RoundManager : MonoBehaviour
     {
         if (GameManager.Instance.m_Player_L.RoundsWon == GameManager.Instance.m_Init.m_Rounds
             || GameManager.Instance.m_Player_R.RoundsWon == GameManager.Instance.m_Init.m_Rounds)
-        return false;
+            return false;
 
         //Player Left Dead
         if (GameManager.Instance.m_Player_L.Health <= 0

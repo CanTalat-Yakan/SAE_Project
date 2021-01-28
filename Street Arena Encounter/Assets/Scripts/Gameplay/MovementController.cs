@@ -8,14 +8,15 @@ public enum EMovementStates
 {
     Idle = 1 << 0,
     Move = 1 << 1,
-    Jump = 1 << 2,
-    Crouch = 1 << 3,
+    MoveBackwards = 1 << 2,
+    Jump = 1 << 3,
+    Crouch = 1 << 4,
 }
 public class MovementController : MonoBehaviour
 {
     #region -Values
     [HideInInspector] public PlayerInformation m_PlayerInfo;
-    [HideInInspector] public EMovementStates m_movementState;
+    [HideInInspector] public EMovementStates m_CurrentState;
 
     Vector3 desiredDirection;
     float m_force;
@@ -103,19 +104,24 @@ public class MovementController : MonoBehaviour
     public void SetState()
     {
         if (m_PlayerInfo.Ani.GetFloat("Move") != 0)
-            m_movementState |= EMovementStates.Move;
+            m_CurrentState |= EMovementStates.Move;
         else
-            m_movementState &= ~EMovementStates.Move;
+            m_CurrentState &= ~EMovementStates.Move;
+
+        if (m_PlayerInfo.Ani.GetFloat("Move") < 0)
+            m_CurrentState |= EMovementStates.MoveBackwards;
+        else
+            m_CurrentState &= ~EMovementStates.MoveBackwards;
 
         if (m_PlayerInfo.Ani.GetBool("Crouch"))
-            m_movementState |= EMovementStates.Crouch;
+            m_CurrentState |= EMovementStates.Crouch;
         else
-            m_movementState &= ~EMovementStates.Crouch;
+            m_CurrentState &= ~EMovementStates.Crouch;
 
         if (m_PlayerInfo.Input.m_controls.j)
-            m_movementState |= EMovementStates.Jump;
+            m_CurrentState |= EMovementStates.Jump;
         else
-            m_movementState &= ~EMovementStates.Jump;
+            m_CurrentState &= ~EMovementStates.Jump;
     }
     /// <summary>
     /// Resets the Values of the Players Height and Animation
@@ -134,7 +140,7 @@ public class MovementController : MonoBehaviour
     /// </summary>
     bool Constraint()
     {
-        if (!GameManager.Instance.GetDistance(m_PlayerInfo.GP.MinDistance))
+        if (!GameManager.Instance.BoolDistance(m_PlayerInfo.GP.MinDistance))
             if ((m_PlayerInfo.Forward != 1) ? desiredDirection.x < 0 : desiredDirection.x > 0)
             {
                 m_PlayerInfo.Ani.SetFloat("Move", 0);
@@ -143,7 +149,7 @@ public class MovementController : MonoBehaviour
                 return true;
             }
 
-        if (GameManager.Instance.GetDistance(m_PlayerInfo.GP.MaxDistance))
+        if (GameManager.Instance.BoolDistance(m_PlayerInfo.GP.MaxDistance))
             if ((m_PlayerInfo.Forward != 1) ? desiredDirection.x > 0 : desiredDirection.x < 0)
             {
                 m_PlayerInfo.Ani.SetFloat("Move", 0);

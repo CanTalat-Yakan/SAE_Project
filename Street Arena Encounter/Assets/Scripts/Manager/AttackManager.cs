@@ -15,7 +15,6 @@ public class AttackManager : MonoBehaviour
     public static AttackManager Instance { get; private set; }
 
     [SerializeField] SThrowingObject m_object;
-    public AnimatorOverrideController Overrider;
     public AnimationClip[] clips = new AnimationClip[6];
     #endregion
 
@@ -45,4 +44,15 @@ public class AttackManager : MonoBehaviour
         yield return null;
     }
 
+    public void Throwback(PlayerInformation _PlayerInfo, float _distance, float _time, bool _map = true)
+    {
+        if (!GameManager.Instance.BoolDistance(_PlayerInfo.GP.MinDistance))
+            return;
+
+        float targetX = _PlayerInfo.Char.gameObject.transform.localPosition.x + _PlayerInfo.Forward * _distance;
+        //if (_map)
+            //targetX *= GameManager.Instance.MapDistance(_PlayerInfo.GP.MinDistance);
+
+        _PlayerInfo.Char.gameObject.transform.DOLocalMoveX(targetX, _time).SetEase(Ease.OutCubic);
+    }
 }
