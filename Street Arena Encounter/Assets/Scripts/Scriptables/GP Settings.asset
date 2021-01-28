@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: GP Settings
   m_EditorClassIdentifier: 
   MinDistance: 1.5
-  MaxDistance: 25
+  MaxDistance: 9
   JumpForce: 10
   JumpDashForce: 5
   DashForce: 10
   GravityForce: -40
   Speed: 1
   PlayerHeight: 3.1
+  PlayerStartPos: 3
   CrouchHeightRatio: 0.74
-  PlayerHealth: 100
+  Health: 100
