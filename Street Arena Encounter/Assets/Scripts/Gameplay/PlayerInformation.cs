@@ -13,7 +13,7 @@ public struct PlayerInformation
     public InputMaster Input;
     public GP_Settings GP;
     [HideInInspector] public float Forward { get => Ani.transform.localScale.x; set => Forward = value; }
-    //[HideInInspector] public bool IsLeft { get => Forward == 1; set => IsLeft = value; }
+    [HideInInspector] public bool IsLeft { get => Forward == 1; set => IsLeft = value; }
 
     [Header("Current State in Game")]
     public float Health;

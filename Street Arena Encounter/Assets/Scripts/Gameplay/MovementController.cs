@@ -141,7 +141,7 @@ public class MovementController : MonoBehaviour
     bool Constraint()
     {
         if (!GameManager.Instance.BoolDistance(m_PlayerInfo.GP.MinDistance))
-            if ((m_PlayerInfo.Forward != 1) ? desiredDirection.x < 0 : desiredDirection.x > 0)
+            if (!m_PlayerInfo.IsLeft ? desiredDirection.x < 0 : desiredDirection.x > 0)
             {
                 m_PlayerInfo.Ani.SetFloat("Move", 0);
                 m_PlayerInfo.Ani.SetBool("Crouch", false);
@@ -150,7 +150,7 @@ public class MovementController : MonoBehaviour
             }
 
         if (GameManager.Instance.BoolDistance(m_PlayerInfo.GP.MaxDistance))
-            if ((m_PlayerInfo.Forward != 1) ? desiredDirection.x > 0 : desiredDirection.x < 0)
+            if (!m_PlayerInfo.IsLeft ? desiredDirection.x > 0 : desiredDirection.x < 0)
             {
                 m_PlayerInfo.Ani.SetFloat("Move", 0);
                 m_PlayerInfo.Ani.SetBool("Crouch", false);

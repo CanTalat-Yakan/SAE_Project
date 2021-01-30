@@ -60,7 +60,7 @@ public class @C_InputSystem : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""Block"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""50cc7379-018b-4667-9e97-58002cbf47f7"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",

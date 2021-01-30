@@ -8,8 +8,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     #region -Values
-    public MovementController m_MovementController;
-    public AttackController m_AttackController;
+    [HideInInspector] public MovementController m_MovementController;
+    [HideInInspector] public AttackController m_AttackController;
 
     [SerializeField] bool m_leftSide;
     #endregion

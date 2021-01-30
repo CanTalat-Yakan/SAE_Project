@@ -95,6 +95,7 @@ public class GameManager : MonoBehaviour
             if (InputSystem.GetDevice<Gamepad>().buttonEast.wasPressedThisFrame)
             {
                 LOCKED = false;
+                Continue();
             }
         }
         if (InputSystem.GetDevice<Keyboard>() != null)
@@ -107,11 +108,9 @@ public class GameManager : MonoBehaviour
             if (InputSystem.GetDevice<Keyboard>().enterKey.wasPressedThisFrame)
             {
                 LOCKED = false;
+                Continue();
             }
         }
-
-        if (!LOCKED)
-            Continue();
     }
     public void Pause()
     {
@@ -208,8 +207,8 @@ public class GameManager : MonoBehaviour
     }
     public float MapDistance(float _threshold)
     {
-        return Map(Mathf.Abs(GetDistance()), 
-            _threshold, 2.3f, 
+        return Map(Mathf.Abs(GetDistance()),
+            _threshold, 2.3f,
             0, 1);
     }
     #endregion

@@ -26,8 +26,7 @@ public struct SAttacks
         heavy =
         b_heavy =
         low =
-        b_low =
-        block = false;
+        b_low = false;
     }
 }
 public class InputMaster : MonoBehaviour
@@ -90,7 +89,7 @@ public class InputMaster : MonoBehaviour
     }
     void OnBlock(InputValue _i)
     {
-        m_attacks.block = true;
+        m_attacks.block = _i.Get<float>() == 1;
     }
     void OnLow(InputValue _i)
     {

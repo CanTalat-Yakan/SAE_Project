@@ -44,15 +44,15 @@ public class AttackManager : MonoBehaviour
         yield return null;
     }
 
-    public void Throwback(PlayerInformation _PlayerInfo, float _distance, float _time, bool _map = true)
+    public void Dash(PlayerInformation _playerInfo, float _distance, float _time, bool _map = true)
     {
-        if (!GameManager.Instance.BoolDistance(_PlayerInfo.GP.MinDistance))
+        if (_distance >= 0 && !GameManager.Instance.BoolDistance(_playerInfo.GP.MinDistance))
             return;
 
-        float targetX = _PlayerInfo.Char.gameObject.transform.localPosition.x + _PlayerInfo.Forward * _distance;
-        //if (_map)
-        //    targetX *= GameManager.Instance.MapDistance(_PlayerInfo.GP.MinDistance);
+        float targetX = _playerInfo.Char.gameObject.transform.localPosition.x + _playerInfo.Forward * _distance;
+        if (_map)
+            targetX += _playerInfo.Forward * GameManager.Instance.MapDistance(_playerInfo.GP.MinDistance);
 
-        _PlayerInfo.Char.gameObject.transform.DOLocalMoveX(targetX, _time).SetEase(Ease.OutCubic);
+        _playerInfo.Char.gameObject.transform.DOLocalMoveX(targetX, _time).SetEase(Ease.OutCubic);
     }
 }
