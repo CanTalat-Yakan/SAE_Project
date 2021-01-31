@@ -66,6 +66,8 @@ public class DamageManager : MonoBehaviour
                 GameManager.Instance.m_Player_L.Health -= _damageAmount;
             GameManager.Instance.m_Player_L.Ani.SetTrigger("Damaged");
 
+            if (GameManager.Instance.m_Player_L.Health <= 20)
+                AttackManager.Instance.SetSpecial(m_toLeftSide);
             m_ps_L[(int)_damageType].Play();
         }
         else
@@ -73,6 +75,9 @@ public class DamageManager : MonoBehaviour
             if (GameManager.Instance.m_Init.m_GameMode != EGameModes.TRAINING)
                 GameManager.Instance.m_Player_R.Health -= _damageAmount;
             GameManager.Instance.m_Player_R.Ani.SetTrigger("Damaged");
+            
+            if (GameManager.Instance.m_Player_R.Health <= 20)
+                AttackManager.Instance.SetSpecial(m_toLeftSide);
 
             m_ps_R[(int)_damageType].Play();
         }
@@ -88,11 +93,10 @@ public class DamageManager : MonoBehaviour
     {
         CinemachineBasicMultiChannelPerlin noise = GameManager.Instance.m_CMVCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
 
-        float tmpValue = noise.m_FrequencyGain;
         noise.m_FrequencyGain = _intensity;
 
         yield return new WaitForSeconds(_duration);
-        noise.m_FrequencyGain = tmpValue;
+        noise.m_FrequencyGain = 1;
 
         yield return null;
     }

@@ -75,7 +75,7 @@ public class AttackController : MonoBehaviour
             clipOverrides["Punching"] = AttackManager.Instance.clips[1];
             animatorOverrideController.ApplyOverrides(clipOverrides);
 
-            StartCoroutine(Base(EAttackStates.F_LowAttack, Hit(EDamageStates.Middle, 2, true), true, 15, 50));
+            StartCoroutine(Base(EAttackStates.F_LowAttack, Hit(EDamageStates.High, 2, true), true, 15, 3));
         }
         if (m_PlayerInfo.Input.m_attacks.b_heavy)
         {
@@ -115,6 +115,15 @@ public class AttackController : MonoBehaviour
             animatorOverrideController.ApplyOverrides(clipOverrides);
 
             StartCoroutine(Base(EAttackStates.B_LowAttack, Hit(EDamageStates.Low)));
+        }
+
+        if (m_PlayerInfo.Input.m_attacks.special)
+        {
+            if (AttackManager.Instance.GetSpecial(m_PlayerInfo.IsLeft))
+            {
+                TimelineManager.Instance.Play(TimelineManager.Instance.m_TL_Special[Random.Range(0, TimelineManager.Instance.m_TL_Special.Length)]);
+                AttackManager.Instance.SetSpecial(m_PlayerInfo.IsLeft, false);
+            }
         }
     }
 
@@ -162,8 +171,6 @@ public class AttackController : MonoBehaviour
     }
     public IEnumerator Hit(EDamageStates _damageType, float _damage = 3, bool _freezeTime = false)
     {
-        m_PlayerInfo.Char.height = m_PlayerInfo.GP.PlayerHeight;
-
         bool tmpDamaged = false;
         for (int i = 0; i < _damage; i++)
         {
@@ -195,6 +202,7 @@ public class AttackController : MonoBehaviour
     {
         m_CurrentState = EAttackStates.NONE;
         m_PlayerInfo.Ani.SetBool("Block", false);
+        AttackManager.Instance.SetSpecial(m_PlayerInfo.IsLeft, false);
         m_Attacking = false;
     }
     #endregion

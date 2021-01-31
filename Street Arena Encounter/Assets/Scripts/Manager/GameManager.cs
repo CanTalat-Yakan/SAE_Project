@@ -13,7 +13,6 @@ public class GameManager : MonoBehaviour
     [Header("Level Attributes")]
     public Main_Init m_Init;
     public GameObject m_Training_Input;
-    [SerializeField] PlayableDirector m_timeline;
     public CinemachineVirtualCamera m_CMVCamera;
 
     [Header("Player Attributes")]
@@ -29,7 +28,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] float m_loadTimer;
     public bool m_SkipIntro;
 
-    float m_timeStamp = 0;
     [HideInInspector] public bool LOCKED;
     [HideInInspector] public bool STARTED;
     [HideInInspector] public Camera MainCamera;
@@ -226,17 +224,18 @@ public class GameManager : MonoBehaviour
         if (!SceneManager.GetSceneByName(m_Init.m_Level.ToString()).isLoaded)
             SceneManager.LoadScene(m_Init.m_Level.ToString(), LoadSceneMode.Additive);
 
-        m_timeStamp = Time.time;
         StartCoroutine(UnloadScenes());
 
         yield return null;
     }
     IEnumerator UnloadScenes()
     {
+        float timeStamp = Time.time;
+
         yield return new WaitForSeconds(1);
 
         if (!m_SkipIntro)
-            while (Time.time - m_timeStamp < m_loadTimer)
+            while (Time.time - timeStamp < m_loadTimer)
             {
                 yield return new WaitForSeconds(1);
             }
@@ -252,7 +251,7 @@ public class GameManager : MonoBehaviour
 
 
         if (!m_SkipIntro)
-            m_timeline.Play();
+            TimelineManager.Instance.Play(TimelineManager.Instance.m_TL_Beginning[Random.Range(0, TimelineManager.Instance.m_TL_Beginning.Length)]);
 
         yield return null;
     }

@@ -16,6 +16,7 @@ public struct SAttacks
     public bool b_heavy;
     public bool low;
     public bool b_low;
+    public bool special;
 
     public bool block;
 
@@ -26,7 +27,8 @@ public struct SAttacks
         heavy =
         b_heavy =
         low =
-        b_low = false;
+        b_low = 
+        special = false;
     }
 }
 public class InputMaster : MonoBehaviour
@@ -97,6 +99,11 @@ public class InputMaster : MonoBehaviour
             m_attacks.b_low = true;
         else
             m_attacks.low = true;
+    }
+
+    void OnSpecial(InputValue _i)
+    {
+        m_attacks.special = true;
     }
     #endregion
 }
