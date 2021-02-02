@@ -5046,8 +5046,6 @@ GameObject:
   - component: {fileID: 378409833}
   - component: {fileID: 378409832}
   - component: {fileID: 378409831}
-  - component: {fileID: 378409836}
-  - component: {fileID: 378409835}
   - component: {fileID: 378409837}
   m_Layer: 0
   m_Name: Left
@@ -5151,35 +5149,6 @@ MonoBehaviour:
   m_MovementController: {fileID: 0}
   m_AttackController: {fileID: 0}
   m_leftSide: 1
---- !u!65 &378409835
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 378409829}
-  m_Material: {fileID: 13400000, guid: bae46bbe7db7a4540871faa8aa515765, type: 2}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 3.1, z: 1}
-  m_Center: {x: 0, y: 1.55, z: 0}
---- !u!54 &378409836
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 378409829}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 120
-  m_CollisionDetection: 3
 --- !u!95 &378409837
 Animator:
   serializedVersion: 3
@@ -5334,7 +5303,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 494674798}
-  m_LocalRotation: {x: 0.07890374, y: 0.000000017680637, z: -0.0000000013994319, w: 0.99688226}
+  m_LocalRotation: {x: 0.07890374, y: -0.00000001768063, z: 0.0000000013994313, w: 0.99688226}
   m_LocalPosition: {x: 0, y: 2.47, z: -4.82}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -6606,7 +6575,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 840521268}
-  m_LocalRotation: {x: 0.068930395, y: 0.000000017665757, z: -0.0000000015761783, w: 0.9976215}
+  m_LocalRotation: {x: 0.068930395, y: -0.00000001766575, z: 0.0000000015761776, w: 0.9976215}
   m_LocalPosition: {x: 0, y: 1.2675484, z: 3.7457337}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -11827,7 +11796,7 @@ PlayableDirector:
   m_GameObject: {fileID: 993288317}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 5b9a49ebaa9a9bc4189b5d5481282c64, type: 2}
+  m_PlayableAsset: {fileID: 0}
   m_InitialState: 0
   m_WrapMode: 0
   m_DirectorUpdateMode: 1
@@ -28013,8 +27982,6 @@ GameObject:
   - component: {fileID: 1965195722}
   - component: {fileID: 1965195721}
   - component: {fileID: 1965195720}
-  - component: {fileID: 1965195725}
-  - component: {fileID: 1965195724}
   - component: {fileID: 1965195726}
   m_Layer: 0
   m_Name: Right
@@ -28118,35 +28085,6 @@ MonoBehaviour:
   m_MovementController: {fileID: 0}
   m_AttackController: {fileID: 0}
   m_leftSide: 0
---- !u!65 &1965195724
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1965195718}
-  m_Material: {fileID: 13400000, guid: bae46bbe7db7a4540871faa8aa515765, type: 2}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 3.1, z: 1}
-  m_Center: {x: 0, y: 1.55, z: 0}
---- !u!54 &1965195725
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1965195718}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 120
-  m_CollisionDetection: 3
 --- !u!95 &1965195726
 Animator:
   serializedVersion: 3
