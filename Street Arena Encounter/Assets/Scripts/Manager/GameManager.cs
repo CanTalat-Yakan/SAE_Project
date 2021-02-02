@@ -63,7 +63,8 @@ public class GameManager : MonoBehaviour
             m_Player_R.Player.enabled = false;
         }
 
-        #endregion
+# endregion
+        QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
 
         StartCoroutine(Init());
