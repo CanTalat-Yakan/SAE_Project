@@ -66,8 +66,12 @@ public class DamageManager : MonoBehaviour
                 GameManager.Instance.m_Player_L.Health -= _damageAmount;
             GameManager.Instance.m_Player_L.Ani.SetTrigger("Damaged");
 
-            if (GameManager.Instance.m_Player_L.Health <= 20)
+            if (GameManager.Instance.m_Player_L.Health <= 20 && GameManager.Instance.m_Player_L.Special)
+            {
                 AttackManager.Instance.SetSpecial(m_toLeftSide);
+                GameManager.Instance.m_Player_L.Special = false;
+            }
+
             m_ps_L[(int)_damageType].Play();
         }
         else
@@ -76,8 +80,11 @@ public class DamageManager : MonoBehaviour
                 GameManager.Instance.m_Player_R.Health -= _damageAmount;
             GameManager.Instance.m_Player_R.Ani.SetTrigger("Damaged");
             
-            if (GameManager.Instance.m_Player_R.Health <= 20)
+            if (GameManager.Instance.m_Player_R.Health <= 20 && GameManager.Instance.m_Player_R.Special)
+            {
                 AttackManager.Instance.SetSpecial(m_toLeftSide);
+                GameManager.Instance.m_Player_R.Special = false;
+            }
 
             m_ps_R[(int)_damageType].Play();
         }

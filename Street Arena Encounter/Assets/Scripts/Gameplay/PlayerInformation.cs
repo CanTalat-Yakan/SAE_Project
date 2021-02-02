@@ -20,9 +20,11 @@ public struct PlayerInformation
     public float Health;
     public int RoundsWon;
     public string Name;
+    public bool Special;
     public void ResetValues()
     {
         Health = 100;
         RoundsWon = 0;
+        Special = true;
     }
 }
