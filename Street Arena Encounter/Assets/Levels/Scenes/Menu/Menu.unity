@@ -39770,6 +39770,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 78847ff47ad29ab40949aa27f5dd757a, type: 3}
   - {fileID: 8300000, guid: 78847ff47ad29ab40949aa27f5dd757a, type: 3}
   - {fileID: 8300000, guid: b7eaaeb66fa568c418d0d7993b117f44, type: 3}
+  m_MainAmbient:
+  - {fileID: 8300000, guid: d1b2f219dd2985f42bb781b9673c9870, type: 3}
+  - {fileID: 8300000, guid: d990446538a40d247821934501b56f9d, type: 3}
+  - {fileID: 8300000, guid: d990446538a40d247821934501b56f9d, type: 3}
+  - {fileID: 8300000, guid: d1b2f219dd2985f42bb781b9673c9870, type: 3}
+  - {fileID: 8300000, guid: d1b2f219dd2985f42bb781b9673c9870, type: 3}
+  - {fileID: 8300000, guid: d1b2f219dd2985f42bb781b9673c9870, type: 3}
   m_Attack:
   - {fileID: 0}
   - {fileID: 0}

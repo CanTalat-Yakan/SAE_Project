@@ -19,6 +19,8 @@ public class AudioManager : MonoBehaviour
     [Header("Main")]
     AudioSource m_mainMusicSource;
     public AudioClip[] m_MainMusic = new AudioClip[0];
+    AudioSource m_mainAmbientSource;
+    public AudioClip[] m_MainAmbient = new AudioClip[0];
     public AudioClip[] m_Attack = new AudioClip[3];
     public AudioClip m_Block;
     public AudioClip m_Special;
@@ -49,7 +51,23 @@ public class AudioManager : MonoBehaviour
     void Update()
     {
         if (SceneManager.GetSceneByName("Menu").isLoaded)
-            PlayMenuMusic();
+            PlayMenuMusic(0.3f);
+        else
+            StopMenuMusic();
+
+        if (SceneManager.GetSceneByName("Main").isLoaded)
+        {
+            if (!SceneManager.GetSceneByName("Menu").isLoaded)
+            {
+                PlayMainMusic();
+                PlayMainAmbient();
+            }
+        }
+        else
+        {
+            StopMainMusic();
+            StopMainAmbient();
+        }
     }
 
     public AudioSource Play(AudioClip _clip, float _volume = 1)
@@ -116,8 +134,12 @@ public class AudioManager : MonoBehaviour
         m_menuMusicSource = audioSource;
         Destroy(audioSource, m_MenuMusic.length);
     }
+    public void StopMenuMusic()
+    {
+        Destroy(m_menuMusicSource);
+    }
 
-    public void PlayMainMusic(float _volume)
+    public void PlayMainMusic(float _volume = 1)
     {
         if (m_mainMusicSource != null)
             return;
@@ -142,5 +164,32 @@ public class AudioManager : MonoBehaviour
     public void StopMainMusic()
     {
         Destroy(m_mainMusicSource);
+    }
+
+    public void PlayMainAmbient(float _volume = 1)
+    {
+        if (m_mainAmbientSource != null)
+            return;
+
+        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+
+        audioSource.rolloffMode = AudioRolloffMode.Custom;
+        audioSource.spatialBlend = 0.1f;
+        audioSource.maxDistance = 130;
+        audioSource.spread = 1;
+        audioSource.dopplerLevel = 0;
+        audioSource.reverbZoneMix = 1;
+        audioSource.clip = m_MainAmbient[(int)GameManager.Instance.m_Init.m_Level];
+        audioSource.volume = _volume;
+        audioSource.pitch = 1;
+        audioSource.loop = true;
+        audioSource.Play();
+        m_mainAmbientSource = audioSource;
+        Destroy(audioSource, m_MainAmbient[(int)GameManager.Instance.m_Init.m_Level].length);
+    }
+
+    public void StopMainAmbient()
+    {
+        Destroy(m_mainAmbientSource);
     }
 }
