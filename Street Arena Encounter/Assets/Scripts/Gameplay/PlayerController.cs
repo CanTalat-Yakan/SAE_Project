@@ -29,12 +29,11 @@ public class PlayerController : MonoBehaviour
             return;
 
         m_AttackController.Attack();
+
         if (!m_AttackController.m_Attacking)
             m_MovementController.Move();
         else
             m_MovementController.Fall();
-
-        m_MovementController.SetState();
     }
 
     /// <summary>
@@ -42,7 +41,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void ResetValues()
     {
-        m_MovementController.ResetValues(m_leftSide);
+        m_MovementController.ResetValues();
         m_AttackController.ResetValues();
         GameManager.Instance.m_Player_L.Health = GameManager.Instance.m_Player_L.GP.Health;
         GameManager.Instance.m_Player_R.Health = GameManager.Instance.m_Player_R.GP.Health;

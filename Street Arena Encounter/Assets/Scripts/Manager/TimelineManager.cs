@@ -14,7 +14,7 @@ public class TimelineManager : MonoBehaviour
     public PlayableAsset[] m_TL_Beginning;
     public PlayableAsset[] m_TL_Special;
 
-    public PlayableAsset m_TL_CurrentAsset;
+    [HideInInspector] public PlayableAsset m_TL_CurrentAsset;
 
     Vector3[] m_startPos = new Vector3[2];
 
