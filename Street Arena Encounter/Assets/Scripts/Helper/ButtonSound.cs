@@ -27,13 +27,13 @@ public class ButtonSound : MonoBehaviour
             return;
 
         if (gobj != m_currentGObj)
-            AudioManager.Instance.Play(AudioManager.Instance.m_ButtonMove);
+            AudioManager.Instance.Play(AudioManager.Instance.m_AudioInfo.m_ButtonMove);
         m_currentGObj = gobj;
     }
 
     void PlaySelectSound()
     {
         if (m_isuim.submit.action.triggered)
-            AudioManager.Instance.Play(AudioManager.Instance.m_ButtonSelect);
+            AudioManager.Instance.Play(AudioManager.Instance.m_AudioInfo.m_ButtonSelect);
     }
 }

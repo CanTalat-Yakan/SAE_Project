@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96e85d5584dc257469c0e6756faca259, type: 3}
+  m_Name: Audio Info
+  m_EditorClassIdentifier: 
+  m_MenuMusic: {fileID: 8300000, guid: e16f2544dd1adad47be741c9d1121091, type: 3}
+  m_ButtonSelect: {fileID: 8300000, guid: 25fe9a131ed51834498cc1a52f759028, type: 3}
+  m_ButtonMove: {fileID: 8300000, guid: 0fc6702ee44f8e746ab01f531389834f, type: 3}
+  m_PanelSelect: {fileID: 0}
+  m_PanelBack: {fileID: 0}
+  m_MainMusic:
+  - {fileID: 8300000, guid: 78847ff47ad29ab40949aa27f5dd757a, type: 3}
+  - {fileID: 8300000, guid: b7eaaeb66fa568c418d0d7993b117f44, type: 3}
+  - {fileID: 8300000, guid: 8fa8d8d3f98724a4494be3138b95df1e, type: 3}
+  - {fileID: 8300000, guid: 78847ff47ad29ab40949aa27f5dd757a, type: 3}
+  - {fileID: 8300000, guid: 78847ff47ad29ab40949aa27f5dd757a, type: 3}
+  - {fileID: 8300000, guid: b7eaaeb66fa568c418d0d7993b117f44, type: 3}
+  m_MainAmbient:
+  - {fileID: 8300000, guid: d1b2f219dd2985f42bb781b9673c9870, type: 3}
+  - {fileID: 8300000, guid: d990446538a40d247821934501b56f9d, type: 3}
+  - {fileID: 8300000, guid: d990446538a40d247821934501b56f9d, type: 3}
+  - {fileID: 8300000, guid: d1b2f219dd2985f42bb781b9673c9870, type: 3}
+  - {fileID: 8300000, guid: d1b2f219dd2985f42bb781b9673c9870, type: 3}
+  - {fileID: 8300000, guid: d1b2f219dd2985f42bb781b9673c9870, type: 3}
+  m_Attack:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  m_Block: {fileID: 0}
+  m_Special: {fileID: 0}
+  m_Damage: []
+  m_Shout: []
+  m_Count:
+  - {fileID: 8300000, guid: 99d6a27e109506e4e9f99369647904f7, type: 3}
+  - {fileID: 8300000, guid: 934ee30930117684da73562cd6a72df8, type: 3}
+  - {fileID: 8300000, guid: 22000bde18d610343a1ee42d30276040, type: 3}
+  - {fileID: 8300000, guid: b43bd1ae1c118ae438a4546718fddcea, type: 3}
+  - {fileID: 8300000, guid: c84fae170acd9764d8d22b813b129221, type: 3}
+  - {fileID: 8300000, guid: ed47e5012a205114197a6dadef184542, type: 3}
+  - {fileID: 8300000, guid: 25bc2532e75dd394dbc66abd9119c707, type: 3}
+  - {fileID: 8300000, guid: 085d7acb18e9bfc4d85d0dab1c5d57ba, type: 3}
+  - {fileID: 8300000, guid: a7aa162594b49f2489cf3fd963952733, type: 3}
+  - {fileID: 8300000, guid: 4c5de0c68f016c64a90439ec214b6a6f, type: 3}
+  - {fileID: 8300000, guid: 5e5d0a9c4dc0bb347b97b2b3b22b06b6, type: 3}
+  m_Begin:
+  - {fileID: 8300000, guid: c535cd6b264292e4494649886f99ac60, type: 3}
+  - {fileID: 8300000, guid: de427fd7606da33498f0907ad3021471, type: 3}
+  m_Round: {fileID: 8300000, guid: de427fd7606da33498f0907ad3021471, type: 3}
+  m_FinalRound: {fileID: 8300000, guid: c535cd6b264292e4494649886f99ac60, type: 3}
+  m_Tie: {fileID: 8300000, guid: 11f63b1737eb88545933875c62bcd77c, type: 3}
+  m_Won: {fileID: 8300000, guid: e4dbf22cc66b43c48a26958a976dfd49, type: 3}
+  m_Lose: {fileID: 8300000, guid: e8f71e3042d867540b140ae608faaa4e, type: 3}
+  m_Player:
+  - {fileID: 8300000, guid: 213a0e1e0dfabcb40ad9f0ab06c3dcfa, type: 3}
+  - {fileID: 8300000, guid: b9c8a655ac0cbb54888bd1572ca0b0ca, type: 3}

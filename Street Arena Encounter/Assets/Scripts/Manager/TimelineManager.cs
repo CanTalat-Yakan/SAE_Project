@@ -9,6 +9,8 @@ public class TimelineManager : MonoBehaviour
 
     [SerializeField] PlayableDirector m_TL_Directory;
 
+    public bool m_IsPlaying { get => m_TL_Directory.state == PlayState.Playing; set => m_IsPlaying = value; }
+
     public PlayableAsset[] m_TL_Beginning;
     public PlayableAsset[] m_TL_Special;
 
@@ -39,6 +41,7 @@ public class TimelineManager : MonoBehaviour
     {
         m_TL_Directory.gameObject.SetActive(true);
         GameManager.Instance.m_CMVCamera.gameObject.SetActive(false);
+        GameManager.Instance.MainCamera.gameObject.SetActive(true);
 
         GameManager.Instance.DeactivateChars();
         m_startPos[0] = GameManager.Instance.m_Player_L.Player.gameObject.transform.localPosition;
