@@ -25060,7 +25060,31 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings:
       - m_Name: 
-        m_Id: 6b4b6182-1aec-4023-9830-35675fe29079
+        m_Id: 1551c343-756c-43fc-9903-b888486eb169
+        m_Path: <Keyboard>/anyKey
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Join
+        m_Flags: 0
+      - m_Name: 
+        m_Id: 1149b564-24ae-47c1-9f52-3a8034c05423
+        m_Path: <Gamepad>/start
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Join
+        m_Flags: 0
+      - m_Name: 
+        m_Id: ffd663c7-894e-4095-8888-6afdbab20677
+        m_Path: <Gamepad>/buttonEast
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Join
+        m_Flags: 0
+      - m_Name: 
+        m_Id: f0f3c401-ae6c-4cfd-a3bb-9eb88d008a45
         m_Path: <Gamepad>/buttonSouth
         m_Interactions: 
         m_Processors: 
@@ -25068,8 +25092,56 @@ MonoBehaviour:
         m_Action: Join
         m_Flags: 0
       - m_Name: 
-        m_Id: e761da27-d43f-480e-ab0e-c4b67f887d6e
-        m_Path: <Keyboard>/enter
+        m_Id: c04d9eb0-a5cc-4c1d-bcab-e003985672d5
+        m_Path: <Gamepad>/buttonNorth
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Join
+        m_Flags: 0
+      - m_Name: 
+        m_Id: 74b89643-b597-4d19-87ad-813ccc36de8a
+        m_Path: <Gamepad>/buttonWest
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Join
+        m_Flags: 0
+      - m_Name: 
+        m_Id: 22aab853-589b-4ad0-9509-dde318e9d0ee
+        m_Path: <Gamepad>/start
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Join
+        m_Flags: 0
+      - m_Name: 
+        m_Id: e1b767e9-7ef4-4e85-ab72-7ae8aa72fdd4
+        m_Path: <Gamepad>/select
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Join
+        m_Flags: 0
+      - m_Name: 
+        m_Id: 6ecd3741-0466-46dd-96d2-03e040540e77
+        m_Path: <Gamepad>/dpad
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Join
+        m_Flags: 0
+      - m_Name: 
+        m_Id: 80fa7301-d441-4723-abb0-f54b42427d6e
+        m_Path: <Gamepad>/leftStick
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Join
+        m_Flags: 0
+      - m_Name: 
+        m_Id: cc2c0933-4c00-48f8-8c50-ec9d85d32dcb
+        m_Path: <Gamepad>/rightStick
         m_Interactions: 
         m_Processors: 
         m_Groups: 
@@ -39687,7 +39759,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MenuMusic: {fileID: 8300000, guid: e16f2544dd1adad47be741c9d1121091, type: 3}
-  m_ButtonSelect: {fileID: 8300000, guid: abeebe5ade093b146873783ac862440e, type: 3}
+  m_ButtonSelect: {fileID: 8300000, guid: 25fe9a131ed51834498cc1a52f759028, type: 3}
   m_ButtonMove: {fileID: 8300000, guid: 0fc6702ee44f8e746ab01f531389834f, type: 3}
   m_PanelSelect: {fileID: 0}
   m_PanelBack: {fileID: 0}
@@ -39726,11 +39798,11 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 75c1c2dcaf11f6245bf491a834af68f4, type: 3}
   - {fileID: 8300000, guid: f56faa1d0e4577347a440db5b5307d33, type: 3}
   - {fileID: 8300000, guid: 95563752eff1888408353e34558fe5e1, type: 3}
-  m_End: []
   m_Round: {fileID: 8300000, guid: de427fd7606da33498f0907ad3021471, type: 3}
-  m_Tie: {fileID: 0}
-  m_Won: {fileID: 0}
-  m_Lose: {fileID: 0}
+  m_FinalRound: {fileID: 8300000, guid: c535cd6b264292e4494649886f99ac60, type: 3}
+  m_Tie: {fileID: 8300000, guid: 11f63b1737eb88545933875c62bcd77c, type: 3}
+  m_Won: {fileID: 8300000, guid: e4dbf22cc66b43c48a26958a976dfd49, type: 3}
+  m_Lose: {fileID: 8300000, guid: e8f71e3042d867540b140ae608faaa4e, type: 3}
   m_Player:
   - {fileID: 0}
   - {fileID: 0}
@@ -62687,6 +62759,7 @@ GameObject:
   - component: {fileID: 1679623812}
   - component: {fileID: 1679623813}
   - component: {fileID: 1679623811}
+  - component: {fileID: 1679623814}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -62763,6 +62836,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_scaleFactor: 1.1
+--- !u!114 &1679623814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1679623809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d66e4469c95e6b14eb303e56d65b508d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1691723366
 GameObject:
   m_ObjectHideFlags: 0
