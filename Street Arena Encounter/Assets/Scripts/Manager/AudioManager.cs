@@ -28,8 +28,8 @@ public class AudioManager : MonoBehaviour
     [Header("Round")]
     public AudioClip[] m_Count = new AudioClip[10];
     public AudioClip[] m_Begin = new AudioClip[0];
-    public AudioClip[] m_End = new AudioClip[0];
     public AudioClip m_Round;
+    public AudioClip m_FinalRound;
     public AudioClip m_Tie;
     public AudioClip m_Won;
     public AudioClip m_Lose;
@@ -49,10 +49,10 @@ public class AudioManager : MonoBehaviour
     void Update()
     {
         if (SceneManager.GetSceneByName("Menu").isLoaded)
-            PlayMenuMusic(1);
+            PlayMenuMusic();
     }
 
-    public AudioSource Play(AudioClip _clip, float _volume)
+    public AudioSource Play(AudioClip _clip, float _volume = 1)
     {
         AudioSource audioSource = gameObject.AddComponent<AudioSource>();
 
@@ -70,7 +70,7 @@ public class AudioManager : MonoBehaviour
         return audioSource;
     }
 
-    public void PlaySequence(AudioClip _clip, AudioClip _clip2, float _volume)
+    public void PlaySequence(AudioClip _clip, AudioClip _clip2, float _volume = 1)
     {
         AudioSource audioSource = gameObject.AddComponent<AudioSource>();
         AudioSource audioSource2 = gameObject.AddComponent<AudioSource>();
@@ -95,7 +95,7 @@ public class AudioManager : MonoBehaviour
         audioSource2.Play((ulong)_clip.length);
     }
 
-    public void PlayMenuMusic(float _volume)
+    public void PlayMenuMusic(float _volume = 1)
     {
         if (m_menuMusicSource != null)
             return;
