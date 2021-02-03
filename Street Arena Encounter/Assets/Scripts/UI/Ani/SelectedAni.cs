@@ -9,6 +9,7 @@ public class SelectedAni : MonoBehaviour
 {
     GameObject m_currentGObj;
     [SerializeField] float m_scaleFactor = 1.1f;
+
     void Update()
     {
         if (EventSystem.current.currentSelectedGameObject == null)
@@ -26,9 +27,10 @@ public class SelectedAni : MonoBehaviour
     void Ani()
     {
         GameObject gobj = EventSystem.current.currentSelectedGameObject;
-        if (gobj == null)
+        if (!gobj)
             return;
-        else if (gobj != m_currentGObj)
+
+        if (gobj != m_currentGObj)
         {
             if (m_currentGObj)
                 Return(m_currentGObj);
