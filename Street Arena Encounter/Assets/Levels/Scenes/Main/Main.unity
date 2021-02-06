@@ -6492,7 +6492,7 @@ GameObject:
   - component: {fileID: 840521274}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11741,6 +11741,7 @@ MonoBehaviour:
   m_Init: {fileID: 11400000, guid: 3dde9488ed206674f99a7a736da5a296, type: 2}
   m_Training_Input: {fileID: 631771553}
   m_CMVCamera: {fileID: 494674800}
+  m_MainCamera: {fileID: 840521269}
   m_inputActionAsset: {fileID: -944628639613478452, guid: 2cdd3f3508cafeb479d8447a15c3d7fc, type: 3}
   m_PlayerGO_L: {fileID: 378409829}
   m_Player_L:
@@ -11765,10 +11766,9 @@ MonoBehaviour:
     Name: Swirly
     Special: 0
   m_loadTimer: 5
-  m_SkipIntro: 0
+  m_SkipIntro: 1
   LOCKED: 0
   STARTED: 0
-  MainCamera: {fileID: 840521269}
 --- !u!1 &990234980
 GameObject:
   m_ObjectHideFlags: 0
