@@ -102,8 +102,7 @@ public class MovementController : MonoBehaviour
     public void SetHeight()
     {
         //Crouching
-        //m_PlayerInfo.Char.height = m_PlayerInfo.Ani.GetBool("Crouch") ? m_PlayerInfo.GP.CrouchHeight : m_PlayerInfo.GP.PlayerHeight;
-        //m_PlayerInfo.Char.radius = m_PlayerInfo.GP.MinDistance;
+        m_PlayerInfo.Collider.size = new Vector3(m_PlayerInfo.GP.PlayerRadius, m_PlayerInfo.GP.PlayerHeight, 1);
     }
     public void Force(float _dir, float _drag = 30)
     {
