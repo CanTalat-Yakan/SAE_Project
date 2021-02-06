@@ -5044,10 +5044,10 @@ GameObject:
   - component: {fileID: 378409830}
   - component: {fileID: 378409834}
   - component: {fileID: 378409833}
+  - component: {fileID: 378409835}
   - component: {fileID: 378409832}
   - component: {fileID: 378409831}
   - component: {fileID: 378409837}
-  - component: {fileID: 378409835}
   m_Layer: 0
   m_Name: Left
   m_TagString: Untagged
@@ -5130,9 +5130,9 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 120
   m_CollisionDetection: 0
 --- !u!114 &378409834
@@ -5157,7 +5157,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 378409829}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: bae46bbe7db7a4540871faa8aa515765, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -11751,10 +11751,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Init: {fileID: 11400000, guid: 3dde9488ed206674f99a7a736da5a296, type: 2}
-  m_Training_Input: {fileID: 631771553}
+  m_Default_Input: {fileID: 631771553}
   m_CMVCamera: {fileID: 494674800}
   m_MainCamera: {fileID: 840521269}
-  m_inputActionAsset: {fileID: -944628639613478452, guid: 2cdd3f3508cafeb479d8447a15c3d7fc, type: 3}
+  m_GP: {fileID: 11400000, guid: 36a3a49ea9a8d1d409717af0da21a8ed, type: 2}
   m_PlayerGO_L: {fileID: 378409829}
   m_Player_L:
     Player: {fileID: 378409834}
@@ -11777,7 +11777,7 @@ MonoBehaviour:
     RoundsWon: 0
     Name: Swirly
     Special: 0
-  m_loadTimer: 5
+  m_loadingscreenTimer: 0
   m_SkipIntro: 1
   LOCKED: 0
   STARTED: 0
@@ -28137,7 +28137,7 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 120
   m_CollisionDetection: 0
 --- !u!114 &1965195723
