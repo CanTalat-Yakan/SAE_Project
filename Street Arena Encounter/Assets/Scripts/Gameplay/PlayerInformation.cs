@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 public struct PlayerInformation
 {
     public PlayerController Player;
-    public CharacterController Char;
+    public Rigidbody RB;
     public Animator Ani;
     public InputMaster Input;
     public GP_Settings GP;
@@ -21,6 +21,18 @@ public struct PlayerInformation
     public int RoundsWon;
     public string Name;
     public bool Special;
+
+    public void GetComponentValues(GameObject _obj)
+    {
+        Player = _obj.GetComponent<PlayerController>();
+        Player.m_MovementController = _obj.GetComponent<MovementController>();
+        Player.m_MovementController.m_PlayerInfo = this;
+        Player.m_AttackController = _obj.GetComponent<AttackController>();
+        Player.m_AttackController.m_PlayerInfo = this;
+        RB = _obj.GetComponent<Rigidbody>();
+        Ani = _obj.transform.GetChild(0).GetComponent<Animator>();
+        Input = null;
+    }
 
     public void ResetValues()
     {
