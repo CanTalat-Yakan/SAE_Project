@@ -47,16 +47,9 @@ public class AttackManager : MonoBehaviour
         yield return null;
     }
 
-    public void Dash(PlayerInformation _playerInfo, float _distance, float _time, bool _map = true)
+    public void Dash(PlayerInformation _playerInfo, float _force)
     {
-        if (_distance >= 0 && !GameManager.Instance.BoolDistance(_playerInfo.GP.MinDistance))
-            return;
-
-        float targetX = _playerInfo.Char.gameObject.transform.localPosition.x + _playerInfo.Forward * _distance;
-        if (_map)
-            targetX += _playerInfo.Forward * GameManager.Instance.MapDistance(_playerInfo.GP.MinDistance);
-
-        _playerInfo.Char.gameObject.transform.DOLocalMoveX(targetX, _time).SetEase(Ease.OutCubic);
+        _playerInfo.Player.m_MovementController.Force(_force * _playerInfo.Forward);
     }
 
     public void SetSpecial(bool _toLeft, bool _active = true)

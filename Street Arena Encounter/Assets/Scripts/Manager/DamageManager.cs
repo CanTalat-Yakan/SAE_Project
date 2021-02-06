@@ -89,11 +89,16 @@ public class DamageManager : MonoBehaviour
             m_ps_R[(int)_damageType].Play();
         }
 
-        AttackManager.Instance.Dash(GameManager.Instance.m_Player_R, -0.8f, 0.25f, false);
+        FallBack(GameManager.Instance.m_Player_R, 5);
 
         StartCoroutine(Shake(25, 0.2f));
 
         yield return null;
+    }
+
+    public void FallBack(PlayerInformation _playerInfo, float _force)
+    {
+        _playerInfo.Player.m_MovementController.Force(_force * -_playerInfo.Forward);
     }
 
     IEnumerator Shake(float _intensity, float _duration)
