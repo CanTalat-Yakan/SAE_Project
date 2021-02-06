@@ -6,8 +6,8 @@ public class GP_Settings : ScriptableObject
     public float MinDistance = 2;
     public float MaxDistance = 25;
     public float JumpForce = 10;
-    public float JumpDashForce = 15;
-    public float DashForce = 30;
+    public float JumpDashDistance = 15;
+    public float DashDistance = 30;
     public float GravityForce = -40;
     public float Speed = 1;
     public float PlayerHeight = 3.1f;
