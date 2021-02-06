@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     #endregion
 
 
-    void Update()
+    void FixedUpdate()
     {
         if (!GameManager.Instance.STARTED || GameManager.Instance.LOCKED || (!m_leftSide && GameManager.Instance.m_Player_R.Input == null))
             return;
