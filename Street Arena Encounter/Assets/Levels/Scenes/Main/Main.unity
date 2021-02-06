@@ -5047,6 +5047,7 @@ GameObject:
   - component: {fileID: 378409832}
   - component: {fileID: 378409831}
   - component: {fileID: 378409837}
+  - component: {fileID: 378409835}
   m_Layer: 0
   m_Name: Left
   m_TagString: Untagged
@@ -5084,7 +5085,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PlayerInfo:
     Player: {fileID: 0}
-    Char: {fileID: 0}
+    RB: {fileID: 0}
     Ani: {fileID: 0}
     Input: {fileID: 0}
     GP: {fileID: 0}
@@ -5109,7 +5110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PlayerInfo:
     Player: {fileID: 0}
-    Char: {fileID: 0}
+    RB: {fileID: 0}
     Ani: {fileID: 0}
     Input: {fileID: 0}
     GP: {fileID: 0}
@@ -5118,24 +5119,22 @@ MonoBehaviour:
     Name: 
     Special: 0
   m_CurrentState: 0
---- !u!143 &378409833
-CharacterController:
+--- !u!54 &378409833
+Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 378409829}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1.55, z: 0}
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 120
+  m_CollisionDetection: 0
 --- !u!114 &378409834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5151,6 +5150,19 @@ MonoBehaviour:
   m_MovementController: {fileID: 0}
   m_AttackController: {fileID: 0}
   m_leftSide: 1
+--- !u!65 &378409835
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378409829}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 3.1, z: 1}
+  m_Center: {x: 0, y: 1.55, z: 0}
 --- !u!95 &378409837
 Animator:
   serializedVersion: 3
@@ -11746,7 +11758,7 @@ MonoBehaviour:
   m_PlayerGO_L: {fileID: 378409829}
   m_Player_L:
     Player: {fileID: 378409834}
-    Char: {fileID: 378409833}
+    RB: {fileID: 378409833}
     Ani: {fileID: 1439122167}
     Input: {fileID: 631771555}
     GP: {fileID: 11400000, guid: 36a3a49ea9a8d1d409717af0da21a8ed, type: 2}
@@ -11757,7 +11769,7 @@ MonoBehaviour:
   m_PlayerGO_R: {fileID: 1965195718}
   m_Player_R:
     Player: {fileID: 1965195723}
-    Char: {fileID: 1965195722}
+    RB: {fileID: 1965195722}
     Ani: {fileID: 631684837}
     Input: {fileID: 631771555}
     GP: {fileID: 11400000, guid: 36a3a49ea9a8d1d409717af0da21a8ed, type: 2}
@@ -23150,10 +23162,10 @@ MonoBehaviour:
   m_RotationMode: 0
   m_UpdateMethod: 2
   m_Targets:
-  - target: {fileID: 446492917}
+  - target: {fileID: 378409830}
     weight: 1
     radius: 0
-  - target: {fileID: 1368311480}
+  - target: {fileID: 1965195719}
     weight: 1
     radius: 0
 --- !u!1 &1914207168
@@ -28078,7 +28090,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PlayerInfo:
     Player: {fileID: 0}
-    Char: {fileID: 0}
+    RB: {fileID: 0}
     Ani: {fileID: 0}
     Input: {fileID: 0}
     GP: {fileID: 0}
@@ -28103,7 +28115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PlayerInfo:
     Player: {fileID: 0}
-    Char: {fileID: 0}
+    RB: {fileID: 0}
     Ani: {fileID: 0}
     Input: {fileID: 0}
     GP: {fileID: 0}
@@ -28112,24 +28124,22 @@ MonoBehaviour:
     Name: 
     Special: 0
   m_CurrentState: 0
---- !u!143 &1965195722
-CharacterController:
+--- !u!54 &1965195722
+Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1965195718}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1.55, z: 0}
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 120
+  m_CollisionDetection: 0
 --- !u!114 &1965195723
 MonoBehaviour:
   m_ObjectHideFlags: 0
