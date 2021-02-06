@@ -10,14 +10,13 @@ public class PlayerController : MonoBehaviour
     #region -Values
     [HideInInspector] public MovementController m_MovementController;
     [HideInInspector] public AttackController m_AttackController;
-
-    [SerializeField] bool m_leftSide;
+    [HideInInspector] public bool m_IsLeft;
     #endregion
 
 
     void FixedUpdate()
     {
-        if (!GameManager.Instance.STARTED || GameManager.Instance.LOCKED || (!m_leftSide && GameManager.Instance.m_Player_R.Input == null))
+        if (!GameManager.Instance.STARTED || GameManager.Instance.LOCKED || (!m_IsLeft && GameManager.Instance.m_Player_R.Input == null))
             return;
 
         m_AttackController.Attack();
