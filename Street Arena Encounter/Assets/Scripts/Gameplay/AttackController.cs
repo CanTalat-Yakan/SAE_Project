@@ -137,7 +137,7 @@ public class AttackController : MonoBehaviour
             m_CurrentState = _state;
             m_PlayerInfo.Ani.SetBool("Attacking", m_Attacking = true);
 
-            AttackManager.Instance.Dash(m_PlayerInfo, 0.3f, 0.25f);
+            AttackManager.Instance.Dash(m_PlayerInfo, 100);
 
             for (int i = 0; i < _activation; i++)
                 yield return new WaitForEndOfFrame();
