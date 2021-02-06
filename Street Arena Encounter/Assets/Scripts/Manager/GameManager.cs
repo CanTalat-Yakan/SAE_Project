@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public Main_Init m_Init;
     public GameObject m_Training_Input;
     public CinemachineVirtualCamera m_CMVCamera;
+    public Camera m_MainCamera;
 
     [Header("Player Attributes")]
     [SerializeField] InputActionAsset m_inputActionAsset;
@@ -30,7 +31,6 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector] public bool LOCKED;
     [HideInInspector] public bool STARTED;
-    [HideInInspector] public Camera MainCamera;
     #endregion
 
     void Awake()
@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
             m_Player_R.Player.enabled = false;
         }
 
-# endregion
+        #endregion
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
 
@@ -76,6 +76,18 @@ public class GameManager : MonoBehaviour
 
         if (LOCKED)
             return;
+    }
+
+    void LateUpdate()
+    {
+        //Lock Target in Movable Space
+        m_Player_L.Constraint();
+        m_Player_R.Constraint();
+
+        //Set State of current Movement
+        m_Player_L.Player.m_MovementController.SetState();
+        if (m_Player_R.Player.isActiveAndEnabled)
+            m_Player_R.Player.m_MovementController.SetState();
     }
 
     #region -Utilities
@@ -253,6 +265,8 @@ public class GameManager : MonoBehaviour
 
         if (!m_SkipIntro)
             TimelineManager.Instance.Play(TimelineManager.Instance.m_TL_Beginning[Random.Range(0, TimelineManager.Instance.m_TL_Beginning.Length)]);
+        else
+            m_MainCamera.gameObject.SetActive(true);
 
         yield return null;
     }

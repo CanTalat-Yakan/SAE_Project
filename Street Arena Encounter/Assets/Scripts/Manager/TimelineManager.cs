@@ -41,7 +41,7 @@ public class TimelineManager : MonoBehaviour
     {
         m_TL_Directory.gameObject.SetActive(true);
         GameManager.Instance.m_CMVCamera.gameObject.SetActive(false);
-        GameManager.Instance.MainCamera.gameObject.SetActive(true);
+        GameManager.Instance.m_MainCamera.gameObject.SetActive(true);
 
         GameManager.Instance.DeactivateChars();
         m_startPos[0] = GameManager.Instance.m_Player_L.Player.gameObject.transform.localPosition;
