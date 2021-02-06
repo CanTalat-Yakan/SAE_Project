@@ -18,8 +18,9 @@ public class MovementController : MonoBehaviour
     [HideInInspector] public PlayerInformation m_PlayerInfo;
     [HideInInspector] public EMovementStates m_CurrentState;
 
-    Vector3 desiredDirection;
+    Vector3 m_desiredDirection;
     float m_force;
+    float m_drag;
     #endregion
 
     /// <summary>
@@ -27,20 +28,22 @@ public class MovementController : MonoBehaviour
     /// </summary>
     public void Move()
     {
+        Debug.Log(m_force);
+
         //InputValues
-        desiredDirection.x = m_PlayerInfo.Input.m_controls.m;
+        m_desiredDirection.x = m_PlayerInfo.Input.m_controls.m;
         //SetAnimator Pramater for Movement
         m_PlayerInfo.Ani.SetFloat("Move", m_PlayerInfo.Input.m_controls.m * m_PlayerInfo.Forward);
 
         //Chrouch Movement
-        if (desiredDirection.x * m_PlayerInfo.Forward >= 0)
+        if (m_desiredDirection.x * m_PlayerInfo.Forward >= 0)
         {
             //SetAnimator Pramater for Crouching
             m_PlayerInfo.Ani.SetBool("Crouch", m_PlayerInfo.Input.m_controls.c);
         }
         else if (m_PlayerInfo.Input.m_controls.c)
         {
-            desiredDirection.x = 0;
+            m_desiredDirection.x = 0;
             m_PlayerInfo.Ani.SetFloat("Move", 0);
             m_PlayerInfo.Ani.SetBool("Crouch", m_PlayerInfo.Input.m_controls.c);
             return;
@@ -60,25 +63,23 @@ public class MovementController : MonoBehaviour
                 //SetAnimator Pramater for Jumping
                 m_PlayerInfo.Ani.SetBool("Jump", true);
                 //Set InputValues for Jumping
-                desiredDirection.y = m_PlayerInfo.GP.JumpForce;
+                m_desiredDirection.y = m_PlayerInfo.GP.JumpForce;
                 //Jumping Dashing forward/ backward
-                AttackManager.Instance.Dash(m_PlayerInfo, m_PlayerInfo.GP.JumpDashDistance * desiredDirection.x, 0.25f);
+                Force(m_PlayerInfo.GP.JumpDashForce * m_desiredDirection.x);
+                //m_PlayerInfo.RB.AddForce(m_PlayerInfo.GP.JumpDashDistance * desiredDirection.x * Vector3.right, ForceMode.Impulse);
+                //AttackManager.Instance.Dash(m_PlayerInfo, m_PlayerInfo.GP.JumpDashDistance * desiredDirection.x, 0.25f);
             }
             if (m_PlayerInfo.Input.m_controls.d)
-            {
                 //Dashing forward/ backward
-                AttackManager.Instance.Dash(m_PlayerInfo, m_PlayerInfo.GP.DashDistance * desiredDirection.x, 0.25f);
-            }
+                AttackManager.Instance.Dash(m_PlayerInfo, m_PlayerInfo.GP.DashForce * m_desiredDirection.x);
         }
 
         //Calculating Gravity
         if (!IsGrounded())
-        desiredDirection.y += m_PlayerInfo.GP.GravityForce * Time.deltaTime;
-            //desiredDirection.y = Mathf.Max(desiredDirection.y, -25);
+            m_desiredDirection.y += m_PlayerInfo.GP.GravityForce * Time.deltaTime;
 
-
-        //hand over desiredDirection to charController;
-        m_PlayerInfo.Char.Move(desiredDirection * Time.deltaTime);
+        //Move Player with velocity of desired direction
+        m_PlayerInfo.RB.velocity = m_desiredDirection + Vector3.right * m_force;
     }
     /// <summary>
     /// When the Contraint is true then perform Fall() instead of Move()
@@ -87,68 +88,86 @@ public class MovementController : MonoBehaviour
     {
         //Reset Values
         m_force = 0;
-        desiredDirection.x = 0;
+        m_desiredDirection.x = 0;
 
         //Calculating Gravity
-        desiredDirection.y += m_PlayerInfo.GP.GravityForce * Time.deltaTime;
+        if (!IsGrounded())
+            m_desiredDirection.y += m_PlayerInfo.GP.GravityForce * Time.deltaTime;
 
-        //hand over desiredDirection to charController;
-        m_PlayerInfo.Char.Move(desiredDirection * Time.deltaTime);
-
-        //m_PlayerInfo.Char.height = m_PlayerInfo.GP.PlayerHeight;
+        m_PlayerInfo.RB.velocity = m_desiredDirection + Vector3.right * m_force;
     }
 
-    #region -Utilities
-
+    #region //Utilities
     /// <summary>
     /// Changes the Flag Enum representing the state the player is currently in
     /// </summary>
     public void SetState()
     {
-        if (m_PlayerInfo.Ani.GetFloat("Move") != 0)
-            m_CurrentState |= EMovementStates.Move;
-        else
-            m_CurrentState &= ~EMovementStates.Move;
-
-        if (m_PlayerInfo.Ani.GetFloat("Move") < 0)
-            m_CurrentState |= EMovementStates.MoveBackwards;
-        else
-            m_CurrentState &= ~EMovementStates.MoveBackwards;
-
-        if (m_PlayerInfo.Ani.GetBool("Crouch"))
-            m_CurrentState |= EMovementStates.Crouch;
-        else
-            m_CurrentState &= ~EMovementStates.Crouch;
-
-        if (m_PlayerInfo.Input.m_controls.j)
-            m_CurrentState |= EMovementStates.Jump;
-        else
-            m_CurrentState &= ~EMovementStates.Jump;
+        SetCurrentState(
+            EMovementStates.Move, 
+            m_PlayerInfo.Ani.GetFloat("Move") != 0);
+        SetCurrentState(
+            EMovementStates.MoveBackwards, 
+            m_PlayerInfo.Ani.GetFloat("Move") < 0);
+        SetCurrentState(
+            EMovementStates.Crouch, 
+            m_PlayerInfo.Ani.GetBool("Crouch"));
+        SetCurrentState(
+            EMovementStates.Jump, 
+            m_PlayerInfo.Input.m_controls.j);
     }
     public void SetHeight()
     {
         //Crouching
-        m_PlayerInfo.Char.height = m_PlayerInfo.Ani.GetBool("Crouch") ? m_PlayerInfo.GP.CrouchHeight : m_PlayerInfo.GP.PlayerHeight;
-        m_PlayerInfo.Char.radius = m_PlayerInfo.GP.MinDistance;
+        //m_PlayerInfo.Char.height = m_PlayerInfo.Ani.GetBool("Crouch") ? m_PlayerInfo.GP.CrouchHeight : m_PlayerInfo.GP.PlayerHeight;
+        //m_PlayerInfo.Char.radius = m_PlayerInfo.GP.MinDistance;
     }
+    public bool IsGrounded()
+    {
+        return GameManager.Instance.BoolRayCast(
+            transform.localPosition + Vector3.up * 0.005f,
+            Vector3.down,
+            0.005f);
+    }
+    public void Force(float _dir, float _drag = 30)
+    {
+        m_force = _dir;
+        m_drag = _drag;
+    }
+    public void Drag()
+    {
+        if (m_force > 0)
+            m_force -= m_drag * Time.deltaTime;
+        if (m_force < 0)
+            m_force += m_drag * Time.deltaTime;
+
+        if (Mathf.Abs(m_force) < 0.31f)
+            m_force = 0;
+    }
+    void OnCollisionEnter()
+    {
+        m_desiredDirection.y = 0;
+    }
+    #endregion
+
+    #region //Helper
+    void SetCurrentState(EMovementStates _currentState, bool _b)
+    {
+        if(_b) 
+            m_CurrentState |= _currentState;
+        else
+            m_CurrentState &= ~_currentState;
+    } 
     /// <summary>
     /// Resets the Values of the Players Height and Animation
     /// </summary>
     /// <param name="_leftSide">to place the palyer in the correct starting position</param>
     public void ResetValues()
     {
-        m_PlayerInfo.Char.gameObject.transform.position = new Vector3(m_PlayerInfo.IsLeft ? -m_PlayerInfo.GP.PlayerStartPos : m_PlayerInfo.GP.PlayerStartPos, 0, 0);
-        m_PlayerInfo.Char.height = m_PlayerInfo.GP.PlayerHeight;
+        m_PlayerInfo.RB.gameObject.transform.position = new Vector3(m_PlayerInfo.IsLeft ? -m_PlayerInfo.GP.PlayerStartPos : m_PlayerInfo.GP.PlayerStartPos, 0, 0);
 
         m_PlayerInfo.Ani.SetFloat("Move", 0);
         m_PlayerInfo.Ani.SetBool("Crouch", false);
-    }
-    public bool IsGrounded()
-    {
-        return GameManager.Instance.BoolRayCast(
-            transform.localPosition + Vector3.up * 0.005f, 
-            Vector3.down, 
-            0.005f);
     }
     #endregion
 }
