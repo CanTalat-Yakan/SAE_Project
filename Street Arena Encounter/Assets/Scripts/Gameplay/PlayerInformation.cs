@@ -10,6 +10,7 @@ public struct PlayerInformation
     public PlayerController Player;
     public Rigidbody RB;
     public Animator Ani;
+    public BoxCollider Collider;
     public InputMaster Input;
     public GP_Settings GP;
     [HideInInspector] public float Forward { get => Ani.transform.localScale.x; set => Forward = value; }
@@ -25,12 +26,18 @@ public struct PlayerInformation
     public void GetComponentValues(GameObject _obj)
     {
         Player = _obj.GetComponent<PlayerController>();
+        Player.m_IsLeft = IsLeft;
         Player.m_MovementController = _obj.GetComponent<MovementController>();
         Player.m_MovementController.m_PlayerInfo = this;
         Player.m_AttackController = _obj.GetComponent<AttackController>();
         Player.m_AttackController.m_PlayerInfo = this;
+
         RB = _obj.GetComponent<Rigidbody>();
+        Collider = _obj.GetComponent<BoxCollider>();
+
         Ani = _obj.transform.GetChild(0).GetComponent<Animator>();
+
+
         Input = null;
     }
 
