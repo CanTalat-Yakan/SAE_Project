@@ -21,6 +21,7 @@ public class MovementController : MonoBehaviour
     Vector3 m_desiredDirection;
     float m_force;
     float m_drag;
+    bool m_isGrounded;
     #endregion
 
     /// <summary>
@@ -45,20 +46,19 @@ public class MovementController : MonoBehaviour
 
         m_PlayerInfo.Ani.SetBool("Jump", false); //SetAnimator Pramater for Jumping
         //Jumping
-        if (IsGrounded() && !m_PlayerInfo.Input.m_movement.c)
+        if (m_isGrounded && !m_PlayerInfo.Input.m_movement.c)
         {
             if (m_PlayerInfo.Input.m_movement.j)
             {
                 m_PlayerInfo.Ani.SetBool("Jump", true); //SetAnimator Pramater for Jumping
+                m_isGrounded = false;
                 m_desiredDirection.y = m_PlayerInfo.GP.JumpForce; //Set InputValues for Jumping
-                Force(m_PlayerInfo.GP.JumpDashForce * m_desiredDirection.x); //Jumping Dashing forward/ backward
+                Force(m_PlayerInfo.GP.JumpDashForce * m_desiredDirection.x, 10); //Jumping Dashing forward/ backward
             }
-            if (m_PlayerInfo.Input.m_movement.d)
-                Force(m_PlayerInfo.GP.DashForce * m_desiredDirection.x, 10); //Dashing forward/ backward
         }
 
         //Calculating Gravity
-        if (!IsGrounded())
+        if (!m_isGrounded)
             m_desiredDirection.y += m_PlayerInfo.GP.GravityForce * Time.deltaTime;
 
         //Move Player with velocity of desired direction
@@ -74,7 +74,7 @@ public class MovementController : MonoBehaviour
         m_desiredDirection.x = 0;
 
         //Calculating Gravity
-        if (!IsGrounded())
+        if (!m_isGrounded)
             m_desiredDirection.y += m_PlayerInfo.GP.GravityForce * Time.deltaTime;
 
         m_PlayerInfo.RB.velocity = m_desiredDirection + Vector3.right * m_force;
@@ -105,13 +105,6 @@ public class MovementController : MonoBehaviour
         //m_PlayerInfo.Char.height = m_PlayerInfo.Ani.GetBool("Crouch") ? m_PlayerInfo.GP.CrouchHeight : m_PlayerInfo.GP.PlayerHeight;
         //m_PlayerInfo.Char.radius = m_PlayerInfo.GP.MinDistance;
     }
-    public bool IsGrounded()
-    {
-        return GameManager.Instance.BoolRayCast(
-            transform.localPosition + Vector3.up * 0.005f,
-            Vector3.down,
-            0.005f);
-    }
     public void Force(float _dir, float _drag = 30)
     {
         m_force = _dir;
@@ -127,9 +120,13 @@ public class MovementController : MonoBehaviour
         if (Mathf.Abs(m_force) < 0.31f)
             m_force = 0;
     }
-    void OnCollisionEnter()
+    void OnCollisionEnter(Collision _collision)
     {
+        if (!_collision.gameObject.CompareTag("Platform"))
+            return;
+
         m_desiredDirection.y = 0;
+        m_isGrounded = true;
     }
     #endregion
 
