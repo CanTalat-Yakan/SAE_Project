@@ -12,21 +12,21 @@ public class GameManager : MonoBehaviour
     #region -Values
     [Header("Level Attributes")]
     public Main_Init m_Init;
-    public GameObject m_Training_Input;
+    public GameObject m_Default_Input;
     public CinemachineVirtualCamera m_CMVCamera;
     public Camera m_MainCamera;
+    public GP_Settings m_GP;
 
     [Header("Player Attributes")]
-    [SerializeField] InputActionAsset m_inputActionAsset;
     [Space(15)]
     [SerializeField] GameObject m_PlayerGO_L;
-    public PlayerInformation m_Player_L;
+    [HideInInspector] public PlayerInformation m_Player_L;
     [Space(15)]
     [SerializeField] GameObject m_PlayerGO_R;
-    public PlayerInformation m_Player_R;
+    [HideInInspector] public PlayerInformation m_Player_R;
 
     [Header("Start Attributes")]
-    [SerializeField] float m_loadTimer;
+    [SerializeField] float m_loadingscreenTimer;
     public bool m_SkipIntro;
 
     [HideInInspector] public bool LOCKED;
@@ -46,24 +46,6 @@ public class GameManager : MonoBehaviour
         m_SkipIntro = false;
 #endif
 
-        #region //Setup Playerinformation
-        if (m_Init.m_GameMode == EGameModes.LOCAL)
-        {
-            m_Player_L.ResetValues();
-            m_Player_L.Name = m_Init.m_Player_L.Name;
-            m_Player_R.ResetValues();
-            m_Player_R.Name = m_Init.m_Player_R.Name;
-
-            m_Player_L.Input = GameObject.Find("P_Input(Clone)0").GetComponent<InputMaster>();
-            m_Player_R.Input = GameObject.Find("P_Input(Clone)1").GetComponent<InputMaster>();
-        }
-        if (m_Init.m_GameMode == EGameModes.TRAINING)
-        {
-            m_Training_Input.SetActive(true);
-            m_Player_R.Player.enabled = false;
-        }
-
-        #endregion
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
 
@@ -83,11 +65,6 @@ public class GameManager : MonoBehaviour
         //Lock Target in Movable Space
         m_Player_L.Constraint();
         m_Player_R.Constraint();
-
-        //Set State of current Movement
-        m_Player_L.Player.m_MovementController.SetState();
-        if (m_Player_R.Player.isActiveAndEnabled)
-            m_Player_R.Player.m_MovementController.SetState();
     }
 
     #region -Utilities
@@ -192,15 +169,19 @@ public class GameManager : MonoBehaviour
 
         return Mathf.Clamp(newValue, _newMin, _newMax);
     }
-    public void ActivateChars()
+    public void ActivatePlayers()
     {
-        m_Player_L.Char.enabled = true;
-        m_Player_R.Char.enabled = true;
+        if (m_Player_L.Player.m_MovementController)
+            m_Player_L.Player.m_MovementController.enabled = true;
+        if (m_Player_R.Player.m_MovementController)
+            m_Player_R.Player.m_MovementController.enabled = true;
     }
-    public void DeactivateChars()
+    public void DeactivatePlayers()
     {
-        m_Player_L.Char.enabled = false;
-        m_Player_R.Char.enabled = false;
+        if (m_Player_L.Player.m_MovementController)
+            m_Player_L.Player.m_MovementController.enabled = false;
+        if (m_Player_R.Player.m_MovementController)
+            m_Player_R.Player.m_MovementController.enabled = false;
     }
     public bool BoolDistance(float _threshold)
     {
@@ -225,14 +206,40 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region -Coroutine
+    IEnumerator Setup_Playerinformation()
+    {
+        m_Player_L.ResetValues();
+        m_Player_R.ResetValues();
+        m_Player_L.Name = m_Init.m_Player_L.Name;
+        m_Player_R.Name = m_Init.m_Player_R.Name;
+        m_Player_L.GetComponentValues(m_PlayerGO_L);
+        m_Player_R.GetComponentValues(m_PlayerGO_R);
+        m_Player_L.GP = m_GP;
+        m_Player_R.GP = m_GP;
+
+        if (m_Init.m_GameMode == EGameModes.LOCAL)
+        {
+            m_Player_L.Input = GameObject.Find("P_Input(Clone)0").GetComponent<InputMaster>();
+            m_Player_R.Input = GameObject.Find("P_Input(Clone)1").GetComponent<InputMaster>();
+        }
+        if (m_Init.m_GameMode == EGameModes.TRAINING)
+        {
+            m_Default_Input.SetActive(true);
+            m_Player_L.Input = m_Default_Input.GetComponent<InputMaster>();
+        }
+
+        yield return null;
+    }
     IEnumerator Init()
     {
+        StartCoroutine(Setup_Playerinformation());
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         LOCKED = false;
         STARTED = false;
 
-        DeactivateChars();
+        DeactivatePlayers();
 
         if (!SceneManager.GetSceneByName(m_Init.m_Level.ToString()).isLoaded)
             SceneManager.LoadScene(m_Init.m_Level.ToString(), LoadSceneMode.Additive);
@@ -248,7 +255,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1);
 
         if (!m_SkipIntro)
-            while (Time.time - timeStamp < m_loadTimer)
+            while (Time.time - timeStamp < m_loadingscreenTimer)
             {
                 yield return new WaitForSeconds(1);
             }
