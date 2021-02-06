@@ -28,15 +28,13 @@ public class MovementController : MonoBehaviour
     /// </summary>
     public void Move()
     {
-        Debug.Log(m_force);
-
         //InputValues
-        m_desiredDirection.x = m_PlayerInfo.Input.m_movement.m;
-        //SetAnimator Pramater for Movement
-        m_PlayerInfo.Ani.SetFloat("Move", m_PlayerInfo.Input.m_movement.m * m_PlayerInfo.Forward);
+        m_desiredDirection.x = m_PlayerInfo.Input.m_movement.m * m_PlayerInfo.GP.MovementSpeed;
 
-        //SetAnimator Pramater for Crouching
-        m_PlayerInfo.Ani.SetBool("Crouch", m_PlayerInfo.Input.m_movement.c);
+        m_PlayerInfo.Ani.SetFloat("Move", m_PlayerInfo.Input.m_movement.m * m_PlayerInfo.Forward); //SetAnimator Pramater for Movement
+
+
+        m_PlayerInfo.Ani.SetBool("Crouch", m_PlayerInfo.Input.m_movement.c); //SetAnimator Pramater for Crouching
         //Chrouch Movement
         if (m_desiredDirection.x * m_PlayerInfo.Forward < 0)
             if (m_PlayerInfo.Input.m_movement.c)
@@ -45,25 +43,18 @@ public class MovementController : MonoBehaviour
                 m_PlayerInfo.Ani.SetFloat("Move", 0);
             }
 
-        //SetAnimator Pramater for Jumping
-        m_PlayerInfo.Ani.SetBool("Jump", false);
+        m_PlayerInfo.Ani.SetBool("Jump", false); //SetAnimator Pramater for Jumping
         //Jumping
         if (IsGrounded() && !m_PlayerInfo.Input.m_movement.c)
         {
             if (m_PlayerInfo.Input.m_movement.j)
             {
-                //SetAnimator Pramater for Jumping
-                m_PlayerInfo.Ani.SetBool("Jump", true);
-                //Set InputValues for Jumping
-                m_desiredDirection.y = m_PlayerInfo.GP.JumpForce;
-                //Jumping Dashing forward/ backward
-                Force(m_PlayerInfo.GP.JumpDashForce * m_desiredDirection.x);
-                //m_PlayerInfo.RB.AddForce(m_PlayerInfo.GP.JumpDashDistance * desiredDirection.x * Vector3.right, ForceMode.Impulse);
-                //AttackManager.Instance.Dash(m_PlayerInfo, m_PlayerInfo.GP.JumpDashDistance * desiredDirection.x, 0.25f);
+                m_PlayerInfo.Ani.SetBool("Jump", true); //SetAnimator Pramater for Jumping
+                m_desiredDirection.y = m_PlayerInfo.GP.JumpForce; //Set InputValues for Jumping
+                Force(m_PlayerInfo.GP.JumpDashForce * m_desiredDirection.x); //Jumping Dashing forward/ backward
             }
             if (m_PlayerInfo.Input.m_movement.d)
-                //Dashing forward/ backward
-                AttackManager.Instance.Dash(m_PlayerInfo, m_PlayerInfo.GP.DashForce * m_desiredDirection.x);
+                Force(m_PlayerInfo.GP.DashForce * m_desiredDirection.x, 10); //Dashing forward/ backward
         }
 
         //Calculating Gravity

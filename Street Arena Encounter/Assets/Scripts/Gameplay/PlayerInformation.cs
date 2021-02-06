@@ -44,7 +44,7 @@ public struct PlayerInformation
     public void Constraint()
     {
         float xPos = 0;
-        float offSet = GP.MinDistance * 0.5f;
+        float offSet = GP.PlayerRadius * 0.5f;
 
         if (IsLeft)
             xPos = Mathf.Clamp(
