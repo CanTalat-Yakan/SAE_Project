@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(MovementController))]
 [RequireComponent(typeof(AttackController))]
 public class PlayerController : MonoBehaviour
@@ -14,18 +14,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] bool m_leftSide;
     #endregion
 
-    void Start()
-    {
-        m_MovementController = GetComponent<MovementController>();
-        m_AttackController = GetComponent<AttackController>();
-
-        m_MovementController.m_PlayerInfo = m_leftSide ? GameManager.Instance.m_Player_L : GameManager.Instance.m_Player_R;
-        m_AttackController.m_PlayerInfo = m_leftSide ? GameManager.Instance.m_Player_L : GameManager.Instance.m_Player_R;
-    }
 
     void Update()
     {
-        if (!GameManager.Instance.STARTED || GameManager.Instance.LOCKED)
+        if (!GameManager.Instance.STARTED || GameManager.Instance.LOCKED || (!m_leftSide && GameManager.Instance.m_Player_R.Input == null))
             return;
 
         m_AttackController.Attack();
@@ -34,6 +26,9 @@ public class PlayerController : MonoBehaviour
             m_MovementController.Move();
         else
             m_MovementController.Fall();
+
+        m_MovementController.Drag();
+        m_MovementController.SetState();
     }
 
     /// <summary>
