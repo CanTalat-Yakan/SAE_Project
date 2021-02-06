@@ -43,7 +43,7 @@ public class TimelineManager : MonoBehaviour
         GameManager.Instance.m_CMVCamera.gameObject.SetActive(false);
         GameManager.Instance.m_MainCamera.gameObject.SetActive(true);
 
-        GameManager.Instance.DeactivateChars();
+        GameManager.Instance.DeactivatePlayers();
         m_startPos[0] = GameManager.Instance.m_Player_L.Player.gameObject.transform.localPosition;
         m_startPos[1] = GameManager.Instance.m_Player_R.Player.gameObject.transform.localPosition;
 
@@ -62,7 +62,7 @@ public class TimelineManager : MonoBehaviour
             GameManager.Instance.m_CMVCamera.gameObject.SetActive(true);
             m_TL_Directory.gameObject.SetActive(false);
 
-            GameManager.Instance.ActivateChars();
+            GameManager.Instance.ActivatePlayers();
             GameManager.Instance.m_Player_L.Player.gameObject.transform.localPosition = m_startPos[0];
             GameManager.Instance.m_Player_R.Player.gameObject.transform.localPosition = m_startPos[1];
 

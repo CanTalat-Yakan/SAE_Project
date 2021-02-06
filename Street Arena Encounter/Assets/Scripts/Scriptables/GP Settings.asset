@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MinDistance: 1.5
   MaxDistance: 9
-  JumpForce: 10
-  JumpDashForce: 7
-  DashForce: 10
+  JumpForce: 500
+  JumpDashDistance: 15
+  DashDistance: 30
   GravityForce: -40
   Speed: 1
   PlayerHeight: 3.1

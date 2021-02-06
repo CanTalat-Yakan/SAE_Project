@@ -53,7 +53,7 @@ public class UI_RoundManager : MonoBehaviour
     }
     IEnumerator Begin()
     {
-        GameManager.Instance.DeactivateChars();
+        GameManager.Instance.DeactivatePlayers();
         if (GameManager.Instance.m_Init.m_GameMode != EGameModes.TRAINING)
             SetupRound();
 
@@ -68,7 +68,7 @@ public class UI_RoundManager : MonoBehaviour
         m_commentGUI.SetText("Goo");
 
         GameManager.Instance.STARTED = true;
-        GameManager.Instance.ActivateChars();
+        GameManager.Instance.ActivatePlayers();
 
         yield return new WaitForSeconds(1);
         m_commentGUI.gameObject.SetActive(false);
@@ -123,7 +123,7 @@ public class UI_RoundManager : MonoBehaviour
 
         yield return new WaitForSeconds(3);
 
-        GameManager.Instance.DeactivateChars();
+        GameManager.Instance.DeactivatePlayers();
         GameManager.Instance.ResetPlayers();
 
         m_timer = GameManager.Instance.m_Init.m_Timer;
@@ -139,7 +139,7 @@ public class UI_RoundManager : MonoBehaviour
         m_commentGUI.gameObject.SetActive(true);
         m_commentGUI.SetText(EvaluateWinner_End());
         DOTween.Clear();
-        GameManager.Instance.DeactivateChars();
+        GameManager.Instance.DeactivatePlayers();
         GameManager.Instance.ResetPlayers();
         GameManager.Instance.STARTED = false;
         yield return new WaitForSeconds(6);
