@@ -31,34 +31,26 @@ public class MovementController : MonoBehaviour
         Debug.Log(m_force);
 
         //InputValues
-        m_desiredDirection.x = m_PlayerInfo.Input.m_controls.m;
+        m_desiredDirection.x = m_PlayerInfo.Input.m_movement.m;
         //SetAnimator Pramater for Movement
-        m_PlayerInfo.Ani.SetFloat("Move", m_PlayerInfo.Input.m_controls.m * m_PlayerInfo.Forward);
+        m_PlayerInfo.Ani.SetFloat("Move", m_PlayerInfo.Input.m_movement.m * m_PlayerInfo.Forward);
 
+        //SetAnimator Pramater for Crouching
+        m_PlayerInfo.Ani.SetBool("Crouch", m_PlayerInfo.Input.m_movement.c);
         //Chrouch Movement
-        if (m_desiredDirection.x * m_PlayerInfo.Forward >= 0)
-        {
-            //SetAnimator Pramater for Crouching
-            m_PlayerInfo.Ani.SetBool("Crouch", m_PlayerInfo.Input.m_controls.c);
-        }
-        else if (m_PlayerInfo.Input.m_controls.c)
-        {
-            m_desiredDirection.x = 0;
-            m_PlayerInfo.Ani.SetFloat("Move", 0);
-            m_PlayerInfo.Ani.SetBool("Crouch", m_PlayerInfo.Input.m_controls.c);
-            return;
-        }
-        else
-        {
-            m_PlayerInfo.Ani.SetBool("Crouch", m_PlayerInfo.Input.m_controls.c);
-        }
+        if (m_desiredDirection.x * m_PlayerInfo.Forward < 0)
+            if (m_PlayerInfo.Input.m_movement.c)
+            {
+                m_desiredDirection.x = 0;
+                m_PlayerInfo.Ani.SetFloat("Move", 0);
+            }
 
         //SetAnimator Pramater for Jumping
         m_PlayerInfo.Ani.SetBool("Jump", false);
         //Jumping
-        if (IsGrounded() && !m_PlayerInfo.Input.m_controls.c)
+        if (IsGrounded() && !m_PlayerInfo.Input.m_movement.c)
         {
-            if (m_PlayerInfo.Input.m_controls.j)
+            if (m_PlayerInfo.Input.m_movement.j)
             {
                 //SetAnimator Pramater for Jumping
                 m_PlayerInfo.Ani.SetBool("Jump", true);
@@ -69,7 +61,7 @@ public class MovementController : MonoBehaviour
                 //m_PlayerInfo.RB.AddForce(m_PlayerInfo.GP.JumpDashDistance * desiredDirection.x * Vector3.right, ForceMode.Impulse);
                 //AttackManager.Instance.Dash(m_PlayerInfo, m_PlayerInfo.GP.JumpDashDistance * desiredDirection.x, 0.25f);
             }
-            if (m_PlayerInfo.Input.m_controls.d)
+            if (m_PlayerInfo.Input.m_movement.d)
                 //Dashing forward/ backward
                 AttackManager.Instance.Dash(m_PlayerInfo, m_PlayerInfo.GP.DashForce * m_desiredDirection.x);
         }
@@ -104,17 +96,17 @@ public class MovementController : MonoBehaviour
     public void SetState()
     {
         SetCurrentState(
-            EMovementStates.Move, 
+            EMovementStates.Move,
             m_PlayerInfo.Ani.GetFloat("Move") != 0);
         SetCurrentState(
-            EMovementStates.MoveBackwards, 
+            EMovementStates.MoveBackwards,
             m_PlayerInfo.Ani.GetFloat("Move") < 0);
         SetCurrentState(
-            EMovementStates.Crouch, 
+            EMovementStates.Crouch,
             m_PlayerInfo.Ani.GetBool("Crouch"));
         SetCurrentState(
-            EMovementStates.Jump, 
-            m_PlayerInfo.Input.m_controls.j);
+            EMovementStates.Jump,
+            m_PlayerInfo.Input.m_movement.j);
     }
     public void SetHeight()
     {
@@ -153,11 +145,11 @@ public class MovementController : MonoBehaviour
     #region //Helper
     void SetCurrentState(EMovementStates _currentState, bool _b)
     {
-        if(_b) 
+        if (_b)
             m_CurrentState |= _currentState;
         else
             m_CurrentState &= ~_currentState;
-    } 
+    }
     /// <summary>
     /// Resets the Values of the Players Height and Animation
     /// </summary>
