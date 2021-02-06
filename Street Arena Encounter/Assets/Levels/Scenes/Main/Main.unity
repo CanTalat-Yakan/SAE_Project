@@ -5043,10 +5043,10 @@ GameObject:
   m_Component:
   - component: {fileID: 378409830}
   - component: {fileID: 378409834}
-  - component: {fileID: 378409833}
-  - component: {fileID: 378409835}
   - component: {fileID: 378409832}
   - component: {fileID: 378409831}
+  - component: {fileID: 378409833}
+  - component: {fileID: 378409835}
   - component: {fileID: 378409837}
   m_Layer: 0
   m_Name: Left
@@ -5087,6 +5087,7 @@ MonoBehaviour:
     Player: {fileID: 0}
     RB: {fileID: 0}
     Ani: {fileID: 0}
+    Collider: {fileID: 0}
     Input: {fileID: 0}
     GP: {fileID: 0}
     Health: 0
@@ -5112,6 +5113,7 @@ MonoBehaviour:
     Player: {fileID: 0}
     RB: {fileID: 0}
     Ani: {fileID: 0}
+    Collider: {fileID: 0}
     Input: {fileID: 0}
     GP: {fileID: 0}
     Health: 0
@@ -5149,7 +5151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MovementController: {fileID: 0}
   m_AttackController: {fileID: 0}
-  m_leftSide: 1
+  m_IsLeft: 0
 --- !u!65 &378409835
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6672,7 +6674,7 @@ GameObject:
   - component: {fileID: 893032201}
   m_Layer: 0
   m_Name: PlayerPlatform
-  m_TagString: Untagged
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11760,6 +11762,7 @@ MonoBehaviour:
     Player: {fileID: 378409834}
     RB: {fileID: 378409833}
     Ani: {fileID: 1439122167}
+    Collider: {fileID: 0}
     Input: {fileID: 631771555}
     GP: {fileID: 11400000, guid: 36a3a49ea9a8d1d409717af0da21a8ed, type: 2}
     Health: 100
@@ -11771,6 +11774,7 @@ MonoBehaviour:
     Player: {fileID: 1965195723}
     RB: {fileID: 1965195722}
     Ani: {fileID: 631684837}
+    Collider: {fileID: 0}
     Input: {fileID: 631771555}
     GP: {fileID: 11400000, guid: 36a3a49ea9a8d1d409717af0da21a8ed, type: 2}
     Health: 100
@@ -28049,9 +28053,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1965195719}
   - component: {fileID: 1965195723}
-  - component: {fileID: 1965195722}
   - component: {fileID: 1965195721}
   - component: {fileID: 1965195720}
+  - component: {fileID: 1965195722}
+  - component: {fileID: 1965195724}
   - component: {fileID: 1965195726}
   m_Layer: 0
   m_Name: Right
@@ -28092,6 +28097,7 @@ MonoBehaviour:
     Player: {fileID: 0}
     RB: {fileID: 0}
     Ani: {fileID: 0}
+    Collider: {fileID: 0}
     Input: {fileID: 0}
     GP: {fileID: 0}
     Health: 0
@@ -28117,6 +28123,7 @@ MonoBehaviour:
     Player: {fileID: 0}
     RB: {fileID: 0}
     Ani: {fileID: 0}
+    Collider: {fileID: 0}
     Input: {fileID: 0}
     GP: {fileID: 0}
     Health: 0
@@ -28154,7 +28161,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MovementController: {fileID: 0}
   m_AttackController: {fileID: 0}
-  m_leftSide: 0
+  m_IsLeft: 0
+--- !u!65 &1965195724
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965195718}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &1965195726
 Animator:
   serializedVersion: 3
