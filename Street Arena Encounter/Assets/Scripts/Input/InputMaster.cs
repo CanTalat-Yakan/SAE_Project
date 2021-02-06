@@ -35,7 +35,7 @@ public class InputMaster : MonoBehaviour
 {
     #region -Values
     [HideInInspector] public PlayerInput m_input;
-    public SControls m_controls;
+    public SControls m_movement;
     public SAttacks m_attacks;
     #endregion
 
@@ -52,21 +52,21 @@ public class InputMaster : MonoBehaviour
     #region --Movement
     void OnMovement(InputValue _i)
     {
-        m_controls.m = _i.Get<Vector2>().x;
-        m_controls.j = _i.Get<Vector2>().y > 0;
-        m_controls.c = _i.Get<Vector2>().y < 0;
+        m_movement.m = _i.Get<Vector2>().x;
+        m_movement.j = _i.Get<Vector2>().y > 0;
+        m_movement.c = _i.Get<Vector2>().y < 0;
     }
     void OnLStick(InputValue _i)
     {
-        m_controls.m = _i.Get<Vector2>().x > 0.25f ? 1 : _i.Get<Vector2>().x < -0.25f ? -1 : 0;
-        m_controls.j = _i.Get<Vector2>().y > 0.75f ? true : false;
-        m_controls.c = _i.Get<Vector2>().y < -0.75f ? true : false;
+        m_movement.m = _i.Get<Vector2>().x > 0.25f ? 1 : _i.Get<Vector2>().x < -0.25f ? -1 : 0;
+        m_movement.j = _i.Get<Vector2>().y > 0.75f ? true : false;
+        m_movement.c = _i.Get<Vector2>().y < -0.75f ? true : false;
     }
     void OnDPad(InputValue _i)
     {
-        m_controls.m = _i.Get<Vector2>().x;
-        m_controls.j = _i.Get<Vector2>().y == 1 ? true : false;
-        m_controls.c = _i.Get<Vector2>().y == -1 ? true : false;
+        m_movement.m = _i.Get<Vector2>().x;
+        m_movement.j = _i.Get<Vector2>().y == 1 ? true : false;
+        m_movement.c = _i.Get<Vector2>().y == -1 ? true : false;
     }
     //void OnDash(InputValue _i)
     //{
@@ -77,14 +77,14 @@ public class InputMaster : MonoBehaviour
     #region --Attacks
     void OnLight(InputValue _i)
     {
-        if (m_controls.m < 0)
+        if (m_movement.m < 0)
             m_attacks.b_light = true;
         else
             m_attacks.light = true;
     }
     void OnHeavy(InputValue _i)
     {
-        if (m_controls.m < 0)
+        if (m_movement.m < 0)
             m_attacks.b_heavy = true;
         else
             m_attacks.heavy = true;
@@ -95,7 +95,7 @@ public class InputMaster : MonoBehaviour
     }
     void OnLow(InputValue _i)
     {
-        if (m_controls.m < 0)
+        if (m_movement.m < 0)
             m_attacks.b_low = true;
         else
             m_attacks.low = true;
