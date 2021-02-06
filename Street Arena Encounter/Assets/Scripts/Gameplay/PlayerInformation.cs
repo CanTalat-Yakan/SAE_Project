@@ -21,10 +21,31 @@ public struct PlayerInformation
     public int RoundsWon;
     public string Name;
     public bool Special;
+
     public void ResetValues()
     {
         Health = 100;
         RoundsWon = 0;
         Special = true;
+    }
+
+    public void Constraint()
+    {
+        float xPos = 0;
+        float offSet = GP.MinDistance * 0.5f;
+
+        if (IsLeft)
+            xPos = Mathf.Clamp(
+                Player.transform.localPosition.x,
+                -9 + offSet,
+                GameManager.Instance.m_Player_R.Player.transform.localPosition.x - offSet);
+        else
+            xPos = Mathf.Clamp(
+                Player.transform.localPosition.x,
+                GameManager.Instance.m_Player_L.Player.transform.localPosition.x + offSet,
+                9 - offSet);
+
+        Vector3 newPos = new Vector3(xPos, Mathf.Max(0, Player.transform.localPosition.y), 0);
+        Player.transform.localPosition = newPos;
     }
 }
