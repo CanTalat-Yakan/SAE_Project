@@ -13,21 +13,30 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool m_IsLeft;
     #endregion
 
-
-    void FixedUpdate()
+    void Update()
     {
-        if (!GameManager.Instance.STARTED || GameManager.Instance.LOCKED || (!m_IsLeft && GameManager.Instance.m_Player_R.Input == null))
+        if (!GameManager.Instance.STARTED 
+            || GameManager.Instance.LOCKED 
+            || (!m_IsLeft 
+                && GameManager.Instance.m_Player_R.Input == null))
             return;
 
         m_AttackController.Attack();
 
         if (!m_AttackController.m_Attacking)
-            m_MovementController.Move();
+            m_MovementController.CalculateDir();
         else
-            m_MovementController.Fall();
-
+            m_MovementController.DefaultDir();
+    }
+    void LateUpdate()
+    {
         m_MovementController.Drag();
         m_MovementController.SetState();
+        //m_MovementController.SetHeight();
+    }
+    void FixedUpdate()
+    {
+        m_MovementController.Move();
     }
 
     /// <summary>
