@@ -33,7 +33,7 @@ public struct SAttacks
 }
 public class InputMaster : MonoBehaviour
 {
-    #region -Values
+    #region //Values
     [HideInInspector] public PlayerInput m_input;
     public SControls m_movement;
     public SAttacks m_attacks;
@@ -47,9 +47,10 @@ public class InputMaster : MonoBehaviour
     void LateUpdate()
     {
         m_attacks.ResetValues();
+        m_movement.j = false;
     }
 
-    #region --Movement
+    #region //Movement
     void OnMovement(InputValue _i)
     {
         m_movement.m = _i.Get<Vector2>().x;
@@ -74,7 +75,7 @@ public class InputMaster : MonoBehaviour
     //}
     #endregion
 
-    #region --Attacks
+    #region //Attacks
     void OnLight(InputValue _i)
     {
         if (m_movement.m < 0)
