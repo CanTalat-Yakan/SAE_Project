@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: e6e154e640da06b429211d161f8fde7c, type: 2}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: 699121ad4701fa64bba0587b7c0b9a57, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 506b772fb8197064880f5159a49ec09c, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2765,7 +2765,7 @@ GameObject:
   - component: {fileID: 1646187256}
   - component: {fileID: 1646187255}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: Boundries
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3500,7 +3500,7 @@ GameObject:
   - component: {fileID: 2137312116}
   - component: {fileID: 2137312115}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Boundries
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

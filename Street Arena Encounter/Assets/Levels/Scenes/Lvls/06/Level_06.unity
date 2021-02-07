@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 23338993}
   - component: {fileID: 23338992}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Boundries
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -212,7 +212,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 23338991}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.72, y: 2.79, z: 0}
+  m_LocalPosition: {x: -10.35, y: 2.79, z: 0}
   m_LocalScale: {x: 1, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
@@ -310,7 +310,7 @@ GameObject:
   - component: {fileID: 1811214073}
   - component: {fileID: 1811214072}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: Boundries
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -386,7 +386,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1811214071}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.71, y: 2.79, z: 0}
+  m_LocalPosition: {x: 10.23, y: 2.79, z: 0}
   m_LocalScale: {x: 1, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
