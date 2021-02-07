@@ -7,19 +7,20 @@ using DG.Tweening;
 [Serializable]
 public struct SThrowingObject
 {
-    public GameObject rhoeObjKind;
+    public GameObject Cap;
+    public GameObject Cigarette;
 }
 public class AttackManager : MonoBehaviour
 {
-    #region -values
+    #region //Values
     public static AttackManager Instance { get; private set; }
 
-    [SerializeField] SThrowingObject m_object;
-    public AnimationClip[] clips = new AnimationClip[6];
+    public SThrowingObject m_ThrowingObjectType;
 
     [SerializeField] ParticleSystem m_ps_L;
     [SerializeField] ParticleSystem m_ps_R;
     #endregion
+
 
     void Awake()
     {
@@ -31,39 +32,37 @@ public class AttackManager : MonoBehaviour
         Instance = this;
     }
 
-    public void InitThrowObj(Vector3 _origin, float _dir, float _speed)
-    {
-        StartCoroutine(ThrowObj(_origin, _dir, _speed));
-    }
-    IEnumerator ThrowObj(Vector3 _origin, float _dir, float _speed)
+    #region //Utilities
+    public void InitThrowObj(GameObject _objType, Vector3 _origin, float _dir, float _speed, float _destroyTime)
     {
         if (!GameManager.Instance.STARTED)
-            yield return null;
+            return;
 
-        GameObject gObj = GameObject.Instantiate(m_object.rhoeObjKind, _origin, Quaternion.identity, this.gameObject.transform);
-        yield return new WaitForSeconds(1);
-        gObj.transform.DOMoveX(_dir * 25, _speed);
-        Destroy(gObj, _speed);
-        yield return null;
+        GameObject gObj = Instantiate(_objType, _origin, Quaternion.identity, this.gameObject.transform);
+
+        gObj.tag = _objType.ToString();
+        gObj.AddComponent<Rigidbody>().velocity = Vector3.right * _dir * _speed;
+
+        Destroy(gObj, _destroyTime);
     }
 
-    public void Dash(PlayerInformation _playerInfo, float _force)
+    public void Dash(PlayerInformation _playerInfo, float _force = 8, float _drag = 30)
     {
-        _playerInfo.Player.m_MovementController.Force(_force * _playerInfo.Forward);
+        _playerInfo.Player.m_MovementController.Force(_force * _playerInfo.Forward, _drag);
     }
 
-    public void SetSpecial(bool _toLeft, bool _active = true)
+    public void SetSpecial(bool _toLeft, bool _active)
     {
         if (_toLeft)
         {
             if (_active)
             {
                 m_ps_L.Play();
-                GameManager.Instance.m_Player_L.getMaterial.SetColor("_EmissionColor", Color.red);
+                GameManager.Instance.m_Player_L.GetMaterial.SetColor("_EmissionColor", Color.red);
             }
             else
             {
-                GameManager.Instance.m_Player_L.getMaterial.SetColor("_EmissionColor", Color.black);
+                GameManager.Instance.m_Player_L.GetMaterial.SetColor("_EmissionColor", Color.black);
                 m_ps_L.Stop();
             }
         }
@@ -72,11 +71,11 @@ public class AttackManager : MonoBehaviour
             if (_active)
             {
                 m_ps_R.Play();
-                GameManager.Instance.m_Player_R.getMaterial.SetColor("_EmissionColor", Color.red);
+                GameManager.Instance.m_Player_R.GetMaterial.SetColor("_EmissionColor", Color.red);
             }
             else
             {
-                GameManager.Instance.m_Player_R.getMaterial.SetColor("_EmissionColor", Color.black);
+                GameManager.Instance.m_Player_R.GetMaterial.SetColor("_EmissionColor", Color.black);
                 m_ps_R.Stop();
             }
         }
@@ -85,4 +84,5 @@ public class AttackManager : MonoBehaviour
     {
         return (_fromLeft) ? m_ps_L.isPlaying: m_ps_R.isPlaying;
     }
+    #endregion
 }
