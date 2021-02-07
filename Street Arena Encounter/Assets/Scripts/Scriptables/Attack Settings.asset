@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0859b1dda8014d14e9c0150b6328a3ee, type: 3}
+  m_Name: Attack Settings
+  m_EditorClassIdentifier: 
+  Attacks:
+  - State: 2
+    AnimationClip: {fileID: 7400000, guid: a01ba11347c55d348b5e71d7a6fa1d65, type: 2}
+    DamageType: 1
+    Damage_Amount: 12
+    Damage_Range: 1
+    Dash: 1
+    FreezeTime: 1
+    Activation_FrameTime: 15
+    Damage_FrameTime: 2
+    Recovery_FrameTime: 20
+  - State: 3
+    AnimationClip: {fileID: 7400000, guid: a01ba11347c55d348b5e71d7a6fa1d65, type: 2}
+    DamageType: 1
+    Damage_Amount: 12
+    Damage_Range: 1
+    Dash: 0
+    FreezeTime: 1
+    Activation_FrameTime: 20
+    Damage_FrameTime: 2
+    Recovery_FrameTime: 20
+  - State: 4
+    AnimationClip: {fileID: 7400000, guid: 297faa367899c0d49a763e0900bfa015, type: 2}
+    DamageType: 2
+    Damage_Amount: 7
+    Damage_Range: 1.5
+    Dash: 1
+    FreezeTime: 0
+    Activation_FrameTime: 8
+    Damage_FrameTime: 3
+    Recovery_FrameTime: 4
+  - State: 5
+    AnimationClip: {fileID: 7400000, guid: 297faa367899c0d49a763e0900bfa015, type: 2}
+    DamageType: 2
+    Damage_Amount: 7
+    Damage_Range: 1.5
+    Dash: 0
+    FreezeTime: 0
+    Activation_FrameTime: 8
+    Damage_FrameTime: 3
+    Recovery_FrameTime: 4
+  - State: 6
+    AnimationClip: {fileID: 7400000, guid: 297faa367899c0d49a763e0900bfa015, type: 2}
+    DamageType: 3
+    Damage_Amount: 8
+    Damage_Range: 2
+    Dash: 0
+    FreezeTime: 0
+    Activation_FrameTime: 10
+    Damage_FrameTime: 3
+    Recovery_FrameTime: 6
+  - State: 7
+    AnimationClip: {fileID: 7400000, guid: 297faa367899c0d49a763e0900bfa015, type: 2}
+    DamageType: 3
+    Damage_Amount: 8
+    Damage_Range: 2
+    Dash: 0
+    FreezeTime: 0
+    Activation_FrameTime: 10
+    Damage_FrameTime: 3
+    Recovery_FrameTime: 6
