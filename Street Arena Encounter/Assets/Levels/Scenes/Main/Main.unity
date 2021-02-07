@@ -5087,9 +5087,10 @@ MonoBehaviour:
     Player: {fileID: 0}
     RB: {fileID: 0}
     Ani: {fileID: 0}
-    Collider: {fileID: 0}
+    Col: {fileID: 0}
     Input: {fileID: 0}
     GP: {fileID: 0}
+    ATK: {fileID: 0}
     Health: 0
     RoundsWon: 0
     Name: 
@@ -5113,9 +5114,10 @@ MonoBehaviour:
     Player: {fileID: 0}
     RB: {fileID: 0}
     Ani: {fileID: 0}
-    Collider: {fileID: 0}
+    Col: {fileID: 0}
     Input: {fileID: 0}
     GP: {fileID: 0}
+    ATK: {fileID: 0}
     Health: 0
     RoundsWon: 0
     Name: 
@@ -11701,12 +11703,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee402b484b16968479683efc6de458cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_object:
-    rhoeObjKind: {fileID: 0}
-  clips:
-  - {fileID: 7400000, guid: 297faa367899c0d49a763e0900bfa015, type: 2}
-  - {fileID: 7400000, guid: a01ba11347c55d348b5e71d7a6fa1d65, type: 2}
-  - {fileID: 7400000, guid: 0e656282434999142a35324c7b54db1c, type: 2}
+  m_ThrowingObjectType:
+    Cap: {fileID: 0}
+    Cigarette: {fileID: 0}
   m_ps_L: {fileID: 1997114502}
   m_ps_R: {fileID: 408849959}
 --- !u!1 &981719734
@@ -11757,14 +11756,16 @@ MonoBehaviour:
   m_CMVCamera: {fileID: 494674800}
   m_MainCamera: {fileID: 840521269}
   m_GP: {fileID: 11400000, guid: 36a3a49ea9a8d1d409717af0da21a8ed, type: 2}
+  m_ATK: {fileID: 11400000, guid: eb0d60f6c98a59344a88f272fbffd42a, type: 2}
   m_PlayerGO_L: {fileID: 378409829}
   m_Player_L:
     Player: {fileID: 378409834}
     RB: {fileID: 378409833}
     Ani: {fileID: 1439122167}
-    Collider: {fileID: 0}
+    Col: {fileID: 0}
     Input: {fileID: 631771555}
     GP: {fileID: 11400000, guid: 36a3a49ea9a8d1d409717af0da21a8ed, type: 2}
+    ATK: {fileID: 0}
     Health: 100
     RoundsWon: 0
     Name: Planty
@@ -11774,9 +11775,10 @@ MonoBehaviour:
     Player: {fileID: 1965195723}
     RB: {fileID: 1965195722}
     Ani: {fileID: 631684837}
-    Collider: {fileID: 0}
+    Col: {fileID: 0}
     Input: {fileID: 631771555}
     GP: {fileID: 11400000, guid: 36a3a49ea9a8d1d409717af0da21a8ed, type: 2}
+    ATK: {fileID: 0}
     Health: 100
     RoundsWon: 0
     Name: Swirly
@@ -28097,9 +28099,10 @@ MonoBehaviour:
     Player: {fileID: 0}
     RB: {fileID: 0}
     Ani: {fileID: 0}
-    Collider: {fileID: 0}
+    Col: {fileID: 0}
     Input: {fileID: 0}
     GP: {fileID: 0}
+    ATK: {fileID: 0}
     Health: 0
     RoundsWon: 0
     Name: 
@@ -28123,9 +28126,10 @@ MonoBehaviour:
     Player: {fileID: 0}
     RB: {fileID: 0}
     Ani: {fileID: 0}
-    Collider: {fileID: 0}
+    Col: {fileID: 0}
     Input: {fileID: 0}
     GP: {fileID: 0}
+    ATK: {fileID: 0}
     Health: 0
     RoundsWon: 0
     Name: 
@@ -28169,12 +28173,12 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1965195718}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: bae46bbe7db7a4540871faa8aa515765, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!95 &1965195726
 Animator:
   serializedVersion: 3
