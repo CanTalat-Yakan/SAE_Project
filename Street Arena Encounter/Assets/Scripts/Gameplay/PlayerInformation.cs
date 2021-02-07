@@ -10,12 +10,13 @@ public struct PlayerInformation
     public PlayerController Player;
     public Rigidbody RB;
     public Animator Ani;
-    public BoxCollider Collider;
+    public BoxCollider Col;
     public InputMaster Input;
     public GP_Settings GP;
-    [HideInInspector] public float Forward { get => Ani.transform.localScale.x; set => Forward = value; }
-    [HideInInspector] public bool IsLeft { get => Forward == 1; set => IsLeft = value; }
-    [HideInInspector] public Material getMaterial { get => Ani.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material; set => getMaterial = value; }
+    public Attack_Settings ATK;
+    [HideInInspector] public float Forward { get => Ani.transform.localScale.x; }
+    [HideInInspector] public bool IsLeft { get => Forward == 1; }
+    [HideInInspector] public Material GetMaterial { get => Ani.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material; }
 
     [Header("Current State in Game")]
     public float Health;
@@ -23,20 +24,24 @@ public struct PlayerInformation
     public string Name;
     public bool Special;
 
-    public void GetComponentValues(GameObject _obj)
+    public void GatherComponents(GameObject _obj)
     {
+        GP = GameManager.Instance.m_GP;
+        ATK = GameManager.Instance.m_ATK;
+
         Player = _obj.GetComponent<PlayerController>();
         Player.m_IsLeft = IsLeft;
+
         Player.m_MovementController = _obj.GetComponent<MovementController>();
         Player.m_MovementController.m_PlayerInfo = this;
+
         Player.m_AttackController = _obj.GetComponent<AttackController>();
         Player.m_AttackController.m_PlayerInfo = this;
 
         RB = _obj.GetComponent<Rigidbody>();
-        Collider = _obj.GetComponent<BoxCollider>();
+        Col = _obj.GetComponent<BoxCollider>();
 
         Ani = _obj.transform.GetChild(0).GetComponent<Animator>();
-
 
         Input = null;
     }
