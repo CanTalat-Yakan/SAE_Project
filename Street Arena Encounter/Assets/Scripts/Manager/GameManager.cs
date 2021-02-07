@@ -231,8 +231,8 @@ public class GameManager : MonoBehaviour
         m_Player_R.ResetValues();
         m_Player_L.Name = m_Init.m_Player_L.Name;
         m_Player_R.Name = m_Init.m_Player_R.Name;
-        m_Player_L.GetComponentValues(m_PlayerGO_L);
-        m_Player_R.GetComponentValues(m_PlayerGO_R);
+        m_Player_L.GatherComponents(m_PlayerGO_L);
+        m_Player_R.GatherComponents(m_PlayerGO_R);
 
         if (m_Init.m_GameMode == EGameModes.LOCAL)
         {
