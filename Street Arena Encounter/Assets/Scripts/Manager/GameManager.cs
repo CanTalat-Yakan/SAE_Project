@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public CinemachineVirtualCamera m_CMVCamera;
     public Camera m_MainCamera;
     public GP_Settings m_GP;
+    public Attack_Settings m_ATK;
 
     [Header("Player Attributes")]
     [Space(15)]
@@ -206,30 +207,6 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region -Coroutine
-    IEnumerator Setup_Playerinformation()
-    {
-        m_Player_L.ResetValues();
-        m_Player_R.ResetValues();
-        m_Player_L.Name = m_Init.m_Player_L.Name;
-        m_Player_R.Name = m_Init.m_Player_R.Name;
-        m_Player_L.GetComponentValues(m_PlayerGO_L);
-        m_Player_R.GetComponentValues(m_PlayerGO_R);
-        m_Player_L.GP = m_GP;
-        m_Player_R.GP = m_GP;
-
-        if (m_Init.m_GameMode == EGameModes.LOCAL)
-        {
-            m_Player_L.Input = GameObject.Find("P_Input(Clone)0").GetComponent<InputMaster>();
-            m_Player_R.Input = GameObject.Find("P_Input(Clone)1").GetComponent<InputMaster>();
-        }
-        if (m_Init.m_GameMode == EGameModes.TRAINING)
-        {
-            m_Default_Input.SetActive(true);
-            m_Player_L.Input = m_Default_Input.GetComponent<InputMaster>();
-        }
-
-        yield return null;
-    }
     IEnumerator Init()
     {
         StartCoroutine(Setup_Playerinformation());
@@ -245,6 +222,28 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene(m_Init.m_Level.ToString(), LoadSceneMode.Additive);
 
         StartCoroutine(UnloadScenes());
+
+        yield return null;
+    }
+    IEnumerator Setup_Playerinformation()
+    {
+        m_Player_L.ResetValues();
+        m_Player_R.ResetValues();
+        m_Player_L.Name = m_Init.m_Player_L.Name;
+        m_Player_R.Name = m_Init.m_Player_R.Name;
+        m_Player_L.GetComponentValues(m_PlayerGO_L);
+        m_Player_R.GetComponentValues(m_PlayerGO_R);
+
+        if (m_Init.m_GameMode == EGameModes.LOCAL)
+        {
+            m_Player_L.Input = GameObject.Find("P_Input(Clone)0").GetComponent<InputMaster>();
+            m_Player_R.Input = GameObject.Find("P_Input(Clone)1").GetComponent<InputMaster>();
+        }
+        if (m_Init.m_GameMode == EGameModes.TRAINING)
+        {
+            m_Default_Input.SetActive(true);
+            m_Player_L.Input = m_Default_Input.GetComponent<InputMaster>();
+        }
 
         yield return null;
     }
