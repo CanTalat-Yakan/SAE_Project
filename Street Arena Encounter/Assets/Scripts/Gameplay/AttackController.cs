@@ -7,15 +7,16 @@ public enum EAttackStates
 {
     NONE,
     Block,
-    F_LightAttack,
-    B_LightAttack,
     F_HeavyAttack,
     B_HeavyAttack,
+    F_LightAttack,
+    B_LightAttack,
     F_LowAttack,
     B_LowAttack,
 }
 public enum EDamageStates
 {
+    NONE,
     High,
     Middle,
     Low,
@@ -45,19 +46,19 @@ public class AttackController : MonoBehaviour
 
     [HideInInspector] public bool m_Attacking;
 
-    AnimatorOverrideController animatorOverrideController;
-    AnimationClipOverrides clipOverrides;
+    AnimatorOverrideController m_animatorOverrideController;
+    AnimationClipOverrides m_clipOverrides;
     #endregion
 
-    public void Start()
+    void Start()
     {
         if (m_PlayerInfo.Ani != null)
         {
-            animatorOverrideController = new AnimatorOverrideController(m_PlayerInfo.Ani.runtimeAnimatorController);
-            m_PlayerInfo.Ani.runtimeAnimatorController = animatorOverrideController;
+            m_animatorOverrideController = new AnimatorOverrideController(m_PlayerInfo.Ani.runtimeAnimatorController);
+            m_PlayerInfo.Ani.runtimeAnimatorController = m_animatorOverrideController;
 
-            clipOverrides = new AnimationClipOverrides(animatorOverrideController.overridesCount);
-            animatorOverrideController.GetOverrides(clipOverrides);
+            m_clipOverrides = new AnimationClipOverrides(m_animatorOverrideController.overridesCount);
+            m_animatorOverrideController.GetOverrides(m_clipOverrides);
         }
     }
 
@@ -69,92 +70,40 @@ public class AttackController : MonoBehaviour
         if (m_PlayerInfo.Input.m_attacks.block)
             StartCoroutine(Block());
 
-
         if (m_PlayerInfo.Input.m_attacks.heavy)
-        {
-            clipOverrides["Punching"] = AttackManager.Instance.clips[1];
-            animatorOverrideController.ApplyOverrides(clipOverrides);
-
-            StartCoroutine(Base(EAttackStates.F_LowAttack, Hit(EDamageStates.High, 2, true), true, 15, 3));
-        }
+            StartCoroutine(Base(EAttackStates.F_HeavyAttack));
         if (m_PlayerInfo.Input.m_attacks.b_heavy)
-        {
-            clipOverrides["Punching"] = AttackManager.Instance.clips[1];
-            animatorOverrideController.ApplyOverrides(clipOverrides);
-
-            StartCoroutine(Base(EAttackStates.B_HeavyAttack, Hit(EDamageStates.Middle, 2, true), false, 15, 50));
-        }
+            StartCoroutine(Base(EAttackStates.B_HeavyAttack));
 
 
         if (m_PlayerInfo.Input.m_attacks.light)
-        {
-            clipOverrides["Punching"] = AttackManager.Instance.clips[0];
-            animatorOverrideController.ApplyOverrides(clipOverrides);
-
-            StartCoroutine(Base(EAttackStates.F_LightAttack, Hit(EDamageStates.Middle), true));
-        }
+            StartCoroutine(Base(EAttackStates.F_LightAttack));
         if (m_PlayerInfo.Input.m_attacks.b_light)
-        {
-            clipOverrides["Punching"] = AttackManager.Instance.clips[0];
-            animatorOverrideController.ApplyOverrides(clipOverrides);
-
-            StartCoroutine(Base(EAttackStates.B_LightAttack, Hit(EDamageStates.Middle), false));
-        }
+            StartCoroutine(Base(EAttackStates.B_LightAttack));
 
 
         if (m_PlayerInfo.Input.m_attacks.low)
-        {
-            clipOverrides["Punching"] = AttackManager.Instance.clips[2];
-            animatorOverrideController.ApplyOverrides(clipOverrides);
-
-            StartCoroutine(Base(EAttackStates.F_LowAttack, Hit(EDamageStates.Low)));
-        }
+            StartCoroutine(Base(EAttackStates.F_LowAttack));
         if (m_PlayerInfo.Input.m_attacks.b_low)
-        {
-            clipOverrides["Punching"] = AttackManager.Instance.clips[2];
-            animatorOverrideController.ApplyOverrides(clipOverrides);
-
-            StartCoroutine(Base(EAttackStates.B_LowAttack, Hit(EDamageStates.Low)));
-        }
+            StartCoroutine(Base(EAttackStates.B_LowAttack));
 
         if (m_PlayerInfo.Input.m_attacks.special)
-        {
             if (AttackManager.Instance.GetSpecial(m_PlayerInfo.IsLeft))
             {
-                TimelineManager.Instance.Play(TimelineManager.Instance.m_TL_Special[Random.Range(0, TimelineManager.Instance.m_TL_Special.Length)]);
-                AttackManager.Instance.SetSpecial(m_PlayerInfo.IsLeft, false);
+                TimelineManager.Instance.Play(
+                    TimelineManager.Instance.m_TL_Special[
+                        Random.Range(
+                            0,
+                            TimelineManager.Instance.m_TL_Special.Length)]);
+
+                AttackManager.Instance.SetSpecial(
+                    m_PlayerInfo.IsLeft,
+                    false);
             }
-        }
     }
 
-    #region -Enumerators
-    public IEnumerator Base(EAttackStates _state, IEnumerator _content, bool _dash = false, float _activation = 8, float _recovery = 4)
-    {
-        if (m_CurrentState != _state)
-        {
-            m_PlayerInfo.Player.enabled = false;
-
-            m_CurrentState = _state;
-            m_PlayerInfo.Ani.SetBool("Attacking", m_Attacking = true);
-
-            AttackManager.Instance.Dash(m_PlayerInfo, 100);
-
-            for (int i = 0; i < _activation; i++)
-                yield return new WaitForEndOfFrame();
-
-            StartCoroutine(_content);
-
-            for (int i = 0; i < _recovery; i++)
-                yield return new WaitForEndOfFrame();
-
-            m_CurrentState = EAttackStates.NONE;
-            m_PlayerInfo.Ani.SetBool("Attacking", m_Attacking = false);
-
-            m_PlayerInfo.Player.enabled = true;
-        }
-        yield return null;
-    }
-    public IEnumerator Block()
+    #region //Enumerators
+    IEnumerator Block()
     {
         if (m_CurrentState != EAttackStates.Block)
         {
@@ -169,32 +118,87 @@ public class AttackController : MonoBehaviour
         }
         yield return null;
     }
-    public IEnumerator Hit(EDamageStates _damageType, float _damage = 3, bool _freezeTime = false)
+    IEnumerator Base(EAttackStates _state)
     {
+        if (m_CurrentState != _state)
+        {
+            SFrameBasedAtackSettings attack = m_PlayerInfo.ATK.Attacks[(int)_state - 2];
+
+            StartCoroutine(Activation(
+                attack.AnimationClip,
+                attack.State,
+                attack.Dash));
+
+            StartCoroutine(Damage(
+                attack.DamageType,
+                attack.Damage_Amount,
+                attack.Activation_FrameTime,
+                attack.Damage_FrameTime,
+                attack.FreezeTime)); ;
+
+            StartCoroutine(Recovery(
+                attack.State,
+                attack.Activation_FrameTime + attack.Damage_FrameTime + attack.Recovery_FrameTime));
+        }
+        yield return null;
+    }
+    IEnumerator Activation(AnimationClip _animationClip, EAttackStates _state, bool _dash = false)
+    {
+        m_CurrentState = _state;
+
+        if (_dash)
+            AttackManager.Instance.Dash(m_PlayerInfo);
+
+        m_clipOverrides["Punching"] = _animationClip;
+        m_animatorOverrideController.ApplyOverrides(m_clipOverrides);
+
+        m_PlayerInfo.Ani.SetBool("Attacking", m_Attacking = true);
+
+
+        yield return null;
+    }
+    IEnumerator Damage(EDamageStates _damageType, float _damageAmount, float _activationFrameTime, float _damageFrameTime, bool _freezeTime = false)
+    {
+        for (int i = 0; i < _activationFrameTime; i++)
+            yield return new WaitForEndOfFrame();
+
+
         bool tmpDamaged = false;
-        for (int i = 0; i < _damage; i++)
+        for (int i = 0; i < _damageFrameTime; i++)
         {
             if (!tmpDamaged)
-                tmpDamaged = DamageManager.Instance.DealDamage(10, !m_PlayerInfo.IsLeft, _damageType);
+                tmpDamaged = DamageManager.Instance.DealDamage(!m_PlayerInfo.IsLeft, _damageAmount, _damageType);
 
             if (tmpDamaged)
-            {
                 if (_freezeTime)
                 {
                     Time.timeScale = 0.1f;
                     yield return new WaitForSecondsRealtime(0.1f);
                     Time.timeScale = 1;
                 }
-            }
 
             yield return new WaitForEndOfFrame();
         }
+
+
+        yield return null;
+    }
+    IEnumerator Recovery(EAttackStates _state, float _recoveryFrameTime)
+    {
+        for (int i = 0; i < _recoveryFrameTime; i++)
+            yield return new WaitForEndOfFrame();
+
+
+        m_CurrentState = EAttackStates.NONE;
+
+        m_PlayerInfo.Ani.SetBool("Attacking", m_Attacking = false);
+
 
         yield return null;
     }
     #endregion
 
-    #region -Utilities
+    #region //Utilities
     /// <summary>
     /// Resets the Values of the Players Animation
     /// </summary>
