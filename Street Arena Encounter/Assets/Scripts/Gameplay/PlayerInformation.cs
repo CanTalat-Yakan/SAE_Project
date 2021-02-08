@@ -17,33 +17,35 @@ public struct PlayerInformation
     [HideInInspector] public float Forward { get => Ani.transform.localScale.x; }
     [HideInInspector] public bool IsLeft { get => Forward == 1; }
     [HideInInspector] public Material GetMaterial { get => Ani.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material; }
+    public string Name { get => IsLeft ? GameManager.Instance.m_Init.m_Player_L.Name : GameManager.Instance.m_Init.m_Player_R.Name; }
 
     [Header("Current State in Game")]
     public float Health;
     public int RoundsWon;
-    public string Name;
     public bool Special;
 
     public void GatherComponents(GameObject _obj)
     {
+        //Get Scriptable Object References with Information of GamePlay and Attacks
         GP = GameManager.Instance.m_GP;
         ATK = GameManager.Instance.m_ATK;
 
-        Player = _obj.GetComponent<PlayerController>();
-        Player.m_IsLeft = IsLeft;
-
-        Player.m_MovementController = _obj.GetComponent<MovementController>();
-        Player.m_MovementController.m_PlayerInfo = this;
-
-        Player.m_AttackController = _obj.GetComponent<AttackController>();
-        Player.m_AttackController.m_PlayerInfo = this;
-
+        //Get Component Rigidbody and BoxCollider
         RB = _obj.GetComponent<Rigidbody>();
         Col = _obj.GetComponent<BoxCollider>();
 
+        //Get Animator in Model
         Ani = _obj.transform.GetChild(0).GetComponent<Animator>();
 
-        Input = null;
+        //Get PlayerController using Movement and Attack
+        Player = _obj.GetComponent<PlayerController>();
+        Player.m_IsActive = Input != null;
+        //Passing Playercontroller the movementController
+        Player.m_MovementController = _obj.GetComponent<MovementController>();
+        Player.m_MovementController.m_PlayerInfo = this;
+        //Passign Playercontrolelr the attackController
+        Player.m_AttackController = _obj.GetComponent<AttackController>();
+        Player.m_AttackController.m_PlayerInfo = this;
     }
 
     public void ResetValues()
@@ -51,25 +53,5 @@ public struct PlayerInformation
         Health = 100;
         RoundsWon = 0;
         Special = true;
-    }
-
-    public void Constraint()
-    {
-        float xPos = 0;
-        float offSet = GP.PlayerRadius * 0.5f;
-
-        if (IsLeft)
-            xPos = Mathf.Clamp(
-                Player.transform.localPosition.x,
-                -9 + offSet,
-                GameManager.Instance.m_Player_R.Player.transform.localPosition.x - offSet);
-        else
-            xPos = Mathf.Clamp(
-                Player.transform.localPosition.x,
-                GameManager.Instance.m_Player_L.Player.transform.localPosition.x + offSet,
-                9 - offSet);
-
-        Vector3 newPos = new Vector3(xPos, Mathf.Max(0, Player.transform.localPosition.y), 0);
-        Player.transform.localPosition = newPos;
     }
 }
