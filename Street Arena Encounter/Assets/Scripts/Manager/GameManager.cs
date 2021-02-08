@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    #region -Values
+    #region //Values
     [Header("Level Attributes")]
     public Main_Init m_Init;
     public GameObject m_Default_Input;
@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool STARTED;
     #endregion
 
+
     void Awake()
     {
         if (Instance)
@@ -56,19 +57,9 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         MenuOverlay();
-
-        if (LOCKED)
-            return;
     }
 
-    void LateUpdate()
-    {
-        //Lock Target in Movable Space
-        m_Player_L.Constraint();
-        m_Player_R.Constraint();
-    }
-
-    #region -Utilities
+    #region //Utilities
     void MenuOverlay()
     {
         if (!STARTED)
@@ -131,12 +122,11 @@ public class GameManager : MonoBehaviour
     public void ResetPlayers()
     {
         m_Player_L.Player.ResetValues();
-        if (m_Player_R.Player.isActiveAndEnabled)
-            m_Player_R.Player.ResetValues();
+        m_Player_R.Player.ResetValues();
     }
     #endregion
 
-    #region -Helper
+    #region //Helper
     public RaycastHit HitRayCast(Vector3 _origin, Vector3 _direction, float _maxDistance)
     {
         RaycastHit hit;
@@ -172,17 +162,13 @@ public class GameManager : MonoBehaviour
     }
     public void ActivatePlayers()
     {
-        if (m_Player_L.Player.m_MovementController)
-            m_Player_L.Player.m_MovementController.enabled = true;
-        if (m_Player_R.Player.m_MovementController)
-            m_Player_R.Player.m_MovementController.enabled = true;
+        m_Player_L.RB.WakeUp();
+        m_Player_R.RB.WakeUp();
     }
     public void DeactivatePlayers()
     {
-        if (m_Player_L.Player.m_MovementController)
-            m_Player_L.Player.m_MovementController.enabled = false;
-        if (m_Player_R.Player.m_MovementController)
-            m_Player_R.Player.m_MovementController.enabled = false;
+        m_Player_L.RB.Sleep();
+        m_Player_R.RB.Sleep();
     }
     public bool BoolDistance(float _threshold)
     {
@@ -200,13 +186,14 @@ public class GameManager : MonoBehaviour
     }
     public float MapDistance(float _threshold)
     {
-        return Map(Mathf.Abs(GetDistance()),
+        return Map(
+            Mathf.Abs(GetDistance()),
             _threshold, 2.3f,
             0, 1);
     }
     #endregion
 
-    #region -Coroutine
+    #region //Coroutine
     IEnumerator Init()
     {
         StartCoroutine(Setup_Playerinformation());
@@ -223,17 +210,16 @@ public class GameManager : MonoBehaviour
 
         StartCoroutine(UnloadScenes());
 
+
         yield return null;
     }
     IEnumerator Setup_Playerinformation()
     {
+        //Reset Values; Health, Roundswon, Special
         m_Player_L.ResetValues();
         m_Player_R.ResetValues();
-        m_Player_L.Name = m_Init.m_Player_L.Name;
-        m_Player_R.Name = m_Init.m_Player_R.Name;
-        m_Player_L.GatherComponents(m_PlayerGO_L);
-        m_Player_R.GatherComponents(m_PlayerGO_R);
 
+        //Get Input
         if (m_Init.m_GameMode == EGameModes.LOCAL)
         {
             m_Player_L.Input = GameObject.Find("P_Input(Clone)0").GetComponent<InputMaster>();
@@ -243,7 +229,13 @@ public class GameManager : MonoBehaviour
         {
             m_Default_Input.SetActive(true);
             m_Player_L.Input = m_Default_Input.GetComponent<InputMaster>();
+            m_Player_R.Input = null;
         }
+
+        //Get Components
+        m_Player_L.GatherComponents(m_PlayerGO_L);
+        m_Player_R.GatherComponents(m_PlayerGO_R);
+
 
         yield return null;
     }
@@ -273,6 +265,7 @@ public class GameManager : MonoBehaviour
             TimelineManager.Instance.Play(TimelineManager.Instance.m_TL_Beginning[Random.Range(0, TimelineManager.Instance.m_TL_Beginning.Length)]);
         else
             m_MainCamera.gameObject.SetActive(true);
+
 
         yield return null;
     }
