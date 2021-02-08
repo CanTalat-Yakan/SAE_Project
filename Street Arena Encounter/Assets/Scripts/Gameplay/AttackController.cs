@@ -50,6 +50,7 @@ public class AttackController : MonoBehaviour
     AnimationClipOverrides m_clipOverrides;
     #endregion
 
+
     void Start()
     {
         if (m_PlayerInfo.Ani != null)
@@ -167,7 +168,10 @@ public class AttackController : MonoBehaviour
         for (int i = 0; i < _damageFrameTime; i++)
         {
             if (!tmpDamaged)
-                tmpDamaged = DamageManager.Instance.DealDamage(!m_PlayerInfo.IsLeft, _damageAmount, _damageType);
+                tmpDamaged = DamageManager.Instance.DealDamage(
+                    !m_PlayerInfo.IsLeft, 
+                    _damageAmount, 
+                    _damageType);
 
             if (tmpDamaged)
                 if (_freezeTime)
