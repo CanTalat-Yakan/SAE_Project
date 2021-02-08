@@ -14,7 +14,7 @@ public enum EMovementStates
 }
 public class MovementController : MonoBehaviour
 {
-    #region -Values
+    #region //Values
     [HideInInspector] public PlayerInformation m_PlayerInfo;
     [HideInInspector] public EMovementStates m_CurrentState;
 
@@ -86,10 +86,16 @@ public class MovementController : MonoBehaviour
     /// </summary>
     public void ResetValues()
     {
-        m_PlayerInfo.RB.gameObject.transform.position = new Vector3(m_PlayerInfo.IsLeft ? -m_PlayerInfo.GP.PlayerStartPos : m_PlayerInfo.GP.PlayerStartPos, 0, 0);
+        m_PlayerInfo.RB.gameObject.transform.position = new Vector3(
+            m_PlayerInfo.IsLeft ?
+                -m_PlayerInfo.GP.PlayerStartPos :
+                m_PlayerInfo.GP.PlayerStartPos,
+            0,
+            0);
 
         m_PlayerInfo.Ani.SetFloat("Move", 0);
         m_PlayerInfo.Ani.SetBool("Crouch", false);
+        m_PlayerInfo.Ani.SetBool("Jump", false);
     }
     /// <summary>
     /// Changes the Flag Enum representing the state the of player
@@ -99,20 +105,34 @@ public class MovementController : MonoBehaviour
         SetCurrentState(
             EMovementStates.Move,
             m_PlayerInfo.Ani.GetFloat("Move") != 0);
+
         SetCurrentState(
             EMovementStates.MoveBackwards,
             m_PlayerInfo.Ani.GetFloat("Move") < 0);
+
         SetCurrentState(
             EMovementStates.Crouch,
             m_PlayerInfo.Ani.GetBool("Crouch"));
+
         SetCurrentState(
             EMovementStates.Jump,
-            m_PlayerInfo.Input.m_movement.j);
+            m_PlayerInfo.Input ?
+                m_PlayerInfo.Input.m_movement.j :
+                false);
     }
     public void SetHeight()
     {
-        this.m_PlayerInfo.Col.size = new Vector3(m_PlayerInfo.GP.PlayerRadius, m_PlayerInfo.GP.PlayerHeight, 1);
-        this.m_PlayerInfo.Col.center = new Vector3(0, m_PlayerInfo.GP.PlayerHeight * 0.5f, 0);
+        //Set the Size of the Collider from Values in GP-Settings
+        m_PlayerInfo.Col.size = new Vector3(
+            m_PlayerInfo.GP.PlayerRadius,
+            m_PlayerInfo.GP.PlayerHeight,
+            1);
+
+        //Set the Center of the Collider from Height of it, TO_DO: considering crouching
+        m_PlayerInfo.Col.center = new Vector3(
+            0,
+            m_PlayerInfo.GP.PlayerHeight * 0.5f,
+            0);
     }
     public void Force(float _dir, float _drag = 30)
     {
@@ -131,6 +151,28 @@ public class MovementController : MonoBehaviour
             m_force += m_drag * Time.unscaledDeltaTime;
             m_force = Mathf.Clamp(m_force, m_force, 0);
         }
+    }
+    /// <summary>
+    /// Lock Target in Movable Space
+    /// </summary>
+    public void Constraint()
+    {
+        float xPos = 0;
+        float offSet = m_PlayerInfo.GP.PlayerRadius * 0.51f;
+
+        if (m_PlayerInfo.IsLeft)
+            xPos = Mathf.Clamp(
+                transform.localPosition.x,
+                transform.localPosition.x - 1,
+                GameManager.Instance.m_Player_R.Player.transform.localPosition.x - offSet);
+        else
+            xPos = Mathf.Clamp(
+                transform.localPosition.x,
+                GameManager.Instance.m_Player_L.Player.transform.localPosition.x + offSet,
+                transform.localPosition.x + 1);
+
+        Vector3 newPos = new Vector3(xPos, Mathf.Max(0, transform.localPosition.y), 0);
+        transform.localPosition = newPos;
     }
     void OnCollisionEnter(Collision _collision)
     {
