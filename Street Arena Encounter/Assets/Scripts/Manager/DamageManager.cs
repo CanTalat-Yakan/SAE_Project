@@ -18,6 +18,7 @@ public class DamageManager : MonoBehaviour
         }
         Instance = this;
     }
+
     public bool DealDamage(bool _toLeftSide, float _amount, EDamageStates _damageType)
     {
         PlayerInformation target = _toLeftSide ?
@@ -68,7 +69,7 @@ public class DamageManager : MonoBehaviour
     {
         //Damage
         if (GameManager.Instance.m_Init.m_GameMode != EGameModes.TRAINING)
-            _playerInfo.Health -= _damageAmount; //substracs health with damag amount
+            _playerInfo.Health -= _damageAmount; //substracs health with the amount of performed damage 
 
         _playerInfo.Ani.SetTrigger("Damaged"); //plays damage animation
 
