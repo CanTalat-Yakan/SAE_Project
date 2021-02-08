@@ -9,7 +9,7 @@ public class TimelineManager : MonoBehaviour
 
     [SerializeField] PlayableDirector m_TL_Directory;
 
-    public bool m_IsPlaying { get => m_TL_Directory.state == PlayState.Playing; set => m_IsPlaying = value; }
+    public bool m_IsPlaying { get => m_TL_Directory.state == PlayState.Playing; }
 
     public PlayableAsset[] m_TL_Beginning;
     public PlayableAsset[] m_TL_Special;
@@ -58,14 +58,12 @@ public class TimelineManager : MonoBehaviour
     IEnumerator DeactivateTL(float _timeStamp)
     {
         yield return new WaitUntil(() => Time.time - _timeStamp >= m_TL_Directory.playableAsset.duration);
-        {
-            GameManager.Instance.m_CMVCamera.gameObject.SetActive(true);
-            m_TL_Directory.gameObject.SetActive(false);
 
-            GameManager.Instance.ActivatePlayers();
-            GameManager.Instance.m_Player_L.Player.gameObject.transform.localPosition = m_startPos[0];
-            GameManager.Instance.m_Player_R.Player.gameObject.transform.localPosition = m_startPos[1];
+        GameManager.Instance.m_CMVCamera.gameObject.SetActive(true);
+        m_TL_Directory.gameObject.SetActive(false);
 
-        }
+        GameManager.Instance.ActivatePlayers();
+        GameManager.Instance.m_Player_L.Player.gameObject.transform.localPosition = m_startPos[0];
+        GameManager.Instance.m_Player_R.Player.gameObject.transform.localPosition = m_startPos[1];
     }
 }
