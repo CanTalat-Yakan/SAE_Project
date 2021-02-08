@@ -7,18 +7,17 @@ using UnityEngine;
 [RequireComponent(typeof(AttackController))]
 public class PlayerController : MonoBehaviour
 {
-    #region -Values
+    #region //Values
     [HideInInspector] public MovementController m_MovementController;
     [HideInInspector] public AttackController m_AttackController;
-    [HideInInspector] public bool m_IsLeft;
+    [HideInInspector] public bool m_IsActive;
     #endregion
 
     void Update()
     {
         if (!GameManager.Instance.STARTED 
             || GameManager.Instance.LOCKED 
-            || (!m_IsLeft 
-                && GameManager.Instance.m_Player_R.Input == null))
+            || !m_IsActive)
             return;
 
         m_AttackController.Attack();
@@ -32,11 +31,12 @@ public class PlayerController : MonoBehaviour
     {
         m_MovementController.Drag();
         m_MovementController.SetState();
-        //m_MovementController.SetHeight();
+        m_MovementController.SetHeight();
     }
     void FixedUpdate()
     {
         m_MovementController.Move();
+        m_MovementController.Constraint();
     }
 
     /// <summary>
