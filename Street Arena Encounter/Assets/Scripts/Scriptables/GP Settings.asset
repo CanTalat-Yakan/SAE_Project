@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bed93cd90067a07469d3c287903227f9, type: 3}
   m_Name: GP Settings
   m_EditorClassIdentifier: 
-  PlayerRadius: 2
+  PlayerRadius: 1
+  PlayerHeight: 3.1
   MaxPlayerDistance: 25
+  MovementSpeed: 1
+  GravityForce: -40
   JumpForce: 9
   JumpDashForce: 8.11
   DashForce: 30
-  GravityForce: -40
-  MovementSpeed: 1
-  PlayerHeight: 3.1
-  PlayerStartPos: 3
   CrouchHeight: 0.74
   Health: 100
+  PlayerStartPos: 3
