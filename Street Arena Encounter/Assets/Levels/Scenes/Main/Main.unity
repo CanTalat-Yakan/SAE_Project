@@ -123,6 +123,49 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &129633092
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 129633093}
+  - component: {fileID: 129633094}
+  m_Layer: 0
+  m_Name: RoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &129633093
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 129633092}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1508592290}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &129633094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 129633092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69e7bc5c83352da43879f6c79c89be80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &146515863
 GameObject:
   m_ObjectHideFlags: 0
@@ -5093,7 +5136,6 @@ MonoBehaviour:
     ATK: {fileID: 0}
     Health: 0
     RoundsWon: 0
-    Name: 
     Special: 0
   m_CurrentState: 0
   m_CurrentDamageState: 0
@@ -5120,7 +5162,6 @@ MonoBehaviour:
     ATK: {fileID: 0}
     Health: 0
     RoundsWon: 0
-    Name: 
     Special: 0
   m_CurrentState: 0
 --- !u!54 &378409833
@@ -5153,7 +5194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MovementController: {fileID: 0}
   m_AttackController: {fileID: 0}
-  m_IsLeft: 0
+  m_Active: 0
 --- !u!65 &378409835
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5512,7 +5553,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 720374935}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.8, z: 0}
+  m_LocalPosition: {x: 0, y: 2.8, z: -0.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 899738468}
@@ -11768,7 +11809,6 @@ MonoBehaviour:
     ATK: {fileID: 0}
     Health: 100
     RoundsWon: 0
-    Name: Planty
     Special: 0
   m_PlayerGO_R: {fileID: 1965195718}
   m_Player_R:
@@ -11781,7 +11821,6 @@ MonoBehaviour:
     ATK: {fileID: 0}
     Health: 100
     RoundsWon: 0
-    Name: Swirly
     Special: 0
   m_loadingscreenTimer: 0
   m_SkipIntro: 1
@@ -22782,6 +22821,7 @@ Transform:
   - {fileID: 745491765}
   - {fileID: 1623304271}
   - {fileID: 990234981}
+  - {fileID: 129633093}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -22809,7 +22849,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1516239561}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.345, y: 0, z: 0}
+  m_LocalPosition: {x: 0.345, y: 0.18, z: -0.12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1914207169}
@@ -23018,7 +23058,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1646202290}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.6, z: 0}
+  m_LocalPosition: {x: 0, y: 1.6, z: -0.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1023197442}
@@ -23049,7 +23089,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1722391388}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.6, z: 0}
+  m_LocalPosition: {x: 0, y: 1.6, z: -0.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1001190132}
@@ -28105,7 +28145,6 @@ MonoBehaviour:
     ATK: {fileID: 0}
     Health: 0
     RoundsWon: 0
-    Name: 
     Special: 0
   m_CurrentState: 0
   m_CurrentDamageState: 0
@@ -28132,7 +28171,6 @@ MonoBehaviour:
     ATK: {fileID: 0}
     Health: 0
     RoundsWon: 0
-    Name: 
     Special: 0
   m_CurrentState: 0
 --- !u!54 &1965195722
@@ -28165,7 +28203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MovementController: {fileID: 0}
   m_AttackController: {fileID: 0}
-  m_IsLeft: 0
+  m_Active: 0
 --- !u!65 &1965195724
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -28288,7 +28326,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2075510644}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.8, z: 0}
+  m_LocalPosition: {x: 0, y: 2.8, z: -0.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 149328597}
@@ -33190,7 +33228,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2127654792}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.345, y: 0, z: 0}
+  m_LocalPosition: {x: -0.345, y: 0.18, z: -0.12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2089967264}

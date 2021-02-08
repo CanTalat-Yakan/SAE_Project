@@ -1293,7 +1293,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1157736643}
-  - component: {fileID: 1157736644}
+  - component: {fileID: 1157736645}
   m_Layer: 0
   m_Name: UI Manager
   m_TagString: Untagged
@@ -1315,7 +1315,7 @@ Transform:
   m_Father: {fileID: 25453196}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1157736644
+--- !u!114 &1157736645
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1324,20 +1324,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 1157736642}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 331c40e0dbb97bc41af0fc275257c5f0, type: 3}
+  m_Script: {fileID: 11500000, guid: 72be526fff72e67469d704a27c7c14df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_panel: {fileID: 1784361904}
+  m_canvas: {fileID: 1784361904}
   m_timerGUI: {fileID: 1661666098}
   m_commentGUI: {fileID: 569773097}
+  m_name_L: {fileID: 985053568}
   m_playerHealthBar_L: {fileID: 1132626697}
   m_playerHealthBarShadow_L: {fileID: 1268509416}
+  m_roundsGO_L: {fileID: 2077224895}
+  m_name_R: {fileID: 1066531427}
   m_playerHealthBar_R: {fileID: 397669488}
   m_playerHealthBarShadow_R: {fileID: 1334721813}
-  m_roundsGO_L: {fileID: 2077224895}
   m_roundsGO_R: {fileID: 1837276921}
-  m_timer: 60
-  m_rounds: 1
 --- !u!1 &1185437621
 GameObject:
   m_ObjectHideFlags: 0
