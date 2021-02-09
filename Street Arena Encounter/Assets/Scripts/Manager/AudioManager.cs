@@ -7,27 +7,27 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance { get; private set; }
 
-    #region -Values
+    #region //Values
     public Audio_Info m_AudioInfo;
 
     AudioSource m_menuMusicSource;
     AudioSource m_mainMusicSource;
     AudioSource m_mainAmbientSource;
+
+    float m_tmpVolume;
     #endregion
 
     void Awake()
     {
         if (Instance)
-        {
             Destroy(Instance.gameObject);
-            return;
-        }
         Instance = this;
     }
 
     void Update()
     {
-        if (SceneManager.GetSceneByName("Menu").isLoaded)
+        if (SceneManager.GetSceneByName("Menu").isLoaded 
+            && !SceneManager.GetSceneByName("Main").isLoaded)
             PlayMenuMusic(0.3f);
         else
             StopMenuMusic();
@@ -50,9 +50,6 @@ public class AudioManager : MonoBehaviour
 
     public AudioSource Play(AudioClip _clip, float _volume = 1)
     {
-        if (!Instance)
-            return null;
-
         AudioSource audioSource = gameObject.AddComponent<AudioSource>();
 
         audioSource.rolloffMode = AudioRolloffMode.Custom;
@@ -66,14 +63,13 @@ public class AudioManager : MonoBehaviour
         audioSource.pitch = 1;
         audioSource.Play();
         Destroy(audioSource, _clip.length);
+
+
         return audioSource;
     }
 
-    public void PlaySequence(AudioClip _clip, AudioClip _clip2, float _volume = 1)
+    public AudioSource[] PlaySequence(AudioClip _clip, AudioClip _clip2, float _volume = 1)
     {
-        if (!Instance)
-            return;
-
         AudioSource audioSource = gameObject.AddComponent<AudioSource>();
         AudioSource audioSource2 = gameObject.AddComponent<AudioSource>();
 
@@ -95,6 +91,11 @@ public class AudioManager : MonoBehaviour
 
         audioSource.Play();
         audioSource2.Play((ulong)_clip.length);
+
+
+        return new AudioSource[2]{
+            audioSource,
+            audioSource2};
     }
 
     public void PlayMenuMusic(float _volume = 1)
@@ -137,17 +138,24 @@ public class AudioManager : MonoBehaviour
         audioSource.dopplerLevel = 0;
         audioSource.reverbZoneMix = 1;
         audioSource.clip = m_AudioInfo.m_MainMusic[(int)GameManager.Instance.m_Init.m_Level];
-        audioSource.volume = _volume;
+        audioSource.volume = m_tmpVolume = _volume;
         audioSource.pitch = 1;
         audioSource.loop = true;
         audioSource.Play();
         m_mainMusicSource = audioSource;
         Destroy(audioSource, m_AudioInfo.m_MainMusic[(int)GameManager.Instance.m_Init.m_Level].length);
     }
-
     public void StopMainMusic()
     {
         Destroy(m_mainMusicSource);
+    }
+    public void LowerMainMusicVolume(float _percentage)
+    {
+        m_mainMusicSource.volume = m_tmpVolume * _percentage;
+    }
+    public void ResertMainMusicVolume()
+    {
+        m_mainMusicSource.volume = m_tmpVolume;
     }
 
     public void PlayMainAmbient(float _volume = 1)
@@ -171,7 +179,6 @@ public class AudioManager : MonoBehaviour
         m_mainAmbientSource = audioSource;
         Destroy(audioSource, m_AudioInfo.m_MainAmbient[(int)GameManager.Instance.m_Init.m_Level].length);
     }
-
     public void StopMainAmbient()
     {
         Destroy(m_mainAmbientSource);
