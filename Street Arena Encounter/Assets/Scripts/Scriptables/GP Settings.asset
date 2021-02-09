@@ -18,7 +18,7 @@ MonoBehaviour:
   MovementSpeed: 1
   GravityForce: -40
   JumpForce: 9
-  JumpDashForce: 8.11
+  JumpDashForce: 7
   DashForce: 30
   CrouchHeight: 0.74
   Health: 100

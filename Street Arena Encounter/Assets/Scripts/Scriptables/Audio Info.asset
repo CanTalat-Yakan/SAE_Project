@@ -15,8 +15,7 @@ MonoBehaviour:
   m_MenuMusic: {fileID: 8300000, guid: e16f2544dd1adad47be741c9d1121091, type: 3}
   m_ButtonSelect: {fileID: 8300000, guid: 25fe9a131ed51834498cc1a52f759028, type: 3}
   m_ButtonMove: {fileID: 8300000, guid: 0fc6702ee44f8e746ab01f531389834f, type: 3}
-  m_PanelSelect: {fileID: 0}
-  m_PanelBack: {fileID: 0}
+  m_Joined: {fileID: 8300000, guid: 5fe6575a8ce4cf44cb318aaac7bb7aae, type: 3}
   m_MainMusic:
   - {fileID: 8300000, guid: 78847ff47ad29ab40949aa27f5dd757a, type: 3}
   - {fileID: 8300000, guid: b7eaaeb66fa568c418d0d7993b117f44, type: 3}
@@ -52,8 +51,15 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 4c5de0c68f016c64a90439ec214b6a6f, type: 3}
   - {fileID: 8300000, guid: 5e5d0a9c4dc0bb347b97b2b3b22b06b6, type: 3}
   m_Begin:
-  - {fileID: 8300000, guid: c535cd6b264292e4494649886f99ac60, type: 3}
-  - {fileID: 8300000, guid: de427fd7606da33498f0907ad3021471, type: 3}
+  - {fileID: 8300000, guid: 75c1c2dcaf11f6245bf491a834af68f4, type: 3}
+  - {fileID: 8300000, guid: f56faa1d0e4577347a440db5b5307d33, type: 3}
+  m_RoundX:
+  - {fileID: 8300000, guid: 8696d7707edefc64e8eff877947b90dc, type: 3}
+  - {fileID: 8300000, guid: 8696d7707edefc64e8eff877947b90dc, type: 3}
+  - {fileID: 8300000, guid: 71ec5368e4f8110429563b92b2921a32, type: 3}
+  - {fileID: 8300000, guid: 90efe8d32f86855449725bf2ba03add3, type: 3}
+  - {fileID: 8300000, guid: 57271bc57bf69824eb71a8a7b0afbee0, type: 3}
+  - {fileID: 8300000, guid: 2c08056fdbef8e34bb1d24727f6e06b8, type: 3}
   m_Round: {fileID: 8300000, guid: de427fd7606da33498f0907ad3021471, type: 3}
   m_FinalRound: {fileID: 8300000, guid: c535cd6b264292e4494649886f99ac60, type: 3}
   m_Tie: {fileID: 8300000, guid: 11f63b1737eb88545933875c62bcd77c, type: 3}

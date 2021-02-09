@@ -7,7 +7,6 @@ using UnityEngine.InputSystem;
 [Serializable]
 public struct SInitInfo
 {
-    public PlayerInput Input;
     public string Name;
 }
 

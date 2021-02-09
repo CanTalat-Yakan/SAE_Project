@@ -10,21 +10,23 @@ public class Audio_Info : ScriptableObject
     public AudioClip m_MenuMusic;
     public AudioClip m_ButtonSelect;
     public AudioClip m_ButtonMove;
-    public AudioClip m_PanelSelect;
-    public AudioClip m_PanelBack;
+    public AudioClip m_Joined;
 
     [Header("Main")]
     public AudioClip[] m_MainMusic = new AudioClip[0];
     public AudioClip[] m_MainAmbient = new AudioClip[0];
     public AudioClip[] m_Attack = new AudioClip[3];
+
+    [Header("Attack")]
     public AudioClip m_Block;
     public AudioClip m_Special;
     public AudioClip[] m_Damage = new AudioClip[0];
-    public AudioClip[] m_Shout = new AudioClip[0];
+    public AudioClip[] m_Taunts = new AudioClip[0];
 
     [Header("Round")]
     public AudioClip[] m_Count = new AudioClip[10];
     public AudioClip[] m_Begin = new AudioClip[0];
+    public AudioClip[] m_RoundX = new AudioClip[5];
     public AudioClip m_Round;
     public AudioClip m_FinalRound;
     public AudioClip m_Tie;
