@@ -12,8 +12,8 @@ public struct SThrowingObject
 }
 public class AttackManager : MonoBehaviour
 {
-    #region //Values
     public static AttackManager Instance { get; private set; }
+    #region //Values
 
     public SThrowingObject m_ThrowingObjectType;
 
