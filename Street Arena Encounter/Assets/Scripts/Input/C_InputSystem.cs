@@ -412,6 +412,14 @@ public class @C_InputSystem : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Any"",
+                    ""type"": ""Button"",
+                    ""id"": ""23ccb6e9-4909-4587-956c-0f87aa4d9832"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -722,6 +730,127 @@ public class @C_InputSystem : IInputActionCollection, IDisposable
                     ""action"": ""Select"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4ce176a2-9773-4204-9f81-1024f060a72c"",
+                    ""path"": ""*/{Submit}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Any"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""530290b0-b5da-41b6-a99b-874396c98f06"",
+                    ""path"": ""*/{SecondaryTrigger}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Any"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b3bd0341-1f5d-4628-a579-c711d9d7ce2c"",
+                    ""path"": ""*/{SecondaryAction}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Any"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""35b67437-f126-4890-9784-9822d3c36f56"",
+                    ""path"": ""*/{PrimaryTrigger}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Any"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2a1d3427-c6f5-41e1-9900-1f6876e1f918"",
+                    ""path"": ""*/{PrimaryAction}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Any"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5b876eb0-816d-460c-a57e-4ad79d2035de"",
+                    ""path"": ""*/{Modifier}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Any"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ba946ae5-0a1b-4996-ab24-5a9968dc479e"",
+                    ""path"": ""*/{Menu}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Any"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e3512cd7-c3f8-440d-8b80-334e00d5df02"",
+                    ""path"": ""*/{Forward}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Any"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a4ce2908-7b2f-4d9d-93be-be06eb9ef9cf"",
+                    ""path"": ""*/{Cancel}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Any"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""914abb10-a5c3-4c4d-bf56-c3a79fd4649a"",
+                    ""path"": ""*/{Back}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Any"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a355f9c7-23a0-4f70-9183-69ff3425da83"",
+                    ""path"": ""<Keyboard>/anyKey"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Any"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -769,6 +898,7 @@ public class @C_InputSystem : IInputActionCollection, IDisposable
         m_Menu_Cancel = m_Menu.FindAction("Cancel", throwIfNotFound: true);
         m_Menu_Start = m_Menu.FindAction("Start", throwIfNotFound: true);
         m_Menu_Select = m_Menu.FindAction("Select", throwIfNotFound: true);
+        m_Menu_Any = m_Menu.FindAction("Any", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -920,6 +1050,7 @@ public class @C_InputSystem : IInputActionCollection, IDisposable
     private readonly InputAction m_Menu_Cancel;
     private readonly InputAction m_Menu_Start;
     private readonly InputAction m_Menu_Select;
+    private readonly InputAction m_Menu_Any;
     public struct MenuActions
     {
         private @C_InputSystem m_Wrapper;
@@ -929,6 +1060,7 @@ public class @C_InputSystem : IInputActionCollection, IDisposable
         public InputAction @Cancel => m_Wrapper.m_Menu_Cancel;
         public InputAction @Start => m_Wrapper.m_Menu_Start;
         public InputAction @Select => m_Wrapper.m_Menu_Select;
+        public InputAction @Any => m_Wrapper.m_Menu_Any;
         public InputActionMap Get() { return m_Wrapper.m_Menu; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -953,6 +1085,9 @@ public class @C_InputSystem : IInputActionCollection, IDisposable
                 @Select.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnSelect;
                 @Select.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnSelect;
                 @Select.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnSelect;
+                @Any.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnAny;
+                @Any.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnAny;
+                @Any.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnAny;
             }
             m_Wrapper.m_MenuActionsCallbackInterface = instance;
             if (instance != null)
@@ -972,6 +1107,9 @@ public class @C_InputSystem : IInputActionCollection, IDisposable
                 @Select.started += instance.OnSelect;
                 @Select.performed += instance.OnSelect;
                 @Select.canceled += instance.OnSelect;
+                @Any.started += instance.OnAny;
+                @Any.performed += instance.OnAny;
+                @Any.canceled += instance.OnAny;
             }
         }
     }
@@ -1013,5 +1151,6 @@ public class @C_InputSystem : IInputActionCollection, IDisposable
         void OnCancel(InputAction.CallbackContext context);
         void OnStart(InputAction.CallbackContext context);
         void OnSelect(InputAction.CallbackContext context);
+        void OnAny(InputAction.CallbackContext context);
     }
 }
