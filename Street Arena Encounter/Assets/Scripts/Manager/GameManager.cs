@@ -21,10 +21,10 @@ public class GameManager : MonoBehaviour
     [Header("Player Attributes")]
     [Space(15)]
     [SerializeField] GameObject m_PlayerGO_L;
-    [HideInInspector] public PlayerInformation m_Player_L;
+    public PlayerInformation m_Player_L;
     [Space(15)]
     [SerializeField] GameObject m_PlayerGO_R;
-    [HideInInspector] public PlayerInformation m_Player_R;
+    public PlayerInformation m_Player_R;
 
     [Header("Start Attributes")]
     [SerializeField] float m_loadingscreenTimer;
@@ -222,8 +222,8 @@ public class GameManager : MonoBehaviour
         //Get Input
         if (m_Init.m_GameMode == EGameModes.LOCAL)
         {
-            m_Player_L.Input = GameObject.Find("P_Input(Clone)0").GetComponent<InputMaster>();
-            m_Player_R.Input = GameObject.Find("P_Input(Clone)1").GetComponent<InputMaster>();
+            m_Player_L.Input = InputManager.Instance.m_Player_L_Input.GetComponent<InputMaster>();
+            m_Player_R.Input = InputManager.Instance.m_Player_R_Input.GetComponent<InputMaster>();
         }
         if (m_Init.m_GameMode == EGameModes.TRAINING)
         {
