@@ -6,9 +6,11 @@ using UnityEngine;
 public class RoundManager : MonoBehaviour
 {
     #region //Values
-    int m_timer;
-    int m_rounds;
-    bool? m_result;
+    int m_timer = 0;
+    int m_currentRound = 1;
+    bool? m_roundResult = null;
+    bool? m_endResult = null;
+    bool m_endResult_Tie = false;
     #endregion
 
 
@@ -26,24 +28,26 @@ public class RoundManager : MonoBehaviour
     void ResetValues()
     {
         m_timer = GameManager.Instance.m_Init.m_Timer;
-        m_rounds = 1;
+        m_currentRound = 1;
+        m_roundResult = null;
     }
 
     #region //Coroutine
     IEnumerator PHASE_Awake()
     {
+        ResetValues();
+
         yield return new WaitUntil(
             () => UIManager.Instance != null);
 
         UIManager.Instance.DeativateTimer();
+        UIManager.Instance.SetPlayer_Name();
         StartCoroutine(UIManager.Instance.WaitForTimeLine());
 
         yield return new WaitUntil(
             () => TimelineManager.Instance.m_IsPlaying == false);
 
         StartCoroutine(PHASE_Start());
-
-        ResetValues();
 
 
         yield return null;
@@ -52,14 +56,24 @@ public class RoundManager : MonoBehaviour
     {
         GameManager.Instance.DeactivatePlayers();
 
-        if (GameManager.Instance.m_Init.m_GameMode != EGameModes.TRAINING)
-            UIManager.Instance.Setup();
-
         UIManager.Instance.ResetPlayer_Health();
+
+        AudioManager.Instance.LowerMainMusicVolume(0.7f);
+
+        if (GameManager.Instance.m_Init.m_GameMode != EGameModes.TRAINING)
+        {
+            UIManager.Instance.Setup();
+            UIManager.Instance.SetRound(m_currentRound);
+
+            yield return new WaitForSeconds(1.5f);
+        }
+
         StartCoroutine(UIManager.Instance.CountDown(3, "Goo"));
 
         yield return new WaitUntil(
             () => UIManager.Instance.LOCKED == false);
+
+        AudioManager.Instance.ResertMainMusicVolume();
 
         GameManager.Instance.STARTED = true;
         GameManager.Instance.ActivatePlayers();
@@ -104,11 +118,17 @@ public class RoundManager : MonoBehaviour
     }
     IEnumerator PHASE_End_Round()
     {
-        m_rounds++;
+        yield return new WaitUntil(
+            () => TimelineManager.Instance.m_IsPlaying == false);
+
+        m_currentRound++;
 
         UIManager.Instance.SetTimer(0);
 
-        UIManager.Instance.SetComment_PlayerWon(m_result);
+        if (m_roundResult == null)
+            UIManager.Instance.SetComment_Tie();
+        else
+            UIManager.Instance.SetComment_PlayerWon((bool)m_roundResult);
 
         DOTween.Clear();
         GameManager.Instance.STARTED = false;
@@ -128,9 +148,15 @@ public class RoundManager : MonoBehaviour
     }
     IEnumerator PHASE_End_Game()
     {
+        yield return new WaitUntil(
+            () => TimelineManager.Instance.m_IsPlaying == false);
+
         UIManager.Instance.SetTimer(0);
 
-        UIManager.Instance.SetComment_PlayerWon(m_result);
+        if (m_endResult_Tie)
+            UIManager.Instance.SetComment_Tie();
+        else
+            UIManager.Instance.SetComment_PlayerWon((bool)m_endResult);
 
         DOTween.Clear();
         GameManager.Instance.STARTED = false;
@@ -147,45 +173,41 @@ public class RoundManager : MonoBehaviour
     #endregion
 
     #region //Utilities
-    void AddRoundWon(bool _toLeft)
-    {
-        if (_toLeft)
-            GameManager.Instance.m_Player_L.RoundsWon++;
-        else
-            GameManager.Instance.m_Player_R.RoundsWon++;
-    }
-
     void CheckWinner()
     {
-        Check_Health();
+        GameManager.Instance.STARTED = false;
+
+
+        Check_Health(ref m_roundResult);
 
         Update_RoundsWon();
 
+        Check_RoundsWon(ref m_endResult);
+
+
         StopAllCoroutines();
         StartCoroutine(
-            Check_RoundsWon() ?
+            m_endResult != null ?
                 PHASE_End_Game() :
                 PHASE_End_Round());
-
     }
 
-    bool? Check_Health()
+    void Check_Health(ref bool? _roundResult)
     {
+        //Tie
+        _roundResult = null;
         //Player_L Won
         if (GameManager.Instance.m_Player_L.Health > GameManager.Instance.m_Player_R.Health)
-            return true;
+            _roundResult = true;
         //Player_R Won
         if (GameManager.Instance.m_Player_L.Health < GameManager.Instance.m_Player_R.Health)
-            return false;
-
-        //Tie
-        return null;
+            _roundResult = false;
     }
 
     void Update_RoundsWon()
     {
-        if (m_result != null)
-            AddRoundWon((bool)m_result);
+        if (m_roundResult != null)
+            AddRoundWon((bool)m_roundResult);
         else
         {
             AddRoundWon(true);
@@ -195,18 +217,34 @@ public class RoundManager : MonoBehaviour
         UIManager.Instance.Setup();
     }
 
-    bool Check_RoundsWon()
+    void Check_RoundsWon(ref bool? _endResult)
     {
-        return GameManager.Instance.m_Player_L.RoundsWon == GameManager.Instance.m_Init.m_Rounds
-               || GameManager.Instance.m_Player_R.RoundsWon == GameManager.Instance.m_Init.m_Rounds;
+        _endResult = null;
+
+        if (GameManager.Instance.m_Player_L.RoundsWon == GameManager.Instance.m_Init.m_Rounds)
+            _endResult = true;
+        if (GameManager.Instance.m_Player_R.RoundsWon == GameManager.Instance.m_Init.m_Rounds)
+            _endResult = false;
+
+        if (GameManager.Instance.m_Player_L.RoundsWon == GameManager.Instance.m_Init.m_Rounds
+           && GameManager.Instance.m_Player_R.RoundsWon == GameManager.Instance.m_Init.m_Rounds)
+            m_endResult_Tie = true;
     }
 
     void ReadDamage()
     {
-        UIManager.Instance.SetPlayer_Health();
-
         if (Check_PlayerDead())
             CheckWinner();
+    }
+    #endregion
+
+    #region //Helper
+    void AddRoundWon(bool _toLeft)
+    {
+        if (_toLeft)
+            ++GameManager.Instance.m_Player_L.RoundsWon;
+        else
+            ++GameManager.Instance.m_Player_R.RoundsWon;
     }
     bool Check_PlayerDead()
     {

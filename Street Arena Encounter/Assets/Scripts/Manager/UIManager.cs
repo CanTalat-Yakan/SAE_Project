@@ -78,27 +78,26 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void SetPlayer_Name(bool _isLeft, string _name)
+    public void SetPlayer_Name()
     {
-        if (_isLeft)
-            m_name_L.text = _name;
-        else
-            m_name_R.text = _name;
+        m_name_L.text = GameManager.Instance.m_Player_L.Name;
+        m_name_R.text = GameManager.Instance.m_Player_R.Name;
     }
     public void SetPlayer_Health()
     {
         //Player_L
-        if (m_playerHealthBar_L.fillAmount != GameManager.Instance.m_Player_L.Health / GameManager.Instance.m_Player_L.GP.Health)
+        if (GameManager.Instance.m_Player_L.Health / GameManager.Instance.m_Player_L.GP.Health //the percentage of the players health to his original health amount
+            != m_playerHealthBar_L.fillAmount)
         {
             m_playerHealthBar_L.fillAmount = GameManager.Instance.m_Player_L.Health / GameManager.Instance.m_Player_L.GP.Health;
-            StartCoroutine(DamageShadowAni());
+            StartCoroutine(DamageShadowAni(true));
         }
-
         //Player_R
-        if (m_playerHealthBar_R.fillAmount != GameManager.Instance.m_Player_R.Health / GameManager.Instance.m_Player_R.GP.Health)
+        if (GameManager.Instance.m_Player_R.Health / GameManager.Instance.m_Player_R.GP.Health //the percentage of the players health to his original health amount
+            != m_playerHealthBar_L.fillAmount)
         {
             m_playerHealthBar_R.fillAmount = GameManager.Instance.m_Player_R.Health / GameManager.Instance.m_Player_R.GP.Health;
-            StartCoroutine(DamageShadowAni());
+            StartCoroutine(DamageShadowAni(false));
         }
     }
     public void SetTimer(int time)
@@ -106,23 +105,58 @@ public class UIManager : MonoBehaviour
         m_timerGUI.gameObject.SetActive(true);
         m_timerGUI.text = time.ToString();
     }
+    public void SetRound(int _currentRound)
+    {
+        m_commentGUI.gameObject.SetActive(true);
+
+        if (_currentRound == GameManager.Instance.m_Init.m_Rounds)
+            if (_currentRound != 1)
+            {
+                m_commentGUI.text = "Final Round ";
+
+                AudioManager.Instance.Play(
+                    AudioManager.Instance.m_AudioInfo.m_FinalRound);
+
+                return;
+            }
+
+        m_commentGUI.text = "Round " + _currentRound.ToString();
+
+        if (_currentRound <= 5)
+            AudioManager.Instance.Play(
+                AudioManager.Instance.m_AudioInfo.m_RoundX[_currentRound]);
+        else
+            AudioManager.Instance.PlaySequence(
+                AudioManager.Instance.m_AudioInfo.m_Round,
+                AudioManager.Instance.m_AudioInfo.m_Count[_currentRound]);
+    }
     public void SetComment(string _comment)
     {
         m_commentGUI.gameObject.SetActive(true);
         m_commentGUI.text = _comment;
     }
-    public void SetComment_PlayerWon(bool? _toLeft)
+    public void SetComment_Tie()
+    {
+        m_commentGUI.gameObject.SetActive(true);
+
+        m_commentGUI.text = "Tie";
+
+        AudioManager.Instance.Play(
+            AudioManager.Instance.m_AudioInfo.m_Tie);
+    }
+    public void SetComment_PlayerWon(bool _toLeft)
     {
         m_commentGUI.gameObject.SetActive(true);
 
         m_commentGUI.text =
-            (bool)_toLeft ?
+            (_toLeft ?
                 GameManager.Instance.m_Player_L.Name :
-                GameManager.Instance.m_Player_R.Name
-            + " Won";
+                GameManager.Instance.m_Player_R.Name)
+            + "\nWon";
 
-        if (_toLeft == null)
-            m_commentGUI.text = "Tie";
+        AudioManager.Instance.PlaySequence(
+            AudioManager.Instance.m_AudioInfo.m_Player[_toLeft ? 0 : 1],
+            AudioManager.Instance.m_AudioInfo.m_Won);
     }
 
     public void DeativateTimer()
@@ -131,6 +165,7 @@ public class UIManager : MonoBehaviour
     }
     public void DeativateComment()
     {
+        m_commentGUI.text = "";
         m_commentGUI.gameObject.SetActive(false);
     }
     public void ResetPlayer_Health()
@@ -159,19 +194,20 @@ public class UIManager : MonoBehaviour
 
         yield return null;
     }
-    public IEnumerator DamageShadowAni()
+    public IEnumerator DamageShadowAni(bool _ofLeftSide, float _duration = 0.2f)
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSecondsRealtime(1);
 
-        DOTween.To(() => m_playerHealthBarShadow_L.fillAmount,
-            x => m_playerHealthBarShadow_L.fillAmount = x,
-                 m_playerHealthBar_L.fillAmount,
-                 0.2f);
-
-        DOTween.To(() => m_playerHealthBarShadow_R.fillAmount,
-            x => m_playerHealthBarShadow_R.fillAmount = x,
-                 m_playerHealthBar_R.fillAmount,
-                 0.2f);
+        if (_ofLeftSide)
+            DOTween.To(() => m_playerHealthBarShadow_L.fillAmount,
+                x => m_playerHealthBarShadow_L.fillAmount = x,
+                     m_playerHealthBar_L.fillAmount,
+                     _duration);
+        else
+            DOTween.To(() => m_playerHealthBarShadow_R.fillAmount,
+                x => m_playerHealthBarShadow_R.fillAmount = x,
+                     m_playerHealthBar_R.fillAmount,
+                     _duration);
 
         yield return null;
     }
@@ -185,16 +221,22 @@ public class UIManager : MonoBehaviour
 
             AudioManager.Instance.Play(
                 AudioManager.Instance.m_AudioInfo.m_Count[i]);
-
             yield return new WaitForSeconds(1);
         }
 
+        LOCKED = false;
+
         m_commentGUI.SetText(_startText);
+
+        AudioManager.Instance.Play(
+            AudioManager.Instance.m_AudioInfo.m_Begin[
+                Random.Range(
+                    0,
+                    AudioManager.Instance.m_AudioInfo.m_Begin.Length)]);
+
 
         yield return new WaitForSeconds(1);
         m_commentGUI.gameObject.SetActive(false);
-
-        LOCKED = false;
 
 
         yield return null;
