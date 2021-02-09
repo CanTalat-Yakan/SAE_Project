@@ -7,26 +7,12 @@ public class SceneHandler : MonoBehaviour
     {
         Time.timeScale = 1;
         SceneManager.LoadScene(_sceneNumber);
-
-        if (GameManager.Instance)
-            if (_sceneNumber == 1)
-            {
-                Destroy(GameManager.Instance.m_Player_L.Input.gameObject);
-                Destroy(GameManager.Instance.m_Player_R.Input.gameObject);
-            }
     }
 
     public static void ChangeSceneByName(string _sceneName)
     {
         Time.timeScale = 1;
         SceneManager.LoadScene(_sceneName);
-
-        if (GameManager.Instance)
-            if (_sceneName == "Menu")
-            {
-                Destroy(GameManager.Instance.m_Player_L.Input.gameObject);
-                Destroy(GameManager.Instance.m_Player_R.Input.gameObject);
-            }
     }
 
     public static void AddSceneByName(string _sceneName)
