@@ -5194,7 +5194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MovementController: {fileID: 0}
   m_AttackController: {fileID: 0}
-  m_Active: 0
+  m_IsActive: 0
 --- !u!65 &378409835
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11803,10 +11803,10 @@ MonoBehaviour:
     Player: {fileID: 378409834}
     RB: {fileID: 378409833}
     Ani: {fileID: 1439122167}
-    Col: {fileID: 0}
+    Col: {fileID: 378409835}
     Input: {fileID: 631771555}
     GP: {fileID: 11400000, guid: 36a3a49ea9a8d1d409717af0da21a8ed, type: 2}
-    ATK: {fileID: 0}
+    ATK: {fileID: 11400000, guid: eb0d60f6c98a59344a88f272fbffd42a, type: 2}
     Health: 100
     RoundsWon: 0
     Special: 0
@@ -11815,15 +11815,15 @@ MonoBehaviour:
     Player: {fileID: 1965195723}
     RB: {fileID: 1965195722}
     Ani: {fileID: 631684837}
-    Col: {fileID: 0}
+    Col: {fileID: 1965195724}
     Input: {fileID: 631771555}
     GP: {fileID: 11400000, guid: 36a3a49ea9a8d1d409717af0da21a8ed, type: 2}
-    ATK: {fileID: 0}
+    ATK: {fileID: 11400000, guid: eb0d60f6c98a59344a88f272fbffd42a, type: 2}
     Health: 100
     RoundsWon: 0
     Special: 0
   m_loadingscreenTimer: 0
-  m_SkipIntro: 1
+  m_SkipIntro: 0
   LOCKED: 0
   STARTED: 0
 --- !u!1 &990234980
@@ -28203,7 +28203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MovementController: {fileID: 0}
   m_AttackController: {fileID: 0}
-  m_Active: 0
+  m_IsActive: 0
 --- !u!65 &1965195724
 BoxCollider:
   m_ObjectHideFlags: 0
