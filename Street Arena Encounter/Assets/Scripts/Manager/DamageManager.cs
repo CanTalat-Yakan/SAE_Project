@@ -6,8 +6,15 @@ using UnityEngine;
 public class DamageManager : MonoBehaviour
 {
     public static DamageManager Instance { get; private set; }
+
+    #region //Values
     [SerializeField] ParticleSystem[] m_ps_L = new ParticleSystem[3];
     [SerializeField] ParticleSystem[] m_ps_R = new ParticleSystem[3];
+
+    CinemachineBasicMultiChannelPerlin m_noise;
+    float m_originalShakeIntensity;
+    #endregion
+
 
     void Awake()
     {
@@ -19,16 +26,18 @@ public class DamageManager : MonoBehaviour
         Instance = this;
     }
 
+    void Start()
+    {
+        m_noise = GameManager.Instance.m_CMVCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        m_originalShakeIntensity = m_noise.m_FrequencyGain;
+    }
+
     public bool DealDamage(bool _toLeftSide, float _amount, EDamageStates _damageType)
     {
-        PlayerInformation target = _toLeftSide ?
-                    GameManager.Instance.m_Player_L :
-                    GameManager.Instance.m_Player_R;
-
-        if (!GameManager.Instance.BoolDistance(2) && CompareStates(target))
+        if (!GameManager.Instance.BoolDistance(2) && CompareStates(_toLeftSide))
         {
             StartCoroutine(PerformDamage(
-                target,
+                _toLeftSide,
                 _amount,
                 _damageType));
             return true;
@@ -37,10 +46,14 @@ public class DamageManager : MonoBehaviour
         return false;
     }
 
-    bool CompareStates(PlayerInformation _playerInfo)
+    bool CompareStates(bool _toLeftSide)
     {
-        EAttackStates currentState_Attack = _playerInfo.Player.m_AttackController.m_CurrentState;
-        EMovementStates currentState_Movement = _playerInfo.Player.m_MovementController.m_CurrentState;
+        PlayerInformation playerInfo = _toLeftSide ?
+                    GameManager.Instance.m_Player_L :
+                    GameManager.Instance.m_Player_R;
+
+        EAttackStates currentState_Attack = playerInfo.Player.m_AttackController.m_CurrentState;
+        EMovementStates currentState_Movement = playerInfo.Player.m_MovementController.m_CurrentState;
 
         if (currentState_Attack == EAttackStates.Block
             || currentState_Movement == EMovementStates.MoveBackwards)
@@ -56,42 +69,54 @@ public class DamageManager : MonoBehaviour
 
     IEnumerator Shake(float _intensity, float _duration)
     {
-        CinemachineBasicMultiChannelPerlin noise = GameManager.Instance.m_CMVCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-
-        noise.m_FrequencyGain = _intensity;
+        m_noise.m_FrequencyGain = _intensity;
 
         yield return new WaitForSeconds(_duration);
-        noise.m_FrequencyGain = 1;
+
+        m_noise.m_FrequencyGain = m_originalShakeIntensity;
+
 
         yield return null;
     }
-    IEnumerator PerformDamage(PlayerInformation _playerInfo, float _damageAmount, EDamageStates _damageType)
+    IEnumerator PerformDamage(bool _toLeftSide, float _damageAmount, EDamageStates _damageType)
     {
+        PlayerInformation playerInfo = _toLeftSide ?
+                    GameManager.Instance.m_Player_L :
+                    GameManager.Instance.m_Player_R;
+
         //Damage
         if (GameManager.Instance.m_Init.m_GameMode != EGameModes.TRAINING)
-            _playerInfo.Health -= _damageAmount; //substracs health with the amount of performed damage 
+            playerInfo.Health -= _damageAmount; //substracs health with the amount of performed damage 
 
-        _playerInfo.Ani.SetTrigger("Damaged"); //plays damage animation
+        playerInfo.Ani.SetTrigger("Damaged"); //plays damage animation
 
 
         //Sepcial
-        if (_playerInfo.Health <= 20 && _playerInfo.Special)
+        if (playerInfo.Health <= 20 && playerInfo.Special)
         {
-            AttackManager.Instance.SetSpecial(_playerInfo.IsLeft, true);
-            _playerInfo.Special = false;
+            AttackManager.Instance.SetSpecial(playerInfo.IsLeft, true);
+            playerInfo.Special = false;
         }
 
         //ParticleSystem
         int i = Mathf.Abs((int)_damageType - 1); //the index of the particleSystem-Array
-        if (_playerInfo.IsLeft)
+        if (playerInfo.IsLeft)
             m_ps_L[i].Play(); //plays the damage particleSystem
         else
             m_ps_R[i].Play(); //plays the damage particleSystem
 
         //Force
-        FallBack(_playerInfo); //Forces the player back
+        FallBack(playerInfo); //Forces the player back
         //Shake
         StartCoroutine(Shake(25, 0.2f)); //Shakes the vmcamera
+
+
+        if (_toLeftSide)
+            GameManager.Instance.m_Player_L = playerInfo;
+        else
+            GameManager.Instance.m_Player_R = playerInfo;
+
+        UIManager.Instance.SetPlayer_Health();
 
         yield return null;
     }
