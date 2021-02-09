@@ -72,7 +72,7 @@ public class MovementController : MonoBehaviour
     /// </summary>
     public void DefaultDir()
     {
-        //Reset Values
+        //Reset Dir
         m_desiredDirection.x = 0;
 
         //Calculating Gravity
@@ -86,6 +86,7 @@ public class MovementController : MonoBehaviour
     /// </summary>
     public void ResetValues()
     {
+        //Reset Pos
         m_PlayerInfo.RB.gameObject.transform.position = new Vector3(
             m_PlayerInfo.IsLeft ?
                 -m_PlayerInfo.GP.PlayerStartPos :
@@ -93,6 +94,11 @@ public class MovementController : MonoBehaviour
             0,
             0);
 
+        //Reset Values
+        m_desiredDirection.x = 0;
+        m_force = 0;
+
+        //Reset Ani-Params
         m_PlayerInfo.Ani.SetFloat("Move", 0);
         m_PlayerInfo.Ani.SetBool("Crouch", false);
         m_PlayerInfo.Ani.SetBool("Jump", false);
