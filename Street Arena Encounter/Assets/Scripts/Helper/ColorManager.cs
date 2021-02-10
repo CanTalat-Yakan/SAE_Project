@@ -55,6 +55,9 @@ public class ColorManager : MonoBehaviour
     {
         foreach (var item in list)
         {
+            if (!item.go)
+                return;
+
             if (item.go.GetComponent<TextMeshProUGUI>() != null)
                 item.go.GetComponent<TextMeshProUGUI>().color = colors[(int)item.cot];
             if (item.go.GetComponent<Button>() != null)
