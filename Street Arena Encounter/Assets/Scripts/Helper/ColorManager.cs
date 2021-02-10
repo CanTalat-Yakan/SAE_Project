@@ -27,10 +27,9 @@ struct SColorObject
 public class ColorManager : MonoBehaviour
 {
     public static ColorManager Instance { get; private set; }
-    [SerializeField]
-    List<SColorObject> list = new List<SColorObject>();
-    [SerializeField]
-    List<Color> colors = new List<Color>(sizeof(EColorObjectType));
+
+    [SerializeField] List<SColorObject> list = new List<SColorObject>();
+    [SerializeField] List<Color> colors = new List<Color>(sizeof(EColorObjectType));
 
     void Awake()
     {
@@ -42,12 +41,12 @@ public class ColorManager : MonoBehaviour
         Instance = this;
     }
 
-    private void OnValidate()
+    void Start()
     {
         UpdateColors();
     }
 
-    void Update()
+    void OnValidate()
     {
         UpdateColors();
     }
@@ -56,8 +55,6 @@ public class ColorManager : MonoBehaviour
     {
         foreach (var item in list)
         {
-            if (item.go.GetComponent<Image>() != null)
-                item.go.GetComponent<Image>().color = colors[(int)item.cot];
             if (item.go.GetComponent<TextMeshProUGUI>() != null)
                 item.go.GetComponent<TextMeshProUGUI>().color = colors[(int)item.cot];
             if (item.go.GetComponent<Button>() != null)
