@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class InfoBoxManager : MonoBehaviour
 {
@@ -18,19 +19,24 @@ public class InfoBoxManager : MonoBehaviour
             case EGameModes.MULTIPLAYER:
             case EGameModes.LOCAL:
                 {
-                    GameObject gobj = Instantiate(m_playerInfo_Prefab, m_userList.transform);
-                    gobj.transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = m_init.m_Player_L.Name;
+                    GameObject iconL = Instantiate(m_playerInfo_Prefab, m_userList.transform);
+                    InputManager.Instance.m_DestroyGObjCollection.Add(iconL);
+                    iconL.transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = m_init.m_Player_L.Name;
+                    iconL.transform.GetChild(1).GetComponent<Image>().color = new Color(Random.value, Random.value, Random.value, 1);
 
-                    GameObject gobj2 = Instantiate(m_playerInfo_Prefab, m_userList.transform);
-                    gobj2.transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = m_init.m_Player_R.Name;
+                    GameObject iconR = Instantiate(m_playerInfo_Prefab, m_userList.transform);
+                    InputManager.Instance.m_DestroyGObjCollection.Add(iconR);
+                    iconR.transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = m_init.m_Player_R.Name;
+                    iconR.transform.GetChild(1).GetComponent<Image>().color = new Color(Random.value, Random.value, Random.value, 1);
+
 
                     switch (InputManager.Instance.m_Player_L_Input.currentControlScheme)
                     {
                         case "Keyboard":
-                            InputManager.Instance.CreateIcon(EPIIconType.KEYBOARD, gobj.transform.GetChild(2).GetChild(1));
+                            InputManager.Instance.CreateIcon(EPIIconType.KEYBOARD, iconL.transform.GetChild(2).GetChild(1));
                             break;
                         case "Gamepad":
-                            InputManager.Instance.CreateIcon(EPIIconType.GAMEPAD, gobj.transform.GetChild(2).GetChild(1));
+                            InputManager.Instance.CreateIcon(EPIIconType.GAMEPAD, iconL.transform.GetChild(2).GetChild(1));
                             break;
                         default:
                             break;
@@ -38,10 +44,10 @@ public class InfoBoxManager : MonoBehaviour
                     switch (InputManager.Instance.m_Player_R_Input.currentControlScheme)
                     {
                         case "Keyboard":
-                            InputManager.Instance.CreateIcon(EPIIconType.KEYBOARD, gobj2.transform.GetChild(2).GetChild(1));
+                            InputManager.Instance.CreateIcon(EPIIconType.KEYBOARD, iconR.transform.GetChild(2).GetChild(1));
                             break;
                         case "Gamepad":
-                            InputManager.Instance.CreateIcon(EPIIconType.GAMEPAD, gobj2.transform.GetChild(2).GetChild(1));
+                            InputManager.Instance.CreateIcon(EPIIconType.GAMEPAD, iconR.transform.GetChild(2).GetChild(1));
                             break;
                         default:
                             break;
@@ -50,7 +56,10 @@ public class InfoBoxManager : MonoBehaviour
                 break;
             case EGameModes.TRAINING:
                 {
-                    Instantiate(m_playerInfo_Prefab, m_userList.transform);
+                    GameObject iconL = Instantiate(m_playerInfo_Prefab, m_userList.transform);
+                    InputManager.Instance.m_DestroyGObjCollection.Add(iconL);
+                    iconL.transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = m_init.m_Player_L.Name;
+                    iconL.transform.GetChild(1).GetComponent<Image>().color = new Color(Random.value, Random.value, Random.value, 1);
                 }
                 break;
             default:

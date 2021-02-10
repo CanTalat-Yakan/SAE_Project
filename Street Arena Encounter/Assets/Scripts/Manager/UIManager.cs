@@ -109,7 +109,7 @@ public class UIManager : MonoBehaviour
     {
         m_commentGUI.gameObject.SetActive(true);
 
-        if (_currentRound == GameManager.Instance.m_Init.m_Rounds)
+        if (_currentRound == GameManager.Instance.m_Init.m_Rounds * 2 - 1)
             if (_currentRound != 1)
             {
                 m_commentGUI.text = "Final Round ";

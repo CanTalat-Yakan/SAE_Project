@@ -15,10 +15,13 @@ public class InputSelectionManager : MonoBehaviour
 
     void Awake()
     {
-        m_pi_manager = GetComponent<PlayerInputManager>();
-        m_pi_manager.DisableJoining();
+        m_pi_manager = GetComponent<PlayerInputManager>(); 
+        DeactivateJoining();
+    }
 
-        m_continue_Button.interactable = false;
+    void Start()
+    {
+        InputManager.Instance.m_PlayerInputManager = m_pi_manager;
     }
 
     void OnPlayerJoined(PlayerInput _playerInput)
@@ -61,9 +64,16 @@ public class InputSelectionManager : MonoBehaviour
                 break;
         }
     }
+
     public void ActivateJoining()
     {
         m_pi_manager.EnableJoining();
+    }
+
+    public void DeactivateJoining()
+    {
+        m_pi_manager.DisableJoining();
+        m_continue_Button.interactable = false;
     }
     #endregion
 

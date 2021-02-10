@@ -9,21 +9,21 @@ using UnityEngine.Serialization;
 
 public class TabManager : MonoBehaviour
 {
-    #region ------ Variables -----
+    #region //Variables
     [SerializeField] bool firstPanelOpen = true;
     [SerializeField] InputSystemUIInputModule m_uiInput;
     [SerializeField] List<GameObject> m_panels = new List<GameObject>();
 
     int? m_panelIndex = 0;
-    int m_tmpPanelIndex;
-    #endregion ------ Variables -----
+    int m_previousPanelIndex;
+    #endregion
 
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         m_uiInput = FindObjectOfType<InputSystemUIInputModule>();
-        m_tmpPanelIndex = m_panelIndex.Value;
+        m_previousPanelIndex = m_panelIndex.Value;
 
         if (m_panels.Count == 0)
             return;
@@ -48,15 +48,20 @@ public class TabManager : MonoBehaviour
         if (m_panels.Count == 0)
             return;
 
-        if (m_uiInput.cancel.action.ReadValue<float>() != 0 && m_panelIndex <= 3)
+        if (m_uiInput.cancel.action.ReadValue<float>() != 0)
         {
-            if (SceneManager.GetSceneByName("Settings_Overlay").isLoaded)
-                SceneManager.UnloadSceneAsync("Settings_Overlay");
-            SetPreviousIndex();
+            if (m_panelIndex <= 3)
+                SetPreviousIndex();
+            else
+            {
+                InputManager.Instance.RemoveInputs();
+                SetPageIndex(0);
+                SetPageIndex(3);
+            }
         }
     }
 
-    #region -Utilities
+    #region //Utilities
     void ShowCurrentPanel()
     {
         for (int i = 0; i < m_panels.Count; i++)
@@ -78,12 +83,12 @@ public class TabManager : MonoBehaviour
 
     public void SetPageIndex(int _index)
     {
-        m_tmpPanelIndex = m_panelIndex.Value;
+        m_previousPanelIndex = m_panelIndex.Value;
 
         //when closing current panel, set index from  null to tmpIndex and show Panels again
         if (m_panelIndex == null)
         {
-            m_panelIndex = m_tmpPanelIndex;
+            m_panelIndex = m_previousPanelIndex;
             ShowCurrentPanel();
         }
 
@@ -91,7 +96,7 @@ public class TabManager : MonoBehaviour
         m_panelIndex = _index;
 
         //show  current panel onyl  one  time
-        if (m_tmpPanelIndex != m_panelIndex)
+        if (m_previousPanelIndex != m_panelIndex)
             ShowCurrentPanel();
     }
 
@@ -109,7 +114,10 @@ public class TabManager : MonoBehaviour
 
     public void SetPreviousIndex()
     {
-        m_panelIndex = m_tmpPanelIndex;
+        if (SceneManager.GetSceneByName("Settings_Overlay").isLoaded)
+            SceneManager.UnloadSceneAsync("Settings_Overlay");
+
+        m_panelIndex = m_previousPanelIndex;
         ShowCurrentPanel();
     }
 
@@ -123,7 +131,7 @@ public class TabManager : MonoBehaviour
     public void ResetIndex()
     {
         m_panelIndex = 0;
-        m_tmpPanelIndex = 0;
+        m_previousPanelIndex = 0;
         ShowCurrentPanel();
     }
     #endregion
