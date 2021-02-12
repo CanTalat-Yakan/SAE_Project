@@ -73,7 +73,7 @@ public class RoundManager : MonoBehaviour
         yield return new WaitUntil(
             () => UIManager.Instance.LOCKED == false);
 
-        AudioManager.Instance.ResertMainMusicVolume();
+        AudioManager.Instance.ResetMainMusicVolume();
 
         GameManager.Instance.STARTED = true;
         GameManager.Instance.ActivatePlayers();

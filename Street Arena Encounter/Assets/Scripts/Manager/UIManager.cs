@@ -198,6 +198,10 @@ public class UIManager : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(1);
 
+        yield return new WaitUntil(
+            () => TimelineManager.Instance.m_IsPlaying == false);
+
+
         if (_ofLeftSide)
             DOTween.To(() => m_playerHealthBarShadow_L.fillAmount,
                 x => m_playerHealthBarShadow_L.fillAmount = x,
@@ -208,6 +212,7 @@ public class UIManager : MonoBehaviour
                 x => m_playerHealthBarShadow_R.fillAmount = x,
                      m_playerHealthBar_R.fillAmount,
                      _duration);
+
 
         yield return null;
     }
