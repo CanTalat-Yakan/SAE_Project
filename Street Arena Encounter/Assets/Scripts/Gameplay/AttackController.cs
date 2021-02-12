@@ -39,7 +39,7 @@ public class AnimationClipOverrides : List<KeyValuePair<AnimationClip, Animation
 
 public class AttackController : MonoBehaviour
 {
-    #region -Values
+    #region //Values
     [HideInInspector] public PlayerInformation m_PlayerInfo;
     [HideInInspector] public EAttackStates m_CurrentState;
     [HideInInspector] public EDamageStates m_CurrentDamageState;
@@ -55,7 +55,10 @@ public class AttackController : MonoBehaviour
     {
         if (m_PlayerInfo.Ani != null)
         {
-            m_animatorOverrideController = new AnimatorOverrideController(m_PlayerInfo.Ani.runtimeAnimatorController);
+            if (AttackManager.Instance.m_AnimatorOverrideController != null)
+                m_animatorOverrideController = AttackManager.Instance.m_AnimatorOverrideController;
+            else
+                m_animatorOverrideController = new AnimatorOverrideController(m_PlayerInfo.Ani.runtimeAnimatorController);
             m_PlayerInfo.Ani.runtimeAnimatorController = m_animatorOverrideController;
 
             m_clipOverrides = new AnimationClipOverrides(m_animatorOverrideController.overridesCount);
@@ -106,41 +109,43 @@ public class AttackController : MonoBehaviour
     #region //Enumerators
     IEnumerator Block()
     {
-        if (m_CurrentState != EAttackStates.Block)
-        {
-            m_CurrentState = EAttackStates.Block;
-            m_PlayerInfo.Ani.SetBool("Block", m_Attacking = true);
+        if (m_Attacking)
+            yield return null;
 
-            while (m_PlayerInfo.Input.m_attacks.block)
-                yield return new WaitForEndOfFrame();
+        m_CurrentState = EAttackStates.Block;
+        m_PlayerInfo.Ani.SetBool("Block", m_Attacking = true);
 
-            m_CurrentState = EAttackStates.NONE;
-            m_PlayerInfo.Ani.SetBool("Block", m_Attacking = false);
-        }
+        while (m_PlayerInfo.Input.m_attacks.block)
+            yield return new WaitForEndOfFrame();
+
+        m_CurrentState = EAttackStates.NONE;
+        m_PlayerInfo.Ani.SetBool("Block", m_Attacking = false);
         yield return null;
     }
     IEnumerator Base(EAttackStates _state)
     {
-        if (m_CurrentState != _state)
-        {
-            SFrameBasedAtackSettings attack = m_PlayerInfo.ATK.Attacks[(int)_state - 2];
+        if (m_Attacking)
+            yield return null;
 
-            StartCoroutine(Activation(
-                attack.AnimationClip,
-                attack.State,
-                attack.Dash));
+        SFrameBasedAtackSettings attack = 
+            m_PlayerInfo.ATK.Attacks[
+                (int)_state - 2];
 
-            StartCoroutine(Damage(
-                attack.DamageType,
-                attack.Damage_Amount,
-                attack.Activation_FrameTime,
-                attack.Damage_FrameTime,
-                attack.FreezeTime)); ;
+        StartCoroutine(Activation(
+            attack.AnimationClip,
+            attack.State,
+            attack.Dash));
 
-            StartCoroutine(Recovery(
-                attack.State,
-                attack.Activation_FrameTime + attack.Damage_FrameTime + attack.Recovery_FrameTime));
-        }
+        StartCoroutine(Damage(
+            attack.DamageType,
+            attack.Damage_Amount,
+            attack.Activation_FrameTime,
+            attack.Damage_FrameTime,
+            attack.FreezeTime)); ;
+
+        StartCoroutine(Recovery(
+            attack.State,
+            attack.Activation_FrameTime + attack.Damage_FrameTime + attack.Recovery_FrameTime));
         yield return null;
     }
     IEnumerator Activation(AnimationClip _animationClip, EAttackStates _state, bool _dash = false)
@@ -169,8 +174,8 @@ public class AttackController : MonoBehaviour
         {
             if (!tmpDamaged)
                 tmpDamaged = DamageManager.Instance.DealDamage(
-                    !m_PlayerInfo.IsLeft, 
-                    _damageAmount, 
+                    !m_PlayerInfo.IsLeft,
+                    _damageAmount,
                     _damageType);
 
             if (tmpDamaged)
