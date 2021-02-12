@@ -38,7 +38,7 @@ public class AudioManager : MonoBehaviour
             {
                 PlayMainAmbient();
                 if (!TimelineManager.Instance.m_IsPlaying)
-                    PlayMainMusic(0.5f);
+                    PlayMainMusic(0.3f);
             }
         }
         else
@@ -153,7 +153,7 @@ public class AudioManager : MonoBehaviour
     {
         m_mainMusicSource.volume = m_tmpVolume * _percentage;
     }
-    public void ResertMainMusicVolume()
+    public void ResetMainMusicVolume()
     {
         m_mainMusicSource.volume = m_tmpVolume;
     }
