@@ -66,13 +66,21 @@ public class AttackController : MonoBehaviour
         }
     }
 
+
+    #region //Utilities
     /// <summary>
     /// Sets the current Attack animation and state according to the Values of the InputMaster
     /// </summary>
     public void Attack()
     {
+        if (m_Attacking)
+        {
+            ComboAttack();
+            return;
+        }
+
         if (m_PlayerInfo.Input.m_attacks.block)
-            StartCoroutine(Block());
+                StartCoroutine(Block());
 
         if (m_PlayerInfo.Input.m_attacks.heavy)
             StartCoroutine(Base(EAttackStates.F_HeavyAttack));
@@ -92,42 +100,86 @@ public class AttackController : MonoBehaviour
             StartCoroutine(Base(EAttackStates.B_LowAttack));
 
         if (m_PlayerInfo.Input.m_attacks.special)
-            if (AttackManager.Instance.GetSpecial(m_PlayerInfo.IsLeft))
-            {
-                TimelineManager.Instance.Play(
-                    TimelineManager.Instance.m_TL_Special[
-                        Random.Range(
-                            0,
-                            TimelineManager.Instance.m_TL_Special.Length)]);
-
-                AttackManager.Instance.SetSpecial(
-                    m_PlayerInfo.IsLeft,
-                    false);
-            }
+            StartCoroutine(Special());
     }
+    void ComboAttack()
+    {
+
+    }
+    /// <summary>
+    /// Resets the Values of the Players Animation
+    /// </summary>
+    public void ResetValues()
+    {
+        m_CurrentState = EAttackStates.NONE;
+        m_Attacking = false;
+
+        m_PlayerInfo.Ani.SetBool("Block", false);
+        m_PlayerInfo.Ani.SetBool("Attacking", false);
+
+        AttackManager.Instance.DeactivateSpecialVFX(m_PlayerInfo.IsLeft);
+    }
+    #endregion
 
     #region //Enumerators
     IEnumerator Block()
     {
-        if (m_Attacking)
-            yield return null;
-
+        Debug.Log("a");
         m_CurrentState = EAttackStates.Block;
         m_PlayerInfo.Ani.SetBool("Block", m_Attacking = true);
 
-        while (m_PlayerInfo.Input.m_attacks.block)
-            yield return new WaitForEndOfFrame();
+        yield return new WaitUntil(
+            () => m_PlayerInfo.Input.m_attacks.block == false);
 
         m_CurrentState = EAttackStates.NONE;
         m_PlayerInfo.Ani.SetBool("Block", m_Attacking = false);
         yield return null;
     }
+    IEnumerator Special()
+    {
+        if (m_PlayerInfo.IsLeft)
+            m_PlayerInfo = GameManager.Instance.m_Player_L;
+        else
+            m_PlayerInfo = GameManager.Instance.m_Player_R;
+
+        if (m_PlayerInfo.Special)
+        {
+            AudioManager.Instance.Play(
+                AudioManager.Instance.m_AudioInfo.m_Special_Activation,
+                1.5f);
+
+            if (DamageManager.Instance.DealDamage(
+                    !m_PlayerInfo.IsLeft,
+                    0,
+                    1,
+                    EDamageStates.Middle))
+                TimelineManager.Instance.Play(
+                    m_PlayerInfo.IsLeft
+                        ? TimelineManager.Instance.m_TimeLineInfo.m_TL_Special_L[
+                            Random.Range(
+                                0,
+                                TimelineManager.Instance.m_TimeLineInfo.m_TL_Special_L.Length)]
+                        : TimelineManager.Instance.m_TimeLineInfo.m_TL_Special_R[
+                            Random.Range(
+                                0,
+                                TimelineManager.Instance.m_TimeLineInfo.m_TL_Special_R.Length)]);
+
+            AttackManager.Instance.DeactivateSpecialVFX(m_PlayerInfo.IsLeft);
+
+            m_PlayerInfo.Special = false;
+        }
+
+        if (m_PlayerInfo.IsLeft)
+            GameManager.Instance.m_Player_L = m_PlayerInfo;
+        else
+            GameManager.Instance.m_Player_R = m_PlayerInfo;
+
+
+        yield return null;
+    }
     IEnumerator Base(EAttackStates _state)
     {
-        if (m_Attacking)
-            yield return null;
-
-        SFrameBasedAtackSettings attack = 
+        SFrameBasedAtackSettings attack =
             m_PlayerInfo.ATK.Attacks[
                 (int)_state - 2];
 
@@ -139,6 +191,7 @@ public class AttackController : MonoBehaviour
         StartCoroutine(Damage(
             attack.DamageType,
             attack.Damage_Amount,
+            attack.Damage_Range,
             attack.Activation_FrameTime,
             attack.Damage_FrameTime,
             attack.FreezeTime)); ;
@@ -163,30 +216,35 @@ public class AttackController : MonoBehaviour
 
         yield return null;
     }
-    IEnumerator Damage(EDamageStates _damageType, float _damageAmount, float _activationFrameTime, float _damageFrameTime, bool _freezeTime = false)
+    IEnumerator Damage(EDamageStates _damageType, float _damageAmount, float _range, float _activationFrameTime, float _damageFrameTime, bool _freezeTime = false)
     {
         for (int i = 0; i < _activationFrameTime; i++)
             yield return new WaitForEndOfFrame();
 
 
-        bool tmpDamaged = false;
+        bool damaged = false;
         for (int i = 0; i < _damageFrameTime; i++)
         {
-            if (!tmpDamaged)
-                tmpDamaged = DamageManager.Instance.DealDamage(
-                    !m_PlayerInfo.IsLeft,
-                    _damageAmount,
-                    _damageType);
-
-            if (tmpDamaged)
-                if (_freezeTime)
-                {
-                    Time.timeScale = 0.1f;
-                    yield return new WaitForSecondsRealtime(0.1f);
-                    Time.timeScale = 1;
-                }
+            if (damaged = DamageManager.Instance.DealDamage(
+                   !m_PlayerInfo.IsLeft,
+                   _damageAmount,
+                   _range,
+                   _damageType))
+                break;
 
             yield return new WaitForEndOfFrame();
+        }
+
+        if (damaged)
+        {
+            PlaySound(_damageType);
+
+            if (_freezeTime)
+            {
+                Time.timeScale = 0.1f;
+                yield return new WaitForSecondsRealtime(0.1f);
+                Time.timeScale = 1;
+            }
         }
 
 
@@ -207,16 +265,29 @@ public class AttackController : MonoBehaviour
     }
     #endregion
 
-    #region //Utilities
-    /// <summary>
-    /// Resets the Values of the Players Animation
-    /// </summary>
-    public void ResetValues()
+    #region //Helper
+    void PlaySound(EDamageStates _damageType)
     {
-        m_CurrentState = EAttackStates.NONE;
-        m_PlayerInfo.Ani.SetBool("Block", false);
-        AttackManager.Instance.SetSpecial(m_PlayerInfo.IsLeft, false);
-        m_Attacking = false;
+        switch (_damageType)
+        {
+            case EDamageStates.High:
+                AudioManager.Instance.Play(
+                    AudioManager.Instance.m_AudioInfo.m_Heavy_Attack[
+                        Random.Range(0, AudioManager.Instance.m_AudioInfo.m_Heavy_Attack.Length)]);
+                break;
+            case EDamageStates.Middle:
+                AudioManager.Instance.Play(
+                    AudioManager.Instance.m_AudioInfo.m_Light_Attack[
+                        Random.Range(0, AudioManager.Instance.m_AudioInfo.m_Heavy_Attack.Length)]);
+                break;
+            case EDamageStates.Low:
+                AudioManager.Instance.Play(
+                    AudioManager.Instance.m_AudioInfo.m_Kick_Attack[
+                        Random.Range(0, AudioManager.Instance.m_AudioInfo.m_Heavy_Attack.Length)]);
+                break;
+            default:
+                break;
+        }
     }
     #endregion
 }

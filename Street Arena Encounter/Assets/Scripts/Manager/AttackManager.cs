@@ -52,38 +52,47 @@ public class AttackManager : MonoBehaviour
         _playerInfo.Player.m_MovementController.Force(_force * _playerInfo.Forward, _drag);
     }
 
-    public void SetSpecial(bool _toLeft, bool _active)
+    public void ActivateSpecialVFX(bool _fromLeft)
     {
-        if (_toLeft)
-        {
-            if (_active)
-            {
-                m_ps_L.Play();
-                GameManager.Instance.m_Player_L.GetMaterial.SetColor("_EmissionColor", Color.red);
-            }
-            else
-            {
-                GameManager.Instance.m_Player_L.GetMaterial.SetColor("_EmissionColor", Color.black);
-                m_ps_L.Stop();
-            }
-        }
+        if (_fromLeft)
+            SetSpecialVFX(
+                true, 
+                m_ps_L, 
+                GameManager.Instance.m_Player_L.GetMaterial);
         else
-        {
-            if (_active)
+            SetSpecialVFX(
+                true,
+                m_ps_R,
+                GameManager.Instance.m_Player_R.GetMaterial);
+    }
+    public void DeactivateSpecialVFX(bool _fromLeft)
+    {
+        if (_fromLeft)
+            SetSpecialVFX(
+                false,
+                m_ps_L,
+                GameManager.Instance.m_Player_L.GetMaterial);
+        else
+            SetSpecialVFX(
+                false,
+                m_ps_R,
+                GameManager.Instance.m_Player_R.GetMaterial);
+    }
+    #endregion
+
+    #region //Helper
+    void SetSpecialVFX(bool _activate, ParticleSystem _ps, Material _material)
+    {
+        if (_activate)
             {
-                m_ps_R.Play();
-                GameManager.Instance.m_Player_R.GetMaterial.SetColor("_EmissionColor", Color.red);
+                _ps.Play();
+                _material.SetColor("_EmissionColor", Color.red);
             }
             else
             {
-                GameManager.Instance.m_Player_R.GetMaterial.SetColor("_EmissionColor", Color.black);
-                m_ps_R.Stop();
+                _ps.Stop();
+                _material.SetColor("_EmissionColor", Color.black);
             }
-        }
-    }
-    public bool GetSpecial(bool _fromLeft)
-    {
-        return (_fromLeft) ? m_ps_L.isPlaying: m_ps_R.isPlaying;
     }
     #endregion
 }

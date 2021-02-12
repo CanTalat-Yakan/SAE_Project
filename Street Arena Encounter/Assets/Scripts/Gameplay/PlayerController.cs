@@ -49,5 +49,7 @@ public class PlayerController : MonoBehaviour
         m_AttackController.ResetValues();
         GameManager.Instance.m_Player_L.Health = GameManager.Instance.m_Player_L.GP.Health;
         GameManager.Instance.m_Player_R.Health = GameManager.Instance.m_Player_R.GP.Health;
+        GameManager.Instance.m_Player_R.Special = true;
+        GameManager.Instance.m_Player_L.Special = true;
     }
 }

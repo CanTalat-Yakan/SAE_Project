@@ -32,7 +32,7 @@ public class DamageManager : MonoBehaviour
         m_originalShakeIntensity = m_noise.m_FrequencyGain;
     }
 
-    public bool DealDamage(bool _toLeftSide, float _amount, EDamageStates _damageType)
+    public bool DealDamage(bool _toLeftSide, float _amount, float _range, EDamageStates _damageType)
     {
         if (!GameManager.Instance.BoolDistance(2) && CompareStates(_toLeftSide))
         {
@@ -62,6 +62,10 @@ public class DamageManager : MonoBehaviour
         return true;
     }
 
+    public void Repulsion(PlayerInformation _playerInfo, float _force = 5, float _drag = 20)
+    {
+        _playerInfo.Player.m_MovementController.Force(_force * -_playerInfo.Forward, _drag);
+    }
     public void FallBack(PlayerInformation _playerInfo, float _force = 5, float _drag = 20)
     {
         _playerInfo.Player.m_MovementController.Force(_force * -_playerInfo.Forward, _drag);
@@ -92,11 +96,8 @@ public class DamageManager : MonoBehaviour
 
 
         //Sepcial
-        if (playerInfo.Health <= 20 && playerInfo.Special)
-        {
-            AttackManager.Instance.SetSpecial(playerInfo.IsLeft, true);
-            playerInfo.Special = false;
-        }
+        if (playerInfo.SpecialVFX)
+            AttackManager.Instance.ActivateSpecialVFX(_toLeftSide);
 
         //ParticleSystem
         int i = Mathf.Abs((int)_damageType - 1); //the index of the particleSystem-Array
@@ -106,7 +107,7 @@ public class DamageManager : MonoBehaviour
             m_ps_R[i].Play(); //plays the damage particleSystem
 
         //Force
-        FallBack(playerInfo); //Forces the player back
+        Repulsion(playerInfo); //Forces the player back
         //Shake
         StartCoroutine(Shake(25, 0.2f)); //Shakes the vmcamera
 
