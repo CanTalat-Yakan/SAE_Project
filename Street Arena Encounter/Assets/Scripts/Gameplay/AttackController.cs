@@ -124,7 +124,6 @@ public class AttackController : MonoBehaviour
     #region //Enumerators
     IEnumerator Block()
     {
-        Debug.Log("a");
         m_CurrentState = EAttackStates.Block;
         m_PlayerInfo.Ani.SetBool("Block", m_Attacking = true);
 
