@@ -13,8 +13,9 @@ public struct SThrowingObject
 public class AttackManager : MonoBehaviour
 {
     public static AttackManager Instance { get; private set; }
-    #region //Values
 
+    #region //Values
+    public AnimatorOverrideController m_AnimatorOverrideController;
     public SThrowingObject m_ThrowingObjectType;
 
     [SerializeField] ParticleSystem m_ps_L;
