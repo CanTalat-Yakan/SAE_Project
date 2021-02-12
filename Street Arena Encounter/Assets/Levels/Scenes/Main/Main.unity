@@ -11941,6 +11941,8 @@ PlayableDirector:
     value: {fileID: 378409837}
   - key: {fileID: 5791918923295271984, guid: 5b9a49ebaa9a9bc4189b5d5481282c64, type: 2}
     value: {fileID: 1965195726}
+  - key: {fileID: -2807036616608649397, guid: 5b9a49ebaa9a9bc4189b5d5481282c64, type: 2}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References:
     - 8f8eb620b315cef46b71a94740fa0223: {fileID: 494674800}
@@ -22906,10 +22908,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TL_Directory: {fileID: 993288319}
-  m_TL_Beginning:
-  - {fileID: 11400000, guid: 93645db9033c8714badd6e49725cda61, type: 2}
-  m_TL_Special:
-  - {fileID: 11400000, guid: 5b9a49ebaa9a9bc4189b5d5481282c64, type: 2}
+  m_TimeLineInfo: {fileID: 11400000, guid: 96c8330461bdb744ab39b0c4c71c0196, type: 2}
   m_TL_CurrentAsset: {fileID: 0}
 --- !u!1 &1644893970
 GameObject:
