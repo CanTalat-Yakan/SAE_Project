@@ -30,14 +30,21 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d1b2f219dd2985f42bb781b9673c9870, type: 3}
   - {fileID: 8300000, guid: d1b2f219dd2985f42bb781b9673c9870, type: 3}
   - {fileID: 8300000, guid: d1b2f219dd2985f42bb781b9673c9870, type: 3}
-  m_Attack:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  m_Block: {fileID: 0}
-  m_Special: {fileID: 0}
-  m_Damage: []
-  m_Shout: []
+  m_Special_Activation: {fileID: 8300000, guid: 4442f3fa03c83a34a81039b4efa7a7a9, type: 3}
+  m_Special_Attack: {fileID: 8300000, guid: 18a67e1998f9b4b42bd30e2795947383, type: 3}
+  m_Block:
+  - {fileID: 8300000, guid: 4a941b29151b4e249a5b9f3778070cc2, type: 3}
+  - {fileID: 8300000, guid: 113643417ab1416409e3445ee3806e61, type: 3}
+  - {fileID: 8300000, guid: 4356cfcdedb23b344b189132fc045fdd, type: 3}
+  m_Heavy_Attack:
+  - {fileID: 8300000, guid: 0d06d360df347c24aa2acc0072a30072, type: 3}
+  m_Light_Attack:
+  - {fileID: 8300000, guid: 0ec9f678071467f40a69bbd74bb82c32, type: 3}
+  - {fileID: 8300000, guid: 896e3fac270dd5545b66fffcefb1a828, type: 3}
+  m_Kick_Attack:
+  - {fileID: 8300000, guid: 34bb6581aa9ebcb4786dccb8c51834d2, type: 3}
+  m_Taunts_F: []
+  m_Taunts_M: []
   m_Count:
   - {fileID: 8300000, guid: 99d6a27e109506e4e9f99369647904f7, type: 3}
   - {fileID: 8300000, guid: 934ee30930117684da73562cd6a72df8, type: 3}
