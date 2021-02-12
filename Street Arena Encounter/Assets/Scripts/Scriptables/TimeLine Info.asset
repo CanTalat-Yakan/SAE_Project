@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25f898f5dacd7d94592f515e009c1091, type: 3}
+  m_Name: TimeLine Info
+  m_EditorClassIdentifier: 
+  m_TL_Beginning:
+  - {fileID: 11400000, guid: 93645db9033c8714badd6e49725cda61, type: 2}
+  m_TL_Special_L:
+  - {fileID: 11400000, guid: 5b9a49ebaa9a9bc4189b5d5481282c64, type: 2}
+  m_TL_Special_R:
+  - {fileID: 11400000, guid: 5b9a49ebaa9a9bc4189b5d5481282c64, type: 2}

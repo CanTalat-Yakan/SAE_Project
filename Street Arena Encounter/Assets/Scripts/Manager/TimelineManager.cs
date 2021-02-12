@@ -6,17 +6,17 @@ using UnityEngine.Playables;
 public class TimelineManager : MonoBehaviour
 {
     public static TimelineManager Instance { get; private set; }
-
+    #region //Fields
     [SerializeField] PlayableDirector m_TL_Directory;
-
-    public bool m_IsPlaying { get => m_TL_Directory.state == PlayState.Playing; }
-
-    public PlayableAsset[] m_TL_Beginning;
-    public PlayableAsset[] m_TL_Special;
+    public Timeline_Info m_TimeLineInfo;
 
     [HideInInspector] public PlayableAsset m_TL_CurrentAsset;
+    Vector3[] m_tmpStartPos = new Vector3[2];
+    #endregion
+    #region //Properties
+    public bool m_IsPlaying { get => m_TL_Directory.state == PlayState.Playing; }
+    #endregion
 
-    Vector3[] m_startPos = new Vector3[2];
 
     void Awake()
     {
@@ -30,6 +30,9 @@ public class TimelineManager : MonoBehaviour
 
     public void Play(PlayableAsset _tl_asset)
     {
+        if (!_tl_asset)
+            return;
+
         StartCoroutine(ActivateTL(_tl_asset));
 
         m_TL_Directory.Play();
@@ -44,8 +47,8 @@ public class TimelineManager : MonoBehaviour
         GameManager.Instance.m_MainCamera.gameObject.SetActive(true);
 
         GameManager.Instance.DeactivatePlayers();
-        m_startPos[0] = GameManager.Instance.m_Player_L.Player.gameObject.transform.localPosition;
-        m_startPos[1] = GameManager.Instance.m_Player_R.Player.gameObject.transform.localPosition;
+        m_tmpStartPos[0] = GameManager.Instance.m_Player_L.Player.gameObject.transform.localPosition;
+        m_tmpStartPos[1] = GameManager.Instance.m_Player_R.Player.gameObject.transform.localPosition;
 
         m_TL_CurrentAsset = _tl_asset;
         m_TL_Directory.playableAsset = _tl_asset;
@@ -63,7 +66,7 @@ public class TimelineManager : MonoBehaviour
         m_TL_Directory.gameObject.SetActive(false);
 
         GameManager.Instance.ActivatePlayers();
-        GameManager.Instance.m_Player_L.Player.gameObject.transform.localPosition = m_startPos[0];
-        GameManager.Instance.m_Player_R.Player.gameObject.transform.localPosition = m_startPos[1];
+        GameManager.Instance.m_Player_L.Player.gameObject.transform.localPosition = m_tmpStartPos[0];
+        GameManager.Instance.m_Player_R.Player.gameObject.transform.localPosition = m_tmpStartPos[1];
     }
 }
