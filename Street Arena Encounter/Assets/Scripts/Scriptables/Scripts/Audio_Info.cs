@@ -15,13 +15,19 @@ public class Audio_Info : ScriptableObject
     [Header("Main")]
     public AudioClip[] m_MainMusic = new AudioClip[0];
     public AudioClip[] m_MainAmbient = new AudioClip[0];
-    public AudioClip[] m_Attack = new AudioClip[3];
 
     [Header("Attack")]
-    public AudioClip m_Block;
-    public AudioClip m_Special;
-    public AudioClip[] m_Damage = new AudioClip[0];
-    public AudioClip[] m_Taunts = new AudioClip[0];
+    public AudioClip m_Special_Activation;
+    public AudioClip m_Special_Attack;
+    public AudioClip[] m_Block = new AudioClip[0];
+    public AudioClip[] m_Heavy_Attack = new AudioClip[0];
+    public AudioClip[] m_Light_Attack = new AudioClip[0];
+    public AudioClip[] m_Kick_Attack = new AudioClip[0];
+
+    [Header("Female-Character")]
+    public AudioClip[] m_Taunts_F = new AudioClip[0];
+    [Header("Male-Character")]
+    public AudioClip[] m_Taunts_M = new AudioClip[0];
 
     [Header("Round")]
     public AudioClip[] m_Count = new AudioClip[10];
