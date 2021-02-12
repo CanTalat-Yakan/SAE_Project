@@ -121,8 +121,8 @@ public class GameManager : MonoBehaviour
     }
     public void ResetPlayers()
     {
-        m_Player_L.Player.ResetValues();
-        m_Player_R.Player.ResetValues();
+        m_Player_L.ResetValues();
+        m_Player_R.ResetValues();
     }
     #endregion
 
@@ -216,14 +216,19 @@ public class GameManager : MonoBehaviour
     IEnumerator Setup_Playerinformation()
     {
         //Reset Values; Health, Roundswon, Special
-        m_Player_L.ResetValues();
-        m_Player_R.ResetValues();
+        m_Player_L.ResetPlayerInformation();
+        m_Player_R.ResetPlayerInformation();
 
         //Get Input
         if (m_Init.m_GameMode == EGameModes.LOCAL)
         {
-            m_Player_L.Input = InputManager.Instance.m_Player_L_Input.GetComponent<InputMaster>();
-            m_Player_R.Input = InputManager.Instance.m_Player_R_Input.GetComponent<InputMaster>();
+            if (InputManager.Instance.m_Player_L_Input)
+                m_Player_L.Input = InputManager.Instance.m_Player_L_Input.GetComponent<InputMaster>();
+            else
+                m_Init.m_GameMode = EGameModes.TRAINING;
+
+            if (InputManager.Instance.m_Player_R_Input)
+                m_Player_R.Input = InputManager.Instance.m_Player_R_Input.GetComponent<InputMaster>();
         }
         if (m_Init.m_GameMode == EGameModes.TRAINING)
         {
@@ -262,7 +267,7 @@ public class GameManager : MonoBehaviour
 
 
         if (!m_SkipIntro)
-            TimelineManager.Instance.Play(TimelineManager.Instance.m_TL_Beginning[Random.Range(0, TimelineManager.Instance.m_TL_Beginning.Length)]);
+            TimelineManager.Instance.Play(TimelineManager.Instance.m_TimeLineInfo.m_TL_Beginning[Random.Range(0, TimelineManager.Instance.m_TimeLineInfo.m_TL_Beginning.Length)]);
         else
             m_MainCamera.gameObject.SetActive(true);
 

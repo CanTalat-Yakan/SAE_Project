@@ -20,14 +20,17 @@ public struct PlayerInformation
     [Header("Runtime Values")]
     public float Health;
     public int RoundsWon;
-    public bool Special;
+    bool specialWasUsed;
     #endregion
 
     #region //Properties
+    public bool Special { get => GetInfo.Health <= 20 && !specialWasUsed; set => specialWasUsed = !value; }
+    public bool SpecialVFX { get => GetInfo.Health <= 20 && !specialWasUsed; }
     public float Forward { get => Ani.transform.localScale.x; }
     public bool IsLeft { get => Forward == 1; }
     public Material GetMaterial { get => Ani.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material; }
     public string Name { get => IsLeft ? GameManager.Instance.m_Init.m_Player_L.Name : GameManager.Instance.m_Init.m_Player_R.Name; }
+    public PlayerInformation GetInfo { get => IsLeft ? GameManager.Instance.m_Player_L : GameManager.Instance.m_Player_R; }
     #endregion
 
 
@@ -55,10 +58,16 @@ public struct PlayerInformation
         Player.m_AttackController = _obj.GetComponent<AttackController>();
         Player.m_AttackController.m_PlayerInfo = this;
     }
-    public void ResetValues()
+    public void ResetPlayerInformation()
     {
         Health = 100;
         RoundsWon = 0;
+        Special = true;
+    }
+    public void ResetValues()
+    {
+        Player.ResetValues();
+        Health = GameManager.Instance.m_GP.Health;
         Special = true;
     }
     #endregion
