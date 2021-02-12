@@ -15,8 +15,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (!GameManager.Instance.STARTED 
-            || GameManager.Instance.LOCKED 
+        if (!GameManager.Instance.STARTED
+            || GameManager.Instance.LOCKED
             || !m_IsActive)
             return;
 
@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
         m_MovementController.Move();
         m_MovementController.Constraint();
     }
+
 
     /// <summary>
     /// Reset Values of CharacterController, AttackController and MovementController

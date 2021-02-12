@@ -7,6 +7,8 @@ using UnityEngine.InputSystem;
 [Serializable]
 public struct PlayerInformation
 {
+    #region //Fields
+    [Header("Players Components and Assets")]
     public PlayerController Player;
     public Rigidbody RB;
     public Animator Ani;
@@ -14,16 +16,22 @@ public struct PlayerInformation
     public InputMaster Input;
     public GP_Settings GP;
     public Attack_Settings ATK;
-    [HideInInspector] public float Forward { get => Ani.transform.localScale.x; }
-    [HideInInspector] public bool IsLeft { get => Forward == 1; }
-    [HideInInspector] public Material GetMaterial { get => Ani.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material; }
-    public string Name { get => IsLeft ? GameManager.Instance.m_Init.m_Player_L.Name : GameManager.Instance.m_Init.m_Player_R.Name; }
 
-    [Header("Current State in Game")]
+    [Header("Runtime Values")]
     public float Health;
     public int RoundsWon;
     public bool Special;
+    #endregion
 
+    #region //Properties
+    public float Forward { get => Ani.transform.localScale.x; }
+    public bool IsLeft { get => Forward == 1; }
+    public Material GetMaterial { get => Ani.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material; }
+    public string Name { get => IsLeft ? GameManager.Instance.m_Init.m_Player_L.Name : GameManager.Instance.m_Init.m_Player_R.Name; }
+    #endregion
+
+
+    #region //Utilitites
     public void GatherComponents(GameObject _obj)
     {
         //Get Scriptable Object References with Information of GamePlay and Attacks
@@ -47,11 +55,11 @@ public struct PlayerInformation
         Player.m_AttackController = _obj.GetComponent<AttackController>();
         Player.m_AttackController.m_PlayerInfo = this;
     }
-
     public void ResetValues()
     {
         Health = 100;
         RoundsWon = 0;
         Special = true;
     }
+    #endregion
 }
