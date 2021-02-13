@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [Serializable]
-public struct PlayerInformation
+public class PlayerInformation
 {
     #region //Fields
     [Header("Players Components and Assets")]
@@ -24,13 +24,12 @@ public struct PlayerInformation
     #endregion
 
     #region //Properties
-    public bool Special { get => GetInfo.Health <= 20 && !specialWasUsed; set => specialWasUsed = !value; }
-    public bool SpecialVFX { get => GetInfo.Health <= 20 && !specialWasUsed; }
+    public bool Special { get => Health <= 20 && !specialWasUsed; set => specialWasUsed = !value; }
+    public bool SpecialVFX { get => Health <= 20 && !specialWasUsed; }
     public float Forward { get => Ani.transform.localScale.x; }
     public bool IsLeft { get => Forward == 1; }
     public Material GetMaterial { get => Ani.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material; }
     public string Name { get => IsLeft ? GameManager.Instance.m_Init.m_Player_L.Name : GameManager.Instance.m_Init.m_Player_R.Name; }
-    public PlayerInformation GetInfo { get => IsLeft ? GameManager.Instance.m_Player_L : GameManager.Instance.m_Player_R; }
     #endregion
 
 

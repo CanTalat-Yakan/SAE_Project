@@ -39,7 +39,7 @@ public class AnimationClipOverrides : List<KeyValuePair<AnimationClip, Animation
 
 public class AttackController : MonoBehaviour
 {
-    #region //Values
+    #region //Fields
     [HideInInspector] public PlayerInformation m_PlayerInfo;
     [HideInInspector] public EAttackStates m_CurrentState;
     [HideInInspector] public EDamageStates m_CurrentDamageState;
@@ -136,11 +136,6 @@ public class AttackController : MonoBehaviour
     }
     IEnumerator Special()
     {
-        if (m_PlayerInfo.IsLeft)
-            m_PlayerInfo = GameManager.Instance.m_Player_L;
-        else
-            m_PlayerInfo = GameManager.Instance.m_Player_R;
-
         if (m_PlayerInfo.Special)
         {
             AudioManager.Instance.Play(
@@ -167,11 +162,6 @@ public class AttackController : MonoBehaviour
 
             m_PlayerInfo.Special = false;
         }
-
-        if (m_PlayerInfo.IsLeft)
-            GameManager.Instance.m_Player_L = m_PlayerInfo;
-        else
-            GameManager.Instance.m_Player_R = m_PlayerInfo;
 
 
         yield return null;
