@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class Fighter_Info : ScriptableObject
 {
     public string Name;
-    public Image Image;
+    public Sprite Image;
     public GameObject Model;
     public AnimatorOverrideController AnimatorOC;
+    public float GroundOffset;
 }

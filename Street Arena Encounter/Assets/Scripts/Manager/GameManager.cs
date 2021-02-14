@@ -193,7 +193,7 @@ public class GameManager : MonoBehaviour
     #region //Coroutine
     IEnumerator Init()
     {
-        StartCoroutine(Setup_Playerinformation());
+        StartCoroutine(SetupPlayer());
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -210,31 +210,32 @@ public class GameManager : MonoBehaviour
 
         yield return null;
     }
-    IEnumerator Setup_Playerinformation()
+    IEnumerator SetupPlayer()
     {
+        //Set Model
+        m_PlayerModel_L = Instantiate(m_Init.m_Player_L.Model, m_PlayerGO_L.transform);
+        m_PlayerModel_L.transform.localPosition = new Vector3(0, m_Init.m_Player_L.GroundOffset, 0);
+        m_PlayerModel_L.transform.rotation = Quaternion.Euler(0, 90, 0);
+        m_PlayerModel_L.transform.localScale = new Vector3(1, 1, 1);
+
+        m_PlayerModel_R = Instantiate(m_Init.m_Player_R.Model, m_PlayerGO_R.transform);
+        m_PlayerModel_R.transform.localPosition = new Vector3(0, m_Init.m_Player_R.GroundOffset, 0);
+        m_PlayerModel_R.transform.rotation = Quaternion.Euler(0, -90, 0);
+        m_PlayerModel_R.transform.localScale = new Vector3(-1, 1, 1);
+
+
         //Reset Values; Health, Roundswon, Special
         m_Player_L.ResetPlayerInformation();
         m_Player_R.ResetPlayerInformation();
 
-
-        //Set Model
-        m_PlayerModel_L = Instantiate(m_Init.m_Player_L.Model, m_PlayerGO_L.transform);
-        m_PlayerModel_L.transform.rotation = Quaternion.Euler(0, 90, 0);
-        m_PlayerModel_L.transform.localScale = new Vector3(1, 1, 1);
-        m_PlayerModel_R = Instantiate(m_Init.m_Player_R.Model, m_PlayerGO_R.transform);
-        m_PlayerModel_R.transform.rotation = Quaternion.Euler(0, -90, 0);
-        m_PlayerModel_R.transform.localScale = new Vector3(-1, 1, 1);
-
         //Get Input
         if (m_Init.m_GameMode == EGameModes.LOCAL)
         {
-            if (InputManager.Instance.m_Player_L_Input)
-                m_Player_L.Input = InputManager.Instance.m_Player_L_Input.GetComponent<InputMaster>();
-            else
-                m_Init.m_GameMode = EGameModes.TRAINING;
+            if (!InputManager.Instance.m_PlayerL_Input)
+                SceneManager.LoadScene("Menu");
 
-            if (InputManager.Instance.m_Player_R_Input)
-                m_Player_R.Input = InputManager.Instance.m_Player_R_Input.GetComponent<InputMaster>();
+            m_Player_L.Input = InputManager.Instance.m_PlayerL_Input.GetComponent<InputMaster>();
+            m_Player_R.Input = InputManager.Instance.m_PlayerR_Input.GetComponent<InputMaster>();
         }
         if (m_Init.m_GameMode == EGameModes.TRAINING)
         {
