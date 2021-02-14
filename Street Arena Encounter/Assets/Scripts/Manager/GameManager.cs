@@ -214,12 +214,12 @@ public class GameManager : MonoBehaviour
     {
         //Set Model
         m_PlayerModel_L = Instantiate(m_Init.m_Player_L.Model, m_PlayerGO_L.transform);
-        m_PlayerModel_L.transform.localPosition = new Vector3(0, m_Init.m_Player_L.GroundOffset, 0);
+        m_PlayerModel_L.transform.localPosition = new Vector3(0, m_Player_L.GroundOffset = m_Init.m_Player_L.GroundOffset, 0);
         m_PlayerModel_L.transform.rotation = Quaternion.Euler(0, 90, 0);
         m_PlayerModel_L.transform.localScale = new Vector3(1, 1, 1);
 
         m_PlayerModel_R = Instantiate(m_Init.m_Player_R.Model, m_PlayerGO_R.transform);
-        m_PlayerModel_R.transform.localPosition = new Vector3(0, m_Init.m_Player_R.GroundOffset, 0);
+        m_PlayerModel_R.transform.localPosition = new Vector3(0, m_Player_R.GroundOffset = m_Init.m_Player_R.GroundOffset, 0);
         m_PlayerModel_R.transform.rotation = Quaternion.Euler(0, -90, 0);
         m_PlayerModel_R.transform.localScale = new Vector3(-1, 1, 1);
 
@@ -253,6 +253,9 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator UnloadScenes()
     {
+        if (SceneManager.GetSceneByName("EndScreen_Overlay").isLoaded)
+            SceneManager.UnloadSceneAsync("EndScreen_Overlay");
+
         if (SceneManager.GetSceneByName("Menu").isLoaded)
         {
             float timeStamp = Time.time;
@@ -261,9 +264,6 @@ public class GameManager : MonoBehaviour
 
             SceneManager.UnloadSceneAsync("Menu");
         }
-
-        if (SceneManager.GetSceneByName("EndScreen_Overlay").isLoaded)
-            SceneManager.UnloadSceneAsync("EndScreen_Overlay");
 
         if (!SceneManager.GetSceneByName("GUI_Overlay").isLoaded)
             SceneManager.LoadScene("GUI_Overlay", LoadSceneMode.Additive);

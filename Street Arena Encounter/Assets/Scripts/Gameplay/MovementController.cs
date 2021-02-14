@@ -11,7 +11,7 @@ public enum EMovementStates
     MoveBackwards = 1 << 2,
     Jump = 1 << 3,
     Crouch = 1 << 4,
-    Laying = 1 << 5,
+    Lying = 1 << 5,
 }
 public class MovementController : MonoBehaviour
 {
@@ -161,21 +161,18 @@ public class MovementController : MonoBehaviour
             m_PlayerInfo.GP.PlayerHeight * 0.5f,
             0);
 
+        Vector3 pos = m_PlayerInfo.Ani.gameObject.transform.localPosition;
+        pos.y = m_PlayerInfo.GroundOffset;
 
-        switch (m_CurrentState)
+        if (GetBoolofFlag(EMovementStates.Crouch))
         {
-            case EMovementStates.Crouch:
-                {
-                    size.y *= 0.5f;
-                    break;
-                }
-            case EMovementStates.Laying:
-                {
-                    size.y *= 0.1f;
-                    break;
-                }
-            default:
-                break;
+            size.y *= 0.5f;
+            pos.y = m_PlayerInfo.GroundOffset - m_PlayerInfo.GP.CrouchHeight;
+        }
+        if (GetBoolofFlag(EMovementStates.Lying))
+        {
+            size.y *= 0.1f;
+            pos.y = m_PlayerInfo.GroundOffset - m_PlayerInfo.GP.CrouchHeight;
         }
 
 
@@ -184,6 +181,9 @@ public class MovementController : MonoBehaviour
 
         //Set the Center of the Collider from Height of it
         m_PlayerInfo.Col.center = center;
+
+        //Set PlayerOffset from Ground
+        m_PlayerInfo.Ani.gameObject.transform.localPosition = pos;
     }
     public void Force(float _dir, float _drag = 30)
     {
@@ -244,6 +244,10 @@ public class MovementController : MonoBehaviour
             m_CurrentState |= _currentState;
         else
             m_CurrentState &= ~_currentState;
+    }
+    bool GetBoolofFlag(EMovementStates _compareState)
+    {
+        return (m_CurrentState & _compareState) != 0;
     }
     #endregion
 }

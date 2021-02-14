@@ -70,7 +70,7 @@ public class DamageManager : MonoBehaviour
 
         if(_enemyAttackType == EDamageStates.High 
             && (currentState_Movement == EMovementStates.Crouch 
-                || currentState_Movement == EMovementStates.Laying))
+                || currentState_Movement == EMovementStates.Lying))
             return false;
 
         if(_enemyAttackType == EDamageStates.Low 

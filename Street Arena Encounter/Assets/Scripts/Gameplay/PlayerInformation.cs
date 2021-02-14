@@ -22,6 +22,7 @@ public class PlayerInformation
     public float Health;
     public int RoundsWon;
     bool specialWasUsed;
+    public float GroundOffset;
     #endregion
 
     #region //Properties

@@ -20,6 +20,7 @@ MonoBehaviour:
   JumpForce: 9
   JumpDashForce: 7
   DashForce: 30
-  CrouchHeight: 0.74
+  CrouchHeight: 0.561
+  LyingHeight: 0.896
   Health: 100
   PlayerStartPos: 3
