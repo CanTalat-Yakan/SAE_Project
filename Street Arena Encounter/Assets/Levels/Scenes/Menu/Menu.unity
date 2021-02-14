@@ -26306,7 +26306,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1021.23334, y: -540}
+  m_AnchoredPosition: {x: 1302.475, y: -540}
   m_SizeDelta: {x: 487.5, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &591935668
@@ -40291,7 +40291,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 762.79, y: -50}
+  m_AnchoredPosition: {x: 1046.405, y: -50}
   m_SizeDelta: {x: 300, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &944534582
@@ -40526,7 +40526,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &966157576
 RectTransform:
   m_ObjectHideFlags: 0
@@ -40659,7 +40659,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &968782801
 RectTransform:
   m_ObjectHideFlags: 0
@@ -47599,8 +47599,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -12.5, y: 0}
-  m_SizeDelta: {x: -175, y: -200}
+  m_AnchoredPosition: {x: 88, y: 0}
+  m_SizeDelta: {x: -12.990204, y: -200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1226029521
 MonoBehaviour:
@@ -47622,7 +47622,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3ca25afe7b131c845b74cf3944a94a1f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d3989f0088f0c3e46af6660a8e35a440, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -63133,7 +63133,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5bbcede998c8d4d46929ab95f945a48d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 799a02e03eb03884e9e6816a8f7d69d3, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
