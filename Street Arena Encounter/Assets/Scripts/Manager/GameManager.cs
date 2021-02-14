@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour
     public Main_Init m_Init;
     public GameObject m_Default_Input;
     public CinemachineVirtualCamera m_CMVCamera;
-    public Camera m_MainCamera;
     public GP_Settings m_GP;
     public Attack_Settings m_ATK;
 
@@ -25,10 +24,6 @@ public class GameManager : MonoBehaviour
     [Space(15)]
     [SerializeField] GameObject m_PlayerGO_R;
     public PlayerInformation m_Player_R;
-
-    [Header("Start Attributes")]
-    [SerializeField] float m_loadingscreenTimer;
-    public bool m_SkipIntro;
 
     [HideInInspector] public bool LOCKED;
     [HideInInspector] public bool STARTED;
@@ -45,7 +40,7 @@ public class GameManager : MonoBehaviour
         Instance = this;
 
 #if !UNITY_EDITOR
-        m_SkipIntro = false;
+        m_Init.m_SkipIntro = false;
 #endif
 
         QualitySettings.vSyncCount = 0;
@@ -246,30 +241,20 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator UnloadScenes()
     {
-        float timeStamp = Time.time;
-
-        yield return new WaitForSeconds(1);
-
-        if (!m_SkipIntro)
-            while (Time.time - timeStamp < m_loadingscreenTimer)
-            {
-                yield return new WaitForSeconds(1);
-            }
-
         if (SceneManager.GetSceneByName("Menu").isLoaded)
+        {
+            float timeStamp = Time.time;
+            yield return new WaitUntil(
+                () => Time.time - timeStamp > m_Init.m_LoadingScreenTime);
+
             SceneManager.UnloadSceneAsync("Menu");
+        }
 
         if (SceneManager.GetSceneByName("EndScreen_Overlay").isLoaded)
             SceneManager.UnloadSceneAsync("EndScreen_Overlay");
 
         if (!SceneManager.GetSceneByName("GUI_Overlay").isLoaded)
             SceneManager.LoadScene("GUI_Overlay", LoadSceneMode.Additive);
-
-
-        if (!m_SkipIntro)
-            TimelineManager.Instance.Play(TimelineManager.Instance.m_TimeLineInfo.m_TL_Beginning[Random.Range(0, TimelineManager.Instance.m_TimeLineInfo.m_TL_Beginning.Length)]);
-        else
-            m_MainCamera.gameObject.SetActive(true);
 
 
         yield return null;

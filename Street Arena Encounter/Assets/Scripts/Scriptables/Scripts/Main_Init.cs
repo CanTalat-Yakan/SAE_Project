@@ -21,6 +21,9 @@ public class Main_Init : ScriptableObject
     public int m_Rounds;
     public int m_Timer;
 
+    public int m_LoadingScreenTime;
+    public bool m_SkipIntro;
+
     public SInitInfo m_Player_L;
     public SInitInfo m_Player_R;
 }

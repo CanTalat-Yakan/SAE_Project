@@ -13,6 +13,7 @@ public class TimelineManager : MonoBehaviour
     [HideInInspector] public PlayableAsset m_TL_CurrentAsset;
     Vector3[] m_tmpStartPos = new Vector3[2];
     #endregion
+
     #region //Properties
     public bool m_IsPlaying { get => m_TL_Directory.state == PlayState.Playing; }
     #endregion
@@ -37,14 +38,13 @@ public class TimelineManager : MonoBehaviour
 
         m_TL_Directory.Play();
 
-        StartCoroutine(DeactivateTL(Time.time));
+        StartCoroutine(DeactivateTL(m_TL_Directory.playableAsset.duration));
     }
 
     IEnumerator ActivateTL(PlayableAsset _tl_asset)
     {
         m_TL_Directory.gameObject.SetActive(true);
         GameManager.Instance.m_CMVCamera.gameObject.SetActive(false);
-        GameManager.Instance.m_MainCamera.gameObject.SetActive(true);
 
         GameManager.Instance.DeactivatePlayers();
         m_tmpStartPos[0] = GameManager.Instance.m_Player_L.Player.gameObject.transform.localPosition;
@@ -58,9 +58,11 @@ public class TimelineManager : MonoBehaviour
         yield return null;
     }
 
-    IEnumerator DeactivateTL(float _timeStamp)
+    IEnumerator DeactivateTL(double _offset)
     {
-        yield return new WaitUntil(() => Time.time - _timeStamp >= m_TL_Directory.playableAsset.duration);
+        float timeStamp = Time.time;
+        yield return new WaitUntil(
+            () => Time.time - timeStamp > _offset);
 
         GameManager.Instance.m_CMVCamera.gameObject.SetActive(true);
         m_TL_Directory.gameObject.SetActive(false);

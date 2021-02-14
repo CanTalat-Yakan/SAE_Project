@@ -40,6 +40,14 @@ public class RoundManager : MonoBehaviour
         yield return new WaitUntil(
             () => UIManager.Instance != null);
 
+        if (!GameManager.Instance.m_Init.m_SkipIntro)
+            if (GameManager.Instance.m_Init.m_GameMode != EGameModes.TRAINING)
+                TimelineManager.Instance.Play(
+                    TimelineManager.Instance.m_TimeLineInfo.m_TL_Beginning[
+                        Random.Range(
+                            0,
+                            TimelineManager.Instance.m_TimeLineInfo.m_TL_Beginning.Length)]);
+
         UIManager.Instance.DeativateTimer();
         UIManager.Instance.SetPlayer_Name();
         StartCoroutine(UIManager.Instance.WaitForTimeLine());
