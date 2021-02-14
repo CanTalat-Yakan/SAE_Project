@@ -28,6 +28,7 @@ public struct SAttacks
         b_heavy =
         low =
         b_low = 
+        block =
         special = false;
     }
 }

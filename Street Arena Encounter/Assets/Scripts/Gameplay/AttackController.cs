@@ -127,62 +127,64 @@ public class AttackController : MonoBehaviour
         m_CurrentState = EAttackStates.Block;
         m_PlayerInfo.Ani.SetBool("Block", m_Attacking = true);
 
-        yield return new WaitUntil(
-            () => m_PlayerInfo.Input.m_attacks.block == false);
+        yield return new WaitForSeconds(0.3f);
 
         m_CurrentState = EAttackStates.NONE;
         m_PlayerInfo.Ani.SetBool("Block", m_Attacking = false);
+
+
         yield return null;
     }
     IEnumerator Special()
     {
-        if (m_PlayerInfo.Special)
+        if (!m_PlayerInfo.Special)
+            yield return null;
+
+
+        m_PlayerInfo.Special = false;
+        m_Attacking = true;
+        AttackManager.Instance.DeactivateSpecialVFX(m_PlayerInfo.IsLeft);
+
+        AudioManager.Instance.Play(
+            AudioManager.Instance.m_AudioInfo.m_Special_Activation,
+            1.5f);
+
+
+        bool damaged = DamageManager.Instance.DealDamage(
+                !m_PlayerInfo.IsLeft,
+                0,
+                2,
+                EDamageStates.Middle);
+
+        if (!damaged)
         {
-            m_PlayerInfo.Special = false;
-            m_Attacking = true;
-            AttackManager.Instance.DeactivateSpecialVFX(m_PlayerInfo.IsLeft);
+            yield return new WaitForSeconds(1);
+            m_Attacking = false;
+        }
+        else
+        {
+            TimelineManager.Instance.Play(
+                m_PlayerInfo.IsLeft
+                    ? TimelineManager.Instance.m_TimeLineInfo.m_TL_Special_L[
+                        Random.Range(
+                            0,
+                            TimelineManager.Instance.m_TimeLineInfo.m_TL_Special_L.Length)]
+                    : TimelineManager.Instance.m_TimeLineInfo.m_TL_Special_R[
+                        Random.Range(
+                            0,
+                            TimelineManager.Instance.m_TimeLineInfo.m_TL_Special_R.Length)]);
 
-            AudioManager.Instance.Play(
-                AudioManager.Instance.m_AudioInfo.m_Special_Activation,
-                1.5f);
+            UIManager.Instance.WaitForTimeLine();
 
+            yield return new WaitUntil(
+                () => TimelineManager.Instance.m_IsPlaying == false);
 
-            bool damaged = DamageManager.Instance.DealDamage(
-                    !m_PlayerInfo.IsLeft,
-                    0,
-                    2,
-                    EDamageStates.Middle);
-
-            if (!damaged)
-            {
-                yield return new WaitForSeconds(1);
-                m_Attacking = false;
-            }
+            if (m_PlayerInfo.IsLeft)
+                GameManager.Instance.m_Player_R.Health -= 35;
             else
-            {
-                TimelineManager.Instance.Play(
-                    m_PlayerInfo.IsLeft
-                        ? TimelineManager.Instance.m_TimeLineInfo.m_TL_Special_L[
-                            Random.Range(
-                                0,
-                                TimelineManager.Instance.m_TimeLineInfo.m_TL_Special_L.Length)]
-                        : TimelineManager.Instance.m_TimeLineInfo.m_TL_Special_R[
-                            Random.Range(
-                                0,
-                                TimelineManager.Instance.m_TimeLineInfo.m_TL_Special_R.Length)]);
+                GameManager.Instance.m_Player_L.Health -= 35;
 
-                UIManager.Instance.WaitForTimeLine();
-
-                yield return new WaitUntil(
-                    () => TimelineManager.Instance.m_IsPlaying == false);
-
-                if (m_PlayerInfo.IsLeft)
-                    GameManager.Instance.m_Player_R.Health -= 35;
-                else
-                    GameManager.Instance.m_Player_L.Health -= 35;
-
-                UIManager.Instance.UpdatePlayer_Health();
-            }
+            UIManager.Instance.UpdatePlayer_Health();
         }
 
 
