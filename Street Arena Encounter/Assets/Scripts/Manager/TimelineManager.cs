@@ -50,8 +50,12 @@ public class TimelineManager : MonoBehaviour
         // map the objects appropriately
         TrackAsset track = (TrackAsset)timelineAsset.GetOutputTrack(1);
         TrackAsset track2 = (TrackAsset)timelineAsset.GetOutputTrack(2);
+        TrackAsset track3 = (TrackAsset)timelineAsset.GetOutputTrack(3);
+        TrackAsset track4 = (TrackAsset)timelineAsset.GetOutputTrack(4);
         m_director.SetGenericBinding(track, GameManager.Instance.m_Player_L.Ani);
         m_director.SetGenericBinding(track2, GameManager.Instance.m_Player_R.Ani);
+        m_director.SetGenericBinding(track3, GameManager.Instance.m_PlayerGO_L);
+        m_director.SetGenericBinding(track4, GameManager.Instance.m_PlayerGO_R);
     }
 
 

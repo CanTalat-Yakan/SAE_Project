@@ -19,11 +19,11 @@ public class GameManager : MonoBehaviour
 
     [Header("Player Attributes")]
     [Space(15)]
-    [SerializeField] GameObject m_PlayerGO_L;
+    public GameObject m_PlayerGO_L;
     public GameObject m_PlayerModel_L;
     public PlayerInformation m_Player_L;
     [Space(15)]
-    [SerializeField] GameObject m_PlayerGO_R;
+    public GameObject m_PlayerGO_R;
     public GameObject m_PlayerModel_R;
     public PlayerInformation m_Player_R;
 
