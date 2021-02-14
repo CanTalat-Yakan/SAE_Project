@@ -11,12 +11,12 @@ public enum EMovementStates
     MoveBackwards = 1 << 2,
     Jump = 1 << 3,
     Crouch = 1 << 4,
+    Laying = 1 << 5,
 }
 public class MovementController : MonoBehaviour
 {
-    #region //Values
+    #region //Fields
     [HideInInspector] public PlayerInformation m_PlayerInfo;
-    [HideInInspector] public EMovementStates m_CurrentState;
 
     Vector3 m_desiredDirection = new Vector3();
     float m_force = 0;
@@ -24,6 +24,29 @@ public class MovementController : MonoBehaviour
     bool m_isGrounded = true;
     #endregion
 
+    #region //Properties
+    [HideInInspector] public EMovementStates m_CurrentState { get; private set; }
+    #endregion
+
+
+    #region //Messages
+    void OnCollisionEnter(Collision _collision)
+    {
+        if (!_collision.gameObject.CompareTag("Platform"))
+            return;
+
+        m_desiredDirection.y = 0;
+        m_isGrounded = true;
+    }
+    void OnCollisionExit(Collision _collision)
+    {
+        if (!_collision.gameObject.CompareTag("Platform"))
+            return;
+
+    }
+    #endregion
+
+    #region //Utilities
     /// <summary>
     /// Changes the velocity of the players rigidbody according to the desired direction and force
     /// </summary>
@@ -79,8 +102,6 @@ public class MovementController : MonoBehaviour
         if (!m_isGrounded)
             m_desiredDirection.y += m_PlayerInfo.GP.GravityForce * Time.deltaTime;
     }
-
-    #region //Utilities
     /// <summary>
     /// Resets the Values of the Players Height and Animation
     /// </summary>
@@ -109,6 +130,10 @@ public class MovementController : MonoBehaviour
     public void SetState()
     {
         SetCurrentState(
+            EMovementStates.Idle,
+            m_PlayerInfo.Ani.GetFloat("Move") == 0 && !m_PlayerInfo.Ani.GetBool("Crouch") && m_isGrounded);
+
+        SetCurrentState(
             EMovementStates.Move,
             m_PlayerInfo.Ani.GetFloat("Move") != 0);
 
@@ -122,23 +147,43 @@ public class MovementController : MonoBehaviour
 
         SetCurrentState(
             EMovementStates.Jump,
-            m_PlayerInfo.Input ?
-                m_PlayerInfo.Input.m_movement.j :
-                false);
+            !m_isGrounded);
     }
     public void SetHeight()
     {
-        //Set the Size of the Collider from Values in GP-Settings
-        m_PlayerInfo.Col.size = new Vector3(
+        Vector3 size = new Vector3(
             m_PlayerInfo.GP.PlayerRadius,
             m_PlayerInfo.GP.PlayerHeight,
             1);
 
-        //Set the Center of the Collider from Height of it, TO_DO: considering crouching
-        m_PlayerInfo.Col.center = new Vector3(
+        Vector3 center = new Vector3(
             0,
             m_PlayerInfo.GP.PlayerHeight * 0.5f,
             0);
+
+
+        switch (m_CurrentState)
+        {
+            case EMovementStates.Crouch:
+                {
+                    size.y *= 0.5f;
+                    break;
+                }
+            case EMovementStates.Laying:
+                {
+                    size.y *= 0.1f;
+                    break;
+                }
+            default:
+                break;
+        }
+
+
+        //Set the Size of the Collider from Values in GP-Settings
+        m_PlayerInfo.Col.size = size;
+
+        //Set the Center of the Collider from Height of it
+        m_PlayerInfo.Col.center = center;
     }
     public void Force(float _dir, float _drag = 30)
     {
@@ -164,29 +209,31 @@ public class MovementController : MonoBehaviour
     public void Constraint()
     {
         float xPos = 0;
-        float offSet = m_PlayerInfo.GP.PlayerRadius * 0.51f;
+        float yPos = transform.localPosition.y;
+        float offSet = m_PlayerInfo.GP.PlayerRadius * 1.05f;
 
         if (m_PlayerInfo.IsLeft)
             xPos = Mathf.Clamp(
                 transform.localPosition.x,
                 transform.localPosition.x - 1,
                 GameManager.Instance.m_Player_R.Player.transform.localPosition.x - offSet);
+        else if (GameManager.Instance.m_Init.m_GameMode == EGameModes.TRAINING)
+            xPos = m_PlayerInfo.GP.PlayerStartPos;
         else
             xPos = Mathf.Clamp(
                 transform.localPosition.x,
                 GameManager.Instance.m_Player_L.Player.transform.localPosition.x + offSet,
                 transform.localPosition.x + 1);
 
-        Vector3 newPos = new Vector3(xPos, Mathf.Max(0, transform.localPosition.y), 0);
-        transform.localPosition = newPos;
-    }
-    void OnCollisionEnter(Collision _collision)
-    {
-        if (!_collision.gameObject.CompareTag("Platform"))
-            return;
+        //yPos = Mathf.Max(
+        //        0,
+        //        transform.localPosition.y);
 
-        m_desiredDirection.y = 0;
-        m_isGrounded = true;
+
+        transform.localPosition = new Vector3(
+            xPos,
+            yPos,
+            0);
     }
     #endregion
 
