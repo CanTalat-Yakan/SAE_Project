@@ -6,9 +6,21 @@ using UnityEngine.UI;
 
 public class InfoBoxManager : MonoBehaviour
 {
+    public static InfoBoxManager Instance { get; private set; }
+
     [SerializeField] GameObject m_userList;
     [SerializeField] GameObject m_playerInfo_Prefab;
     [SerializeField] Main_Init m_init;
+
+    void Awake()
+    {
+        if (Instance)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
 
     public void UpdateList()
     {
