@@ -38,12 +38,18 @@ public class DamageManager : MonoBehaviour
                     GameManager.Instance.m_Player_L :
                     GameManager.Instance.m_Player_R;
 
-        if (!GameManager.Instance.BoolDistance(_range) && CompareStates(playerInfo))
+        if (!GameManager.Instance.BoolDistance(_range))
         {
-            StartCoroutine(PerformDamage(
-                playerInfo,
-                _amount,
-                _damageType));
+            if (CompareStates(playerInfo))
+                StartCoroutine(PerformDamage(
+                    playerInfo,
+                    _damageType,
+                    _amount));
+            else if (playerInfo.Player.m_AttackController.m_CurrentState == EAttackStates.Block)
+                StartCoroutine(FailedDamage(
+                    playerInfo,
+                    _damageType));
+
             return true;
         }
 
@@ -71,6 +77,30 @@ public class DamageManager : MonoBehaviour
         _playerInfo.Player.m_MovementController.Force(_force * -_playerInfo.Forward, _drag);
     }
 
+    void PlaySound(EDamageStates _damageType)
+    {
+        switch (_damageType)
+        {
+            case EDamageStates.High:
+                AudioManager.Instance.Play(
+                    AudioManager.Instance.m_AudioInfo.m_Heavy_Attack[
+                        Random.Range(0, AudioManager.Instance.m_AudioInfo.m_Heavy_Attack.Length)]);
+                break;
+            case EDamageStates.Middle:
+                AudioManager.Instance.Play(
+                    AudioManager.Instance.m_AudioInfo.m_Light_Attack[
+                        Random.Range(0, AudioManager.Instance.m_AudioInfo.m_Heavy_Attack.Length)]);
+                break;
+            case EDamageStates.Low:
+                AudioManager.Instance.Play(
+                    AudioManager.Instance.m_AudioInfo.m_Kick_Attack[
+                        Random.Range(0, AudioManager.Instance.m_AudioInfo.m_Heavy_Attack.Length)]);
+                break;
+            default:
+                break;
+        }
+    }
+
     IEnumerator Shake(float _intensity, float _duration)
     {
         m_noise.m_FrequencyGain = _intensity;
@@ -82,8 +112,11 @@ public class DamageManager : MonoBehaviour
 
         yield return null;
     }
-    IEnumerator PerformDamage(PlayerInformation _playerInfo, float _damageAmount, EDamageStates _damageType)
+    IEnumerator PerformDamage(PlayerInformation _playerInfo, EDamageStates _damageType, float _damageAmount)
     {
+        //Play AttackSound
+        PlaySound(_damageType);
+
         //Damage
         if (GameManager.Instance.m_Init.m_GameMode != EGameModes.TRAINING)
             _playerInfo.Health -= _damageAmount; //substracs health with the amount of performed damage 
@@ -112,4 +145,29 @@ public class DamageManager : MonoBehaviour
 
         yield return null;
     }
+    IEnumerator FailedDamage(PlayerInformation _playerInfo, EDamageStates _damageType)
+    {
+        //Play Sound
+        AudioManager.Instance.Play(
+            AudioManager.Instance.m_AudioInfo.m_Block[
+                Random.Range(0, AudioManager.Instance.m_AudioInfo.m_Block.Length)]);
+
+        //ParticleSystem
+        int i = Mathf.Abs((int)_damageType - 1); //the index of the particleSystem-Array
+        if (_playerInfo.IsLeft)
+            m_ps_L[i].Play(); //plays the damage particleSystem
+        else
+            m_ps_R[i].Play(); //plays the damage particleSystem
+
+        //Force
+        Repulsion(_playerInfo); //Forces the player back
+        //Shake
+        StartCoroutine(Shake(25, 0.2f)); //Shakes the vmcamera
+
+        UIManager.Instance.UpdatePlayer_Health();
+
+
+        yield return null;
+    }
+
 }

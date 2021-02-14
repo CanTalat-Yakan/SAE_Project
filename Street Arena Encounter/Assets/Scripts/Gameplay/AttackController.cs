@@ -249,16 +249,15 @@ public class AttackController : MonoBehaviour
         }
 
         if (damaged)
-        {
-            PlaySound(_damageType);
-
             if (_freezeTime)
             {
                 Time.timeScale = 0.1f;
-                yield return new WaitForSecondsRealtime(0.1f);
+
+                for (int i = 0; i < 10; i++)
+                    yield return new WaitForEndOfFrame();
+
                 Time.timeScale = 1;
             }
-        }
 
 
         yield return null;
@@ -275,32 +274,6 @@ public class AttackController : MonoBehaviour
 
 
         yield return null;
-    }
-    #endregion
-
-    #region //Helper
-    void PlaySound(EDamageStates _damageType)
-    {
-        switch (_damageType)
-        {
-            case EDamageStates.High:
-                AudioManager.Instance.Play(
-                    AudioManager.Instance.m_AudioInfo.m_Heavy_Attack[
-                        Random.Range(0, AudioManager.Instance.m_AudioInfo.m_Heavy_Attack.Length)]);
-                break;
-            case EDamageStates.Middle:
-                AudioManager.Instance.Play(
-                    AudioManager.Instance.m_AudioInfo.m_Light_Attack[
-                        Random.Range(0, AudioManager.Instance.m_AudioInfo.m_Heavy_Attack.Length)]);
-                break;
-            case EDamageStates.Low:
-                AudioManager.Instance.Play(
-                    AudioManager.Instance.m_AudioInfo.m_Kick_Attack[
-                        Random.Range(0, AudioManager.Instance.m_AudioInfo.m_Heavy_Attack.Length)]);
-                break;
-            default:
-                break;
-        }
     }
     #endregion
 }
