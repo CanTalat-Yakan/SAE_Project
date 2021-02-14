@@ -55,8 +55,8 @@ public class AttackController : MonoBehaviour
     {
         if (m_PlayerInfo.Ani != null)
         {
-            if (AttackManager.Instance.m_AnimatorOverrideController != null)
-                m_animatorOverrideController = AttackManager.Instance.m_AnimatorOverrideController;
+            if (!m_PlayerInfo.AOC)
+                m_animatorOverrideController = m_PlayerInfo.AOC;
             else
                 m_animatorOverrideController = new AnimatorOverrideController(m_PlayerInfo.Ani.runtimeAnimatorController);
             m_PlayerInfo.Ani.runtimeAnimatorController = m_animatorOverrideController;
@@ -80,7 +80,7 @@ public class AttackController : MonoBehaviour
         }
 
         if (m_PlayerInfo.Input.m_attacks.block)
-                StartCoroutine(Block());
+            StartCoroutine(Block());
 
         if (m_PlayerInfo.Input.m_attacks.heavy)
             StartCoroutine(Base(EAttackStates.F_HeavyAttack));
