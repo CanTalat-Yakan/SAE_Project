@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 085d7a8fc0ff18a4fbb086a0fb6e4907, type: 3}
+  m_Name: Squirrely
+  m_EditorClassIdentifier: 
+  Name: Squirrely
+  Image: {fileID: 0}
+  Model: {fileID: 919132149155446097, guid: 626f228dcdb1a1b4f840ed74f8a09817, type: 3}
+  AnimatorOC: {fileID: 22100000, guid: c7912780a62320448a434438d5626ba2, type: 2}
