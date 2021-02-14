@@ -55,7 +55,7 @@ public class AttackController : MonoBehaviour
     {
         if (m_PlayerInfo.Ani != null)
         {
-            if (!m_PlayerInfo.AOC)
+            if (m_PlayerInfo.AOC)
                 m_animatorOverrideController = m_PlayerInfo.AOC;
             else
                 m_animatorOverrideController = new AnimatorOverrideController(m_PlayerInfo.Ani.runtimeAnimatorController);
