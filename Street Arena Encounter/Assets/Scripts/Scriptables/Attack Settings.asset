@@ -17,7 +17,7 @@ MonoBehaviour:
     AnimationClip: {fileID: 7400000, guid: a01ba11347c55d348b5e71d7a6fa1d65, type: 2}
     DamageType: 1
     Damage_Amount: 12
-    Damage_Range: 1
+    Damage_Range: 2
     Dash: 1
     FreezeTime: 1
     Activation_FrameTime: 15

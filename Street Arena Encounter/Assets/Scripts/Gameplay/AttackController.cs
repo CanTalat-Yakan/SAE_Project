@@ -138,15 +138,28 @@ public class AttackController : MonoBehaviour
     {
         if (m_PlayerInfo.Special)
         {
+            m_PlayerInfo.Special = false;
+            m_Attacking = true;
+            AttackManager.Instance.DeactivateSpecialVFX(m_PlayerInfo.IsLeft);
+
             AudioManager.Instance.Play(
                 AudioManager.Instance.m_AudioInfo.m_Special_Activation,
                 1.5f);
 
-            if (DamageManager.Instance.DealDamage(
+
+            bool damaged = DamageManager.Instance.DealDamage(
                     !m_PlayerInfo.IsLeft,
                     0,
-                    1,
-                    EDamageStates.Middle))
+                    2,
+                    EDamageStates.Middle);
+
+            if (!damaged)
+            {
+                yield return new WaitForSeconds(1);
+                m_Attacking = false;
+            }
+            else
+            {
                 TimelineManager.Instance.Play(
                     m_PlayerInfo.IsLeft
                         ? TimelineManager.Instance.m_TimeLineInfo.m_TL_Special_L[
@@ -158,9 +171,18 @@ public class AttackController : MonoBehaviour
                                 0,
                                 TimelineManager.Instance.m_TimeLineInfo.m_TL_Special_R.Length)]);
 
-            AttackManager.Instance.DeactivateSpecialVFX(m_PlayerInfo.IsLeft);
+                UIManager.Instance.WaitForTimeLine();
 
-            m_PlayerInfo.Special = false;
+                yield return new WaitUntil(
+                    () => TimelineManager.Instance.m_IsPlaying == false);
+
+                if (m_PlayerInfo.IsLeft)
+                    GameManager.Instance.m_Player_R.Health -= 35;
+                else
+                    GameManager.Instance.m_Player_L.Health -= 35;
+
+                UIManager.Instance.UpdatePlayer_Health();
+            }
         }
 
 

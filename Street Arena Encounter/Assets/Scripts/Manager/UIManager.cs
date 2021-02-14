@@ -78,12 +78,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void SetPlayer_Name()
-    {
-        m_name_L.text = GameManager.Instance.m_Player_L.Name;
-        m_name_R.text = GameManager.Instance.m_Player_R.Name;
-    }
-    public void SetPlayer_Health()
+    public void UpdatePlayer_Health()
     {
         //Player_L
         if (GameManager.Instance.m_Player_L.Health / GameManager.Instance.m_Player_L.GP.Health //the percentage of the players health to his original health amount
@@ -99,6 +94,11 @@ public class UIManager : MonoBehaviour
             m_playerHealthBar_R.fillAmount = GameManager.Instance.m_Player_R.Health / GameManager.Instance.m_Player_R.GP.Health;
             StartCoroutine(DamageShadowAni(false));
         }
+    }
+    public void SetPlayer_Name()
+    {
+        m_name_L.text = GameManager.Instance.m_Player_L.Name;
+        m_name_R.text = GameManager.Instance.m_Player_R.Name;
     }
     public void SetTimer(int time)
     {

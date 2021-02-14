@@ -34,10 +34,14 @@ public class DamageManager : MonoBehaviour
 
     public bool DealDamage(bool _toLeftSide, float _amount, float _range, EDamageStates _damageType)
     {
-        if (!GameManager.Instance.BoolDistance(2) && CompareStates(_toLeftSide))
+        PlayerInformation playerInfo = _toLeftSide ?
+                    GameManager.Instance.m_Player_L :
+                    GameManager.Instance.m_Player_R;
+
+        if (!GameManager.Instance.BoolDistance(_range) && CompareStates(playerInfo))
         {
             StartCoroutine(PerformDamage(
-                _toLeftSide,
+                playerInfo,
                 _amount,
                 _damageType));
             return true;
@@ -46,14 +50,10 @@ public class DamageManager : MonoBehaviour
         return false;
     }
 
-    bool CompareStates(bool _toLeftSide)
+    bool CompareStates(PlayerInformation _playerInfo)
     {
-        PlayerInformation playerInfo = _toLeftSide ?
-                    GameManager.Instance.m_Player_L :
-                    GameManager.Instance.m_Player_R;
-
-        EAttackStates currentState_Attack = playerInfo.Player.m_AttackController.m_CurrentState;
-        EMovementStates currentState_Movement = playerInfo.Player.m_MovementController.m_CurrentState;
+        EAttackStates currentState_Attack = _playerInfo.Player.m_AttackController.m_CurrentState;
+        EMovementStates currentState_Movement = _playerInfo.Player.m_MovementController.m_CurrentState;
 
         if (currentState_Attack == EAttackStates.Block
             || currentState_Movement == EMovementStates.MoveBackwards)
@@ -82,42 +82,33 @@ public class DamageManager : MonoBehaviour
 
         yield return null;
     }
-    IEnumerator PerformDamage(bool _toLeftSide, float _damageAmount, EDamageStates _damageType)
+    IEnumerator PerformDamage(PlayerInformation _playerInfo, float _damageAmount, EDamageStates _damageType)
     {
-        PlayerInformation playerInfo = _toLeftSide ?
-                    GameManager.Instance.m_Player_L :
-                    GameManager.Instance.m_Player_R;
-
         //Damage
         if (GameManager.Instance.m_Init.m_GameMode != EGameModes.TRAINING)
-            playerInfo.Health -= _damageAmount; //substracs health with the amount of performed damage 
+            _playerInfo.Health -= _damageAmount; //substracs health with the amount of performed damage 
 
-        playerInfo.Ani.SetTrigger("Damaged"); //plays damage animation
+        _playerInfo.Ani.SetTrigger("Damaged"); //plays damage animation
 
 
         //Sepcial
-        if (playerInfo.SpecialVFX)
-            AttackManager.Instance.ActivateSpecialVFX(_toLeftSide);
+        if (_playerInfo.SpecialVFX)
+            AttackManager.Instance.ActivateSpecialVFX(_playerInfo.IsLeft);
 
         //ParticleSystem
         int i = Mathf.Abs((int)_damageType - 1); //the index of the particleSystem-Array
-        if (playerInfo.IsLeft)
+        if (_playerInfo.IsLeft)
             m_ps_L[i].Play(); //plays the damage particleSystem
         else
             m_ps_R[i].Play(); //plays the damage particleSystem
 
         //Force
-        Repulsion(playerInfo); //Forces the player back
+        Repulsion(_playerInfo); //Forces the player back
         //Shake
         StartCoroutine(Shake(25, 0.2f)); //Shakes the vmcamera
 
+        UIManager.Instance.UpdatePlayer_Health();
 
-        if (_toLeftSide)
-            GameManager.Instance.m_Player_L = playerInfo;
-        else
-            GameManager.Instance.m_Player_R = playerInfo;
-
-        UIManager.Instance.SetPlayer_Health();
 
         yield return null;
     }

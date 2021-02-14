@@ -48843,8 +48843,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_DestroyGObjCollection: []
   m_PiManager: {fileID: 0}
-  m_Player_L_Input: {fileID: 0}
-  m_Player_R_Input: {fileID: 0}
+  m_PlayerL_Input: {fileID: 0}
+  m_PlayerR_Input: {fileID: 0}
   m_icon_pi_controller: {fileID: 8233595791837300225, guid: cc180f7857a6d8e478e6774605c05ac9, type: 3}
   m_icon_pi_keyboard: {fileID: 2593641887524526055, guid: 8639ae680dba5a34f96349749702f7a4, type: 3}
 --- !u!114 &1325317240
@@ -49573,7 +49573,7 @@ GameObject:
   - component: {fileID: 1444989542}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
