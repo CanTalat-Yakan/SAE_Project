@@ -13,11 +13,12 @@ public class InputManager : MonoBehaviour
 {
     public static InputManager Instance { get; private set; }
 
+    public bool m_RegisterInput { get; set; }
     [HideInInspector] public List<GameObject> m_DestroyGObjCollection = new List<GameObject>();
-    [HideInInspector] public PlayerInputManager m_PlayerInputManager;
+    [HideInInspector] public PlayerInputManager m_PiManager;
 
-    public PlayerInput m_Player_L_Input;
-    public PlayerInput m_Player_R_Input;
+    [HideInInspector] public PlayerInput m_Player_L_Input;
+    [HideInInspector] public PlayerInput m_Player_R_Input;
     [SerializeField] GameObject m_icon_pi_controller;
     [SerializeField] GameObject m_icon_pi_keyboard;
 
@@ -25,11 +26,17 @@ public class InputManager : MonoBehaviour
     void Awake()
     {
         if (Instance)
-            Destroy(Instance.gameObject);
+        {
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
+
+        m_PiManager = FindObjectOfType<PlayerInputManager>();
     }
     public void OnDestroy()
     {
+        RemoveInputs();
     }
 
     #region //Utilities
@@ -52,8 +59,6 @@ public class InputManager : MonoBehaviour
     {
         for (int i = 0; i < m_DestroyGObjCollection.Count; i++)
             Destroy(m_DestroyGObjCollection[i]);
-
-        m_PlayerInputManager.DisableJoining();
 
         if (m_Player_L_Input != null)
             Destroy(m_Player_L_Input);

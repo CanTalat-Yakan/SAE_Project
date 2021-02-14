@@ -22,6 +22,7 @@ public class TabManager : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
         m_uiInput = FindObjectOfType<InputSystemUIInputModule>();
         m_previousPanelIndex = m_panelIndex.Value;
 
@@ -54,11 +55,15 @@ public class TabManager : MonoBehaviour
                 SetPreviousIndex();
             else
             {
-                InputManager.Instance.RemoveInputs();
                 SetPageIndex(0);
                 SetPageIndex(3);
             }
         }
+
+        if (m_panelIndex == 3)
+            InputManager.Instance.RemoveInputs();
+
+        InputManager.Instance.m_RegisterInput = m_panelIndex == 7;
     }
 
     #region //Utilities

@@ -7,26 +7,25 @@ using UnityEngine.UI;
 
 public class InputSelectionManager : MonoBehaviour
 {
-    PlayerInputManager m_pi_manager;
+    PlayerInputManager m_piManager;
     [SerializeField] GameObject m_list;
-    [SerializeField] Button m_continue_Button;
-    [SerializeField] Main_Init m_Init;
+    [SerializeField] Button m_continueButton;
 
 
     void Awake()
     {
-        m_pi_manager = GetComponent<PlayerInputManager>(); 
+        m_piManager = GetComponent<PlayerInputManager>();
         DeactivateJoining();
-    }
-
-    void Start()
-    {
-        InputManager.Instance.m_PlayerInputManager = m_pi_manager;
     }
 
     void OnPlayerJoined(PlayerInput _playerInput)
     {
-        CreateInput(_playerInput);
+        if (!InputManager.Instance)
+            Destroy(_playerInput);
+        else if (!InputManager.Instance.m_RegisterInput)
+            Destroy(_playerInput);
+        else
+            CreateInput(_playerInput);
     }
 
     #region //Utilities
@@ -46,9 +45,9 @@ public class InputSelectionManager : MonoBehaviour
             InputManager.Instance.m_Player_R_Input = _playerInput;
             AudioManager.Instance.Play(AudioManager.Instance.m_AudioInfo.m_Joined);
 
-            m_pi_manager.DisableJoining();
-            m_continue_Button.interactable = true;
-            EventSystem.current.SetSelectedGameObject(m_continue_Button.gameObject);
+            m_piManager.DisableJoining();
+            m_continueButton.interactable = true;
+            EventSystem.current.SetSelectedGameObject(m_continueButton.gameObject);
         }
 
         //Spawn Icon Indiactor for Playerinput in InputSelectionPanel
@@ -67,13 +66,12 @@ public class InputSelectionManager : MonoBehaviour
 
     public void ActivateJoining()
     {
-        m_pi_manager.EnableJoining();
+        m_piManager.EnableJoining();
     }
-
     public void DeactivateJoining()
     {
-        m_pi_manager.DisableJoining();
-        m_continue_Button.interactable = false;
+        m_piManager.DisableJoining();
+        m_continueButton.interactable = false;
     }
     #endregion
 
