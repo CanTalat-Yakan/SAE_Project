@@ -181,9 +181,6 @@ public class UIManager : MonoBehaviour
     #region //Curoutines
     public IEnumerator WaitForTimeLine()
     {
-        if (GameManager.Instance.m_SkipIntro)
-            yield return null;
-
         m_canvas.SetActive(false);
 
         yield return new WaitUntil(
