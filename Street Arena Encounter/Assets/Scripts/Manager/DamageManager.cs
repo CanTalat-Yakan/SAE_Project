@@ -34,35 +34,47 @@ public class DamageManager : MonoBehaviour
 
     public bool DealDamage(bool _toLeftSide, float _amount, float _range, EDamageStates _damageType)
     {
+        if (GameManager.Instance.BoolDistance(_range))
+            return false;
+
+
         PlayerInformation playerInfo = _toLeftSide ?
                     GameManager.Instance.m_Player_L :
                     GameManager.Instance.m_Player_R;
 
-        if (!GameManager.Instance.BoolDistance(_range))
-        {
-            if (CompareStates(playerInfo))
-                StartCoroutine(PerformDamage(
-                    playerInfo,
-                    _damageType,
-                    _amount));
-            else if (playerInfo.Player.m_AttackController.m_CurrentState == EAttackStates.Block)
-                StartCoroutine(FailedDamage(
-                    playerInfo,
-                    _damageType));
+        bool? result = CompareStates(playerInfo, _damageType);
 
-            return true;
-        }
+        if (result is null)
+            return false;
+        else if ((bool)result)
+            StartCoroutine(PerformDamage(
+                playerInfo,
+                _damageType,
+                _amount));
+        else
+            StartCoroutine(FailedDamage(
+                playerInfo,
+                _damageType));
 
-        return false;
+        return (bool)result;
     }
 
-    bool CompareStates(PlayerInformation _playerInfo)
+    bool? CompareStates(PlayerInformation _playerInfo, EDamageStates _enemyAttackType)
     {
         EAttackStates currentState_Attack = _playerInfo.Player.m_AttackController.m_CurrentState;
         EMovementStates currentState_Movement = _playerInfo.Player.m_MovementController.m_CurrentState;
 
         if (currentState_Attack == EAttackStates.Block
             || currentState_Movement == EMovementStates.MoveBackwards)
+            return false;
+
+        if(_enemyAttackType == EDamageStates.High 
+            && (currentState_Movement == EMovementStates.Crouch 
+                || currentState_Movement == EMovementStates.Laying))
+            return false;
+
+        if(_enemyAttackType == EDamageStates.Low 
+            && currentState_Movement == EMovementStates.Jump)
             return false;
 
         return true;
