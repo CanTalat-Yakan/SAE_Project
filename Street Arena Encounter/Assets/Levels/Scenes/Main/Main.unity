@@ -152,7 +152,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1508592290}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &129633094
 MonoBehaviour:
@@ -5136,7 +5136,6 @@ MonoBehaviour:
     ATK: {fileID: 0}
     Health: 0
     RoundsWon: 0
-    Special: 0
   m_CurrentState: 0
   m_CurrentDamageState: 0
   m_Attacking: 0
@@ -5162,8 +5161,6 @@ MonoBehaviour:
     ATK: {fileID: 0}
     Health: 0
     RoundsWon: 0
-    Special: 0
-  m_CurrentState: 0
 --- !u!54 &378409833
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5362,7 +5359,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 494674798}
-  m_LocalRotation: {x: 0.02797542, y: -0.000000019880119, z: 5.5637234e-10, w: 0.99960864}
+  m_LocalRotation: {x: 0.07890374, y: 0.000000017861653, z: -0.0000000014137592, w: 0.99688226}
   m_LocalPosition: {x: 0, y: 2.47, z: -4.82}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -6546,14 +6543,13 @@ GameObject:
   - component: {fileID: 840521270}
   - component: {fileID: 840521272}
   - component: {fileID: 840521273}
-  - component: {fileID: 840521274}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!20 &840521269
 Camera:
   m_ObjectHideFlags: 0
@@ -6635,8 +6631,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 840521268}
-  m_LocalRotation: {x: 0.01797736, y: -0.000000019873562, z: 7.5515716e-10, w: 0.9998385}
-  m_LocalPosition: {x: 0, y: 0.5735068, z: 5.169564}
+  m_LocalRotation: {x: 0.068930395, y: 0.000000017846622, z: -0.0000000015923152, w: 0.9976215}
+  m_LocalPosition: {x: 0, y: 1.2675484, z: 3.7457337}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1851666791}
@@ -6695,14 +6691,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!81 &840521274
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 840521268}
-  m_Enabled: 1
 --- !u!1 &893032199
 GameObject:
   m_ObjectHideFlags: 0
@@ -11796,7 +11784,6 @@ MonoBehaviour:
   m_Init: {fileID: 11400000, guid: 3dde9488ed206674f99a7a736da5a296, type: 2}
   m_Default_Input: {fileID: 631771553}
   m_CMVCamera: {fileID: 494674800}
-  m_MainCamera: {fileID: 840521269}
   m_GP: {fileID: 11400000, guid: 36a3a49ea9a8d1d409717af0da21a8ed, type: 2}
   m_ATK: {fileID: 11400000, guid: eb0d60f6c98a59344a88f272fbffd42a, type: 2}
   m_PlayerGO_L: {fileID: 378409829}
@@ -11810,7 +11797,6 @@ MonoBehaviour:
     ATK: {fileID: 11400000, guid: eb0d60f6c98a59344a88f272fbffd42a, type: 2}
     Health: 100
     RoundsWon: 0
-    Special: 0
   m_PlayerGO_R: {fileID: 1965195718}
   m_Player_R:
     Player: {fileID: 1965195723}
@@ -11822,55 +11808,8 @@ MonoBehaviour:
     ATK: {fileID: 11400000, guid: eb0d60f6c98a59344a88f272fbffd42a, type: 2}
     Health: 100
     RoundsWon: 0
-    Special: 0
-  m_loadingscreenTimer: 0
-  m_SkipIntro: 0
   LOCKED: 0
   STARTED: 0
---- !u!1 &990234980
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 990234981}
-  - component: {fileID: 990234982}
-  m_Layer: 0
-  m_Name: AudioManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &990234981
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 990234980}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1508592290}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &990234982
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 990234980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2994e964d562a1348a3375c14305933f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AudioInfo: {fileID: 11400000, guid: 1ba82e683b38c8c4fa5a4864df1db269, type: 2}
 --- !u!1 &993288317
 GameObject:
   m_ObjectHideFlags: 0
@@ -11887,7 +11826,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &993288318
 Transform:
   m_ObjectHideFlags: 0
@@ -22823,7 +22762,6 @@ Transform:
   - {fileID: 981369237}
   - {fileID: 745491765}
   - {fileID: 1623304271}
-  - {fileID: 990234981}
   - {fileID: 129633093}
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -28145,7 +28083,6 @@ MonoBehaviour:
     ATK: {fileID: 0}
     Health: 0
     RoundsWon: 0
-    Special: 0
   m_CurrentState: 0
   m_CurrentDamageState: 0
   m_Attacking: 0
@@ -28171,8 +28108,6 @@ MonoBehaviour:
     ATK: {fileID: 0}
     Health: 0
     RoundsWon: 0
-    Special: 0
-  m_CurrentState: 0
 --- !u!54 &1965195722
 Rigidbody:
   m_ObjectHideFlags: 0
