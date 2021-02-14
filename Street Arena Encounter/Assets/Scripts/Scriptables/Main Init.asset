@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a9c408e7757ad24f93c5b09be56a4c3, type: 3}
   m_Name: Main Init
   m_EditorClassIdentifier: 
-  m_GameMode: 2
-  m_Level: 2
+  m_GameMode: 3
+  m_Level: 3
   m_Rounds: 2
   m_Timer: 45
+  m_LoadingScreenTime: 2
+  m_SkipIntro: 0
   m_Player_L:
     Name: Player 1
   m_Player_R:
