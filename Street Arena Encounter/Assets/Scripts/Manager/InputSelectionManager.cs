@@ -36,13 +36,13 @@ public class InputSelectionManager : MonoBehaviour
         if (_playerInput.playerIndex == 0)
         //Input_MainPlayer
         {
-            InputManager.Instance.m_Player_L_Input = _playerInput;
+            InputManager.Instance.m_PlayerL_Input = _playerInput;
             AudioManager.Instance.Play(AudioManager.Instance.m_AudioInfo.m_Joined);
         }
         if (_playerInput.playerIndex == 1)
         //Input_SecondPlayer
         {
-            InputManager.Instance.m_Player_R_Input = _playerInput;
+            InputManager.Instance.m_PlayerR_Input = _playerInput;
             AudioManager.Instance.Play(AudioManager.Instance.m_AudioInfo.m_Joined);
 
             m_piManager.DisableJoining();

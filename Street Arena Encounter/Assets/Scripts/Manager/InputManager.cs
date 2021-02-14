@@ -17,8 +17,8 @@ public class InputManager : MonoBehaviour
     [HideInInspector] public List<GameObject> m_DestroyGObjCollection = new List<GameObject>();
     [HideInInspector] public PlayerInputManager m_PiManager;
 
-    [HideInInspector] public PlayerInput m_Player_L_Input;
-    [HideInInspector] public PlayerInput m_Player_R_Input;
+    [HideInInspector] public PlayerInput m_PlayerL_Input;
+    [HideInInspector] public PlayerInput m_PlayerR_Input;
     [SerializeField] GameObject m_icon_pi_controller;
     [SerializeField] GameObject m_icon_pi_keyboard;
 
@@ -60,10 +60,10 @@ public class InputManager : MonoBehaviour
         for (int i = 0; i < m_DestroyGObjCollection.Count; i++)
             Destroy(m_DestroyGObjCollection[i]);
 
-        if (m_Player_L_Input != null)
-            Destroy(m_Player_L_Input);
-        if (m_Player_R_Input != null)
-            Destroy(m_Player_R_Input);
+        if (m_PlayerL_Input != null)
+            Destroy(m_PlayerL_Input);
+        if (m_PlayerR_Input != null)
+            Destroy(m_PlayerR_Input);
     }
     #endregion
 }
