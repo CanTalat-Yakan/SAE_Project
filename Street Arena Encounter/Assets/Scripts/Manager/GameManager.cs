@@ -20,9 +20,11 @@ public class GameManager : MonoBehaviour
     [Header("Player Attributes")]
     [Space(15)]
     [SerializeField] GameObject m_PlayerGO_L;
+    public GameObject m_PlayerModel_L;
     public PlayerInformation m_Player_L;
     [Space(15)]
     [SerializeField] GameObject m_PlayerGO_R;
+    public GameObject m_PlayerModel_R;
     public PlayerInformation m_Player_R;
 
     [HideInInspector] public bool LOCKED;
@@ -213,6 +215,15 @@ public class GameManager : MonoBehaviour
         //Reset Values; Health, Roundswon, Special
         m_Player_L.ResetPlayerInformation();
         m_Player_R.ResetPlayerInformation();
+
+
+        //Set Model
+        m_PlayerModel_L = Instantiate(m_Init.m_Player_L.Model, m_PlayerGO_L.transform);
+        m_PlayerModel_L.transform.rotation = Quaternion.Euler(0, 90, 0);
+        m_PlayerModel_L.transform.localScale = new Vector3(1, 1, 1);
+        m_PlayerModel_R = Instantiate(m_Init.m_Player_R.Model, m_PlayerGO_R.transform);
+        m_PlayerModel_R.transform.rotation = Quaternion.Euler(0, -90, 0);
+        m_PlayerModel_R.transform.localScale = new Vector3(-1, 1, 1);
 
         //Get Input
         if (m_Init.m_GameMode == EGameModes.LOCAL)

@@ -16,6 +16,7 @@ public class PlayerInformation
     public InputMaster Input;
     public GP_Settings GP;
     public Attack_Settings ATK;
+    public AnimatorOverrideController AOC;
 
     [Header("Runtime Values")]
     public float Health;
@@ -36,17 +37,6 @@ public class PlayerInformation
     #region //Utilitites
     public void GatherComponents(GameObject _obj)
     {
-        //Get Scriptable Object References with Information of GamePlay and Attacks
-        GP = GameManager.Instance.m_GP;
-        ATK = GameManager.Instance.m_ATK;
-
-        //Get Component Rigidbody and BoxCollider
-        RB = _obj.GetComponent<Rigidbody>();
-        Col = _obj.GetComponent<BoxCollider>();
-
-        //Get Animator in Model
-        Ani = _obj.transform.GetChild(0).GetComponent<Animator>();
-
         //Get PlayerController using Movement and Attack
         Player = _obj.GetComponent<PlayerController>();
         Player.m_IsActive = Input != null;
@@ -56,6 +46,22 @@ public class PlayerInformation
         //Passign Playercontrolelr the attackController
         Player.m_AttackController = _obj.GetComponent<AttackController>();
         Player.m_AttackController.m_PlayerInfo = this;
+
+        //Get Scriptable Object References with Information of GamePlay and Attacks
+        GP = GameManager.Instance.m_GP;
+        ATK = GameManager.Instance.m_ATK;
+
+        //Get Component Rigidbody and BoxCollider
+        RB = _obj.GetComponent<Rigidbody>();
+        Col = _obj.GetComponent<BoxCollider>();
+
+        //Get Animator of Model
+        Ani = _obj.transform.GetChild(1).GetComponent<Animator>();
+
+        //Get AnimationOverrideController of FighterInfo
+        AOC = IsLeft
+            ? GameManager.Instance.m_Init.m_Player_L.AnimatorOC
+            : GameManager.Instance.m_Init.m_Player_R.AnimatorOC;
     }
     public void ResetPlayerInformation()
     {
