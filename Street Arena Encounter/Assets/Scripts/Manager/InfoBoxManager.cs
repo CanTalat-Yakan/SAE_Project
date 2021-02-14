@@ -35,14 +35,16 @@ public class InfoBoxManager : MonoBehaviour
                     InputManager.Instance.m_DestroyGObjCollection.Add(iconL);
                     iconL.transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = m_init.m_Player_L.Name;
                     iconL.transform.GetChild(1).GetComponent<Image>().color = new Color(Random.value, Random.value, Random.value, 1);
+                    iconL.transform.GetChild(1).GetChild(0).GetComponent<Image>().sprite = m_init.m_Player_L.Image;
 
                     GameObject iconR = Instantiate(m_playerInfo_Prefab, m_userList.transform);
                     InputManager.Instance.m_DestroyGObjCollection.Add(iconR);
                     iconR.transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = m_init.m_Player_R.Name;
                     iconR.transform.GetChild(1).GetComponent<Image>().color = new Color(Random.value, Random.value, Random.value, 1);
+                    iconR.transform.GetChild(1).GetChild(0).GetComponent<Image>().sprite = m_init.m_Player_R.Image;
 
 
-                    switch (InputManager.Instance.m_Player_L_Input.currentControlScheme)
+                    switch (InputManager.Instance.m_PlayerL_Input.currentControlScheme)
                     {
                         case "Keyboard":
                             InputManager.Instance.CreateIcon(EPIIconType.KEYBOARD, iconL.transform.GetChild(2).GetChild(1));
@@ -53,7 +55,7 @@ public class InfoBoxManager : MonoBehaviour
                         default:
                             break;
                     }
-                    switch (InputManager.Instance.m_Player_R_Input.currentControlScheme)
+                    switch (InputManager.Instance.m_PlayerR_Input.currentControlScheme)
                     {
                         case "Keyboard":
                             InputManager.Instance.CreateIcon(EPIIconType.KEYBOARD, iconR.transform.GetChild(2).GetChild(1));
