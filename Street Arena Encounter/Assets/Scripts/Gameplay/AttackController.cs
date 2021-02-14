@@ -41,13 +41,16 @@ public class AttackController : MonoBehaviour
 {
     #region //Fields
     [HideInInspector] public PlayerInformation m_PlayerInfo;
-    [HideInInspector] public EAttackStates m_CurrentState;
-    [HideInInspector] public EDamageStates m_CurrentDamageState;
 
     [HideInInspector] public bool m_Attacking;
 
     AnimatorOverrideController m_animatorOverrideController;
     AnimationClipOverrides m_clipOverrides;
+    #endregion
+
+    #region //Properties
+    [HideInInspector] public EAttackStates m_CurrentState { get; private set; }
+    [HideInInspector] public EDamageStates m_CurrentDamageState { get; private set; }
     #endregion
 
 
