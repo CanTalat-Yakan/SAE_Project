@@ -174,7 +174,7 @@ public class AttackController : MonoBehaviour
                             0,
                             TimelineManager.Instance.m_TimeLineInfo.m_TL_Special_R.Length)]);
 
-            UIManager.Instance.WaitForTimeLine();
+            StartCoroutine(UIManager.Instance.WaitForTimeLine());
 
             yield return new WaitUntil(
                 () => TimelineManager.Instance.m_IsPlaying == false);
