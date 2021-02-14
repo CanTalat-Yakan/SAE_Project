@@ -65,7 +65,9 @@ public class PlayerInformation
     }
     public void ResetValues()
     {
-        Player.ResetValues();
+        Player.m_MovementController.ResetValues();
+        Player.m_AttackController.ResetValues();
+
         Health = GameManager.Instance.m_GP.Health;
         Special = true;
     }

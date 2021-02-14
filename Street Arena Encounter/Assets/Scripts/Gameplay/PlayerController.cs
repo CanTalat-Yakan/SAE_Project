@@ -32,24 +32,10 @@ public class PlayerController : MonoBehaviour
         m_MovementController.Drag();
         m_MovementController.SetState();
         m_MovementController.SetHeight();
+        m_MovementController.Constraint();
     }
     void FixedUpdate()
     {
         m_MovementController.Move();
-        m_MovementController.Constraint();
-    }
-
-
-    /// <summary>
-    /// Reset Values of CharacterController, AttackController and MovementController
-    /// </summary>
-    public void ResetValues()
-    {
-        m_MovementController.ResetValues();
-        m_AttackController.ResetValues();
-        GameManager.Instance.m_Player_L.Health = GameManager.Instance.m_Player_L.GP.Health;
-        GameManager.Instance.m_Player_R.Health = GameManager.Instance.m_Player_R.GP.Health;
-        GameManager.Instance.m_Player_R.Special = true;
-        GameManager.Instance.m_Player_L.Special = true;
     }
 }
