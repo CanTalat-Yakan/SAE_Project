@@ -229,9 +229,10 @@ public class RoundManager : MonoBehaviour
         //false     => rightPlayer Won, then
         //null      => Tie
         if (m_roundResult == null)
-            UIManager.Instance.SetComment_Tie();
+            UIManager.Instance.SetComment_Tie(); 
         else
             UIManager.Instance.SetComment_PlayerWon((bool)m_roundResult);
+
 
         DOTween.Clear(); //stop any DoTween Animations
         GameManager.Instance.STARTED = false; //Game not started, meaning it is paused
