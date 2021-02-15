@@ -141,6 +141,7 @@ public class GameManager : MonoBehaviour
     /// <returns></returns>
     IEnumerator Init()
     {
+        StartCoroutine(UnloadScenes()); //Unloads the obsolete Scenes
         StartCoroutine(SetupPlayer()); //Setup PlayerInformation
 
         Cursor.lockState = CursorLockMode.Locked; //Lockes the Cursor and makes it Invisble
@@ -153,8 +154,6 @@ public class GameManager : MonoBehaviour
 
         if (!SceneManager.GetSceneByName(m_Init.m_Level.ToString()).isLoaded)
             SceneManager.LoadScene(m_Init.m_Level.ToString(), LoadSceneMode.Additive);//Loads Level Additive
-
-        StartCoroutine(UnloadScenes()); //Unloads the obsolete Scenes
 
 
         yield return null;
@@ -209,22 +208,20 @@ public class GameManager : MonoBehaviour
     /// <returns></returns>
     IEnumerator UnloadScenes()
     {
+        float timeStamp = Time.time;
+        yield return new WaitUntil(
+            () => Time.time - timeStamp > m_Init.m_LoadingScreenTime);
+
+
         if (SceneManager.GetSceneByName("EndScreen_Overlay").isLoaded)
             SceneManager.UnloadSceneAsync("EndScreen_Overlay");
 
         if (SceneManager.GetSceneByName("Menu").isLoaded)
-        {
-            float timeStamp = Time.time;
-            yield return new WaitUntil(
-                () => Time.time - timeStamp > m_Init.m_LoadingScreenTime);
-
             SceneManager.UnloadSceneAsync("Menu");
-        }
 
-        if (!SceneManager.GetSceneByName("GUI_Overlay").isLoaded)
-            SceneManager.LoadScene("GUI_Overlay", LoadSceneMode.Additive);
+        SceneManager.LoadScene("GUI_Overlay", LoadSceneMode.Additive);
 
-
+        
         yield return null;
     }
     #endregion
