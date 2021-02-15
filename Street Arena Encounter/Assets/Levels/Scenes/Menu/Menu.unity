@@ -14178,7 +14178,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1266801358}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &388376158
 MonoBehaviour:
@@ -24679,10 +24679,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 495244755}
-  - component: {fileID: 495244756}
   - component: {fileID: 495244757}
   m_Layer: 0
-  m_Name: InputSelectionManager
+  m_Name: InputSelectionInformation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24700,139 +24699,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1266801358}
-  m_RootOrder: 4
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &495244756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 495244754}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 621567455fd1c4ceb811cc8a00b6a1a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_NotificationBehavior: 0
-  m_MaxPlayerCount: 2
-  m_AllowJoining: 0
-  m_JoinBehavior: 0
-  m_PlayerJoinedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_PlayerLeftEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_JoinAction:
-    m_UseReference: 0
-    m_Action:
-      m_Name: Join
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 9c32bc6a-ab0c-4b59-b845-764d36bfbfb1
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings:
-      - m_Name: 
-        m_Id: 1551c343-756c-43fc-9903-b888486eb169
-        m_Path: <Keyboard>/anyKey
-        m_Interactions: 
-        m_Processors: 
-        m_Groups: 
-        m_Action: Join
-        m_Flags: 0
-      - m_Name: 
-        m_Id: 1149b564-24ae-47c1-9f52-3a8034c05423
-        m_Path: <Gamepad>/start
-        m_Interactions: 
-        m_Processors: 
-        m_Groups: 
-        m_Action: Join
-        m_Flags: 0
-      - m_Name: 
-        m_Id: ffd663c7-894e-4095-8888-6afdbab20677
-        m_Path: <Gamepad>/buttonEast
-        m_Interactions: 
-        m_Processors: 
-        m_Groups: 
-        m_Action: Join
-        m_Flags: 0
-      - m_Name: 
-        m_Id: f0f3c401-ae6c-4cfd-a3bb-9eb88d008a45
-        m_Path: <Gamepad>/buttonSouth
-        m_Interactions: 
-        m_Processors: 
-        m_Groups: 
-        m_Action: Join
-        m_Flags: 0
-      - m_Name: 
-        m_Id: c04d9eb0-a5cc-4c1d-bcab-e003985672d5
-        m_Path: <Gamepad>/buttonNorth
-        m_Interactions: 
-        m_Processors: 
-        m_Groups: 
-        m_Action: Join
-        m_Flags: 0
-      - m_Name: 
-        m_Id: 74b89643-b597-4d19-87ad-813ccc36de8a
-        m_Path: <Gamepad>/buttonWest
-        m_Interactions: 
-        m_Processors: 
-        m_Groups: 
-        m_Action: Join
-        m_Flags: 0
-      - m_Name: 
-        m_Id: 22aab853-589b-4ad0-9509-dde318e9d0ee
-        m_Path: <Gamepad>/start
-        m_Interactions: 
-        m_Processors: 
-        m_Groups: 
-        m_Action: Join
-        m_Flags: 0
-      - m_Name: 
-        m_Id: e1b767e9-7ef4-4e85-ab72-7ae8aa72fdd4
-        m_Path: <Gamepad>/select
-        m_Interactions: 
-        m_Processors: 
-        m_Groups: 
-        m_Action: Join
-        m_Flags: 0
-      - m_Name: 
-        m_Id: 6ecd3741-0466-46dd-96d2-03e040540e77
-        m_Path: <Gamepad>/dpad
-        m_Interactions: 
-        m_Processors: 
-        m_Groups: 
-        m_Action: Join
-        m_Flags: 0
-      - m_Name: 
-        m_Id: 80fa7301-d441-4723-abb0-f54b42427d6e
-        m_Path: <Gamepad>/leftStick
-        m_Interactions: 
-        m_Processors: 
-        m_Groups: 
-        m_Action: Join
-        m_Flags: 0
-      - m_Name: 
-        m_Id: cc2c0933-4c00-48f8-8c50-ec9d85d32dcb
-        m_Path: <Gamepad>/rightStick
-        m_Interactions: 
-        m_Processors: 
-        m_Groups: 
-        m_Action: Join
-        m_Flags: 0
-    m_Reference: {fileID: 0}
-  m_PlayerPrefab: {fileID: 6809057812409335654, guid: 32732b53e7b3d8b4c97b912c604a81a0, type: 3}
-  m_SplitScreen: 0
-  m_MaintainAspectRatioInSplitScreen: 0
-  m_FixedNumberOfSplitScreens: -1
-  m_SplitScreenRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
 --- !u!114 &495244757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24845,8 +24713,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c7cbf5256a44294f88e32b6a101471f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_list: {fileID: 326382319}
-  m_continueButton: {fileID: 841377993}
+  List: {fileID: 326382319}
+  ContinueButton: {fileID: 841377993}
 --- !u!1 &496218958
 GameObject:
   m_ObjectHideFlags: 0
@@ -38896,9 +38764,21 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 495244757}
-        m_TargetAssemblyTypeName: InputSelectionManager, Assembly-CSharp
-        m_MethodName: DeactivateJoining
+        m_TargetAssemblyTypeName: InputSelectionInfo, Assembly-CSharp
+        m_MethodName: DisableJoining
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 841377993}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+        m_MethodName: set_interactable
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -40495,7 +40375,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1266801358}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &956858285
 MonoBehaviour:
@@ -48047,10 +47927,10 @@ Transform:
   - {fileID: 1381541904}
   - {fileID: 2097809856}
   - {fileID: 1695855037}
-  - {fileID: 495244755}
   - {fileID: 1761389534}
   - {fileID: 956858284}
   - {fileID: 388376157}
+  - {fileID: 495244755}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -48806,8 +48686,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1325317238}
-  - component: {fileID: 1325317239}
   - component: {fileID: 1325317240}
+  - component: {fileID: 1325317239}
   m_Layer: 0
   m_Name: InputManager
   m_TagString: Untagged
@@ -48858,10 +48738,128 @@ MonoBehaviour:
   m_GameObject: {fileID: 1325317237}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35c3b02fe53377d4d8c27724f10fbaa9, type: 3}
+  m_Script: {fileID: 11500000, guid: 621567455fd1c4ceb811cc8a00b6a1a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Singleton: 0
+  m_NotificationBehavior: 0
+  m_MaxPlayerCount: 2
+  m_AllowJoining: 0
+  m_JoinBehavior: 0
+  m_PlayerJoinedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_PlayerLeftEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_JoinAction:
+    m_UseReference: 0
+    m_Action:
+      m_Name: Join
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 9c32bc6a-ab0c-4b59-b845-764d36bfbfb1
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings:
+      - m_Name: 
+        m_Id: 1551c343-756c-43fc-9903-b888486eb169
+        m_Path: <Keyboard>/anyKey
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Join
+        m_Flags: 0
+      - m_Name: 
+        m_Id: 1149b564-24ae-47c1-9f52-3a8034c05423
+        m_Path: <Gamepad>/start
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Join
+        m_Flags: 0
+      - m_Name: 
+        m_Id: ffd663c7-894e-4095-8888-6afdbab20677
+        m_Path: <Gamepad>/buttonEast
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Join
+        m_Flags: 0
+      - m_Name: 
+        m_Id: f0f3c401-ae6c-4cfd-a3bb-9eb88d008a45
+        m_Path: <Gamepad>/buttonSouth
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Join
+        m_Flags: 0
+      - m_Name: 
+        m_Id: c04d9eb0-a5cc-4c1d-bcab-e003985672d5
+        m_Path: <Gamepad>/buttonNorth
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Join
+        m_Flags: 0
+      - m_Name: 
+        m_Id: 74b89643-b597-4d19-87ad-813ccc36de8a
+        m_Path: <Gamepad>/buttonWest
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Join
+        m_Flags: 0
+      - m_Name: 
+        m_Id: 22aab853-589b-4ad0-9509-dde318e9d0ee
+        m_Path: <Gamepad>/start
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Join
+        m_Flags: 0
+      - m_Name: 
+        m_Id: e1b767e9-7ef4-4e85-ab72-7ae8aa72fdd4
+        m_Path: <Gamepad>/select
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Join
+        m_Flags: 0
+      - m_Name: 
+        m_Id: 6ecd3741-0466-46dd-96d2-03e040540e77
+        m_Path: <Gamepad>/dpad
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Join
+        m_Flags: 0
+      - m_Name: 
+        m_Id: 80fa7301-d441-4723-abb0-f54b42427d6e
+        m_Path: <Gamepad>/leftStick
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Join
+        m_Flags: 0
+      - m_Name: 
+        m_Id: cc2c0933-4c00-48f8-8c50-ec9d85d32dcb
+        m_Path: <Gamepad>/rightStick
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Join
+        m_Flags: 0
+    m_Reference: {fileID: 0}
+  m_PlayerPrefab: {fileID: 6809057812409335654, guid: 32732b53e7b3d8b4c97b912c604a81a0, type: 3}
+  m_SplitScreen: 0
+  m_MaintainAspectRatioInSplitScreen: 0
+  m_FixedNumberOfSplitScreens: -1
+  m_SplitScreenRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!1 &1339582049
 GameObject:
   m_ObjectHideFlags: 0
@@ -62380,7 +62378,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1266801358}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1761389535
 MonoBehaviour:
@@ -64414,8 +64412,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 495244757}
-        m_TargetAssemblyTypeName: InputSelectionManager, Assembly-CSharp
-        m_MethodName: ActivateJoining
+        m_TargetAssemblyTypeName: InputSelectionInfo, Assembly-CSharp
+        m_MethodName: EnableJoining
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -64433,6 +64431,18 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 841377993}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+        m_MethodName: set_interactable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -71496,7 +71506,6 @@ GameObject:
   - component: {fileID: 8203506776049356902}
   - component: {fileID: 8203506776049356903}
   - component: {fileID: 8203506776049356897}
-  - component: {fileID: 8203506776049356904}
   m_Layer: 0
   m_Name: Default_InputMaster
   m_TagString: Untagged
@@ -71531,49 +71540,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_input: {fileID: 8203506776049356897}
---- !u!114 &8203506776049356904
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8203506776049356901}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 621567455fd1c4ceb811cc8a00b6a1a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_NotificationBehavior: 0
-  m_MaxPlayerCount: 1
-  m_AllowJoining: 1
-  m_JoinBehavior: 0
-  m_PlayerJoinedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_PlayerLeftEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_JoinAction:
-    m_UseReference: 0
-    m_Action:
-      m_Name: 
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-    m_Reference: {fileID: 0}
-  m_PlayerPrefab: {fileID: 0}
-  m_SplitScreen: 0
-  m_MaintainAspectRatioInSplitScreen: 0
-  m_FixedNumberOfSplitScreens: -1
-  m_SplitScreenRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
 --- !u!224 &8284411192118362204
 RectTransform:
   m_ObjectHideFlags: 0

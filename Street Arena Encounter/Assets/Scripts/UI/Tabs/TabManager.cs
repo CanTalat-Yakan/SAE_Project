@@ -56,14 +56,12 @@ public class TabManager : MonoBehaviour
             else
             {
                 SetPageIndex(0);
-                SetPageIndex(3);
+                SetPageIndex(0);
             }
         }
 
         if (m_panelIndex == 3)
             InputManager.Instance.RemoveInputs();
-
-        InputManager.Instance.m_RegisterInput = m_panelIndex == 7;
     }
 
     #region //Utilities
