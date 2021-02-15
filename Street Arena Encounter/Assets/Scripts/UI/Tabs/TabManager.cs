@@ -62,6 +62,9 @@ public class TabManager : MonoBehaviour
 
         if (m_panelIndex == 3)
             InputManager.Instance.RemoveInputs();
+
+        if (m_panelIndex != 7)
+            InputManager.Instance.m_PiManager.DisableJoining();
     }
 
     #region //Utilities
