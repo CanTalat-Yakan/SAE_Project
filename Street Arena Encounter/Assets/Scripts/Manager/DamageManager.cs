@@ -65,16 +65,19 @@ public class DamageManager : MonoBehaviour
         EMovementStates currentState_Movement = _playerInfo.Player.m_MovementController.m_CurrentState;
 
 
-        if (currentState_Attack == EAttackStates.Block
-            || GetBoolofFlag(currentState_Movement, EMovementStates.MoveBackwards))
-            return false;
-
         switch (_enemyAttackType)
         {
             case EDamageStates.High:
                 {
                     if (GetBoolofFlag(currentState_Movement, EMovementStates.Crouch)
                         || GetBoolofFlag(currentState_Movement, EMovementStates.Lying))
+                        return false;
+                    break;
+                }
+            case EDamageStates.Middle:
+                {
+                    if (currentState_Attack == EAttackStates.Block
+                        || GetBoolofFlag(currentState_Movement, EMovementStates.MoveBackwards))
                         return false;
                     break;
                 }
