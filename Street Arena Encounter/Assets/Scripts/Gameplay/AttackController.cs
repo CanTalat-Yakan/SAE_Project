@@ -146,7 +146,6 @@ public class AttackController : MonoBehaviour
 
         m_PlayerInfo.Special = false;
         m_Attacking = true;
-        AttackManager.Instance.DeactivateSpecialVFX(m_PlayerInfo.IsLeft);
 
         AudioManager.Instance.Play(
             AudioManager.Instance.m_AudioInfo.m_Special_Activation,
@@ -190,6 +189,8 @@ public class AttackController : MonoBehaviour
             UIManager.Instance.UpdatePlayer_Health();
         }
 
+        AttackManager.Instance.DeactivateSpecialVFX(m_PlayerInfo.IsLeft);
+        m_Attacking = false;
 
         yield return null;
     }
