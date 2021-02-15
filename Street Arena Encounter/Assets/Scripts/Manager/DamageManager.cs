@@ -47,9 +47,9 @@ public class DamageManager : MonoBehaviour
             return false;
 
 
-        PlayerInformation playerInfo = _toLeftSide ?
-                    GameManager.Instance.m_Player_L :
-                    GameManager.Instance.m_Player_R;
+        PlayerInformation playerInfo = _toLeftSide
+            ? GameManager.Instance.m_Player_L
+            : GameManager.Instance.m_Player_R;
 
         bool? result = CompareStates(playerInfo, _damageType);
 
@@ -66,6 +66,19 @@ public class DamageManager : MonoBehaviour
                 _damageType));
 
         return (bool)result;
+    }
+    public void PlayerIsDead(bool _toLeftSide)
+    {
+        PlayerInformation playerInfo = _toLeftSide ?
+                    GameManager.Instance.m_Player_L :
+                    GameManager.Instance.m_Player_R;
+
+
+        AttackManager.Instance.DeactivateSpecialVFX(_toLeftSide);
+
+        playerInfo.Player.m_MovementController.m_CurrentState = EMovementStates.Lying;
+
+        playerInfo.Ani.SetTrigger("Lying");
     }
     /// <summary>
     /// Compares state of enemy with attack
@@ -84,6 +97,7 @@ public class DamageManager : MonoBehaviour
             case EDamageStates.High:
                 {
                     if (GetBoolofFlag(currentState_Movement, EMovementStates.Crouch)
+                        || GetBoolofFlag(currentState_Movement, EMovementStates.Lying)
                         || GetBoolofFlag(currentState_Movement, EMovementStates.Lying))
                         return false;
                     break;
@@ -91,7 +105,8 @@ public class DamageManager : MonoBehaviour
             case EDamageStates.Middle:
                 {
                     if (currentState_Attack == EAttackStates.Block
-                        || GetBoolofFlag(currentState_Movement, EMovementStates.MoveBackwards))
+                        || GetBoolofFlag(currentState_Movement, EMovementStates.MoveBackwards)
+                        || GetBoolofFlag(currentState_Movement, EMovementStates.Lying))
                         return false;
                     break;
                 }
@@ -115,7 +130,7 @@ public class DamageManager : MonoBehaviour
     /// <param name="_playerInfo">enemy</param>
     /// <param name="_force">the force applied to RB</param>
     /// <param name="_drag">drag applied to RB</param>
-    public void Repulsion(PlayerInformation _playerInfo, float _force = 5, float _drag = 20)
+    void PushBack(PlayerInformation _playerInfo, float _force = 5, float _drag = 20)
     {
         _playerInfo.Player.m_MovementController.Force(_force * -_playerInfo.Forward, _drag);
     }
@@ -125,9 +140,17 @@ public class DamageManager : MonoBehaviour
     /// <param name="_playerInfo">enemy</param>
     /// <param name="_force">the force applied to RB</param>
     /// <param name="_drag">drag applied to RB</param>
-    public void FallBack(PlayerInformation _playerInfo, float _force = 5, float _drag = 20)
+    public void FallBack(bool _toLeft, float _force = 5, float _drag = 20)
     {
-        _playerInfo.Player.m_MovementController.Force(_force * -_playerInfo.Forward, _drag);
+        PlayerInformation playerInfo = _toLeft
+                ? GameManager.Instance.m_Player_L
+                : GameManager.Instance.m_Player_R;
+
+
+        playerInfo.Player.m_MovementController.Force(_force * -playerInfo.Forward, _drag);
+
+        playerInfo.Player.m_MovementController.m_CurrentState = EMovementStates.Lying;
+        playerInfo.Ani.SetTrigger("Lying");
     }
 
     /// <summary>
@@ -193,8 +216,12 @@ public class DamageManager : MonoBehaviour
         if (GameManager.Instance.m_Init.m_GameMode != EGameModes.TRAINING)
             _playerInfo.Health -= _damageAmount; //substracs health with the amount of performed damage 
 
-        _playerInfo.Ani.SetTrigger("Damaged"); //plays damage animation
+        //Set Player Dead
+        if (_playerInfo.Health <= 0)
+            PlayerIsDead(_playerInfo.IsLeft);
 
+        //plays damage animation
+        _playerInfo.Ani.SetTrigger("Damaged");
 
         //Sepcial
         if (_playerInfo.SpecialVFX)
@@ -208,7 +235,8 @@ public class DamageManager : MonoBehaviour
             m_ps_R[i].Play(); //plays the damage particleSystem
 
         //Force
-        Repulsion(_playerInfo); //Forces the player back
+        PushBack(_playerInfo);
+
         //Shake
         StartCoroutine(Shake(25, 0.2f)); //Shakes the vmcamera
 
@@ -237,8 +265,6 @@ public class DamageManager : MonoBehaviour
         else
             m_ps_R[i].Play(); //plays the damage particleSystem
 
-        //Force
-        Repulsion(_playerInfo); //Forces the player back
         //Shake
         StartCoroutine(Shake(25, 0.2f)); //Shakes the vmcamera
 
