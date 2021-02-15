@@ -14,6 +14,8 @@ public class InputManager : MonoBehaviour
     public static InputManager Instance { get; private set; }
 
     public bool m_RegisterInput { get; set; }
+    public GameObject m_Default_Input;
+
     [HideInInspector] public List<GameObject> m_DestroyGObjCollection = new List<GameObject>();
     [HideInInspector] public PlayerInputManager m_PiManager;
 
@@ -39,8 +41,16 @@ public class InputManager : MonoBehaviour
         RemoveInputs();
     }
 
-    #region //Utilities
-    public void CreateIcon(EPIIconType _piIconType, Transform _parent)
+    public InputMaster GetDefaultInput()
+    {
+        m_Default_Input.SetActive(true);
+        m_PlayerL_Input = m_Default_Input.GetComponent<PlayerInput>();
+
+        return m_PlayerL_Input.GetComponent<InputMaster>();
+    }
+
+#region //Utilities
+public void CreateIcon(EPIIconType _piIconType, Transform _parent)
     {
         switch (_piIconType)
         {

@@ -74,6 +74,7 @@ public class InfoBoxManager : MonoBehaviour
                     InputManager.Instance.m_DestroyGObjCollection.Add(iconL);
                     iconL.transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = m_init.m_Player_L.Name;
                     iconL.transform.GetChild(1).GetComponent<Image>().color = new Color(Random.value, Random.value, Random.value, 1);
+                    iconL.transform.GetChild(1).GetChild(0).GetComponent<Image>().sprite = m_init.m_Player_L.Image;
                 }
                 break;
             default:

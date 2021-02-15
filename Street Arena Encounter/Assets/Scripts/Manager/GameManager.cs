@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
     #region //Values
     [Header("Level Attributes")]
     public Main_Init m_Init;
-    public GameObject m_Default_Input;
     public CinemachineVirtualCamera m_CMVCamera;
     public GP_Settings m_GP;
     public Attack_Settings m_ATK;
@@ -239,8 +238,7 @@ public class GameManager : MonoBehaviour
         }
         if (m_Init.m_GameMode == EGameModes.TRAINING)
         {
-            m_Default_Input.SetActive(true);
-            m_Player_L.Input = m_Default_Input.GetComponent<InputMaster>();
+            m_Player_L.Input = InputManager.Instance.GetDefaultInput();
             m_Player_R.Input = null;
         }
 
