@@ -62,9 +62,17 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Dash",
+                    "name": "Dash-Back",
                     "type": "Button",
                     "id": "1ee5017c-fd5c-4732-b782-dc09b418bf18",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Dash",
+                    "type": "Button",
+                    "id": "14cf8b52-433f-4e6d-a015-53948b4817ae",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -160,17 +168,6 @@
                     "name": "",
                     "id": "8df23a44-041d-49bb-87a5-ec9583c5c3ca",
                     "path": "<Keyboard>/b",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Block",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e53b6641-5f69-49cf-94ae-a4b1d2979240",
-                    "path": "<Keyboard>/shift",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
@@ -314,10 +311,21 @@
                     "name": "",
                     "id": "452a8c1b-8bd8-4459-9758-11b4e8133d72",
                     "path": "<Keyboard>/a",
-                    "interactions": "",
+                    "interactions": "MultiTap(tapDelay=0.6),Tap",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "Dash",
+                    "action": "Dash-Back",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "71c84d80-42da-4605-a8cf-f1c835473e28",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "MultiTap(tapDelay=0.6),Tap",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Dash-Back",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -351,6 +359,28 @@
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "Special",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "85452673-2d64-4fb4-b303-449265ceffc9",
+                    "path": "<Keyboard>/d",
+                    "interactions": "MultiTap(tapDelay=0.6),Tap",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7b23aca6-2279-4086-9e8f-b094230932c0",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "MultiTap(tapDelay=0.6),Tap",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

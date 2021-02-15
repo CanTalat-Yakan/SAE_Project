@@ -65,6 +65,12 @@ public class MovementController : MonoBehaviour
 
         m_PlayerInfo.Ani.SetFloat("Move", m_PlayerInfo.Input.m_movement.m * m_PlayerInfo.Forward); //SetAnimator Pramater for Movement
 
+        //Dash
+        if (m_PlayerInfo.Input.m_movement.d)
+            Force(m_PlayerInfo.GP.DashForce * m_PlayerInfo.Forward, 50);
+        //Dash_Back
+        if (m_PlayerInfo.Input.m_movement.b_d)
+            Force(m_PlayerInfo.GP.DashForce * -m_PlayerInfo.Forward, 50);
 
         //Chrouching
         m_PlayerInfo.Ani.SetBool("Crouch", m_PlayerInfo.Input.m_movement.c); //SetAnimator Pramater for Crouching

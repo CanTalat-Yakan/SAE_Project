@@ -7,6 +7,14 @@ public struct SControls
     public bool j;
     public bool c;
     public bool d;
+    public bool b_d;
+
+    public void ResetValues()
+    {
+        j =
+        d =
+        b_d = false;
+    }
 }
 public struct SAttacks
 {
@@ -16,9 +24,9 @@ public struct SAttacks
     public bool b_heavy;
     public bool low;
     public bool b_low;
-    public bool special;
 
     public bool block;
+    public bool special;
 
     public void ResetValues()
     {
@@ -27,7 +35,7 @@ public struct SAttacks
         heavy =
         b_heavy =
         low =
-        b_low = 
+        b_low =
         block =
         special = false;
     }
@@ -48,7 +56,7 @@ public class InputMaster : MonoBehaviour
     void LateUpdate()
     {
         m_attacks.ResetValues();
-        m_movement.j = false;
+        m_movement.ResetValues();
     }
 
     #region //Movement
@@ -70,10 +78,14 @@ public class InputMaster : MonoBehaviour
         m_movement.j = _i.Get<Vector2>().y == 1 ? true : false;
         m_movement.c = _i.Get<Vector2>().y == -1 ? true : false;
     }
-    //void OnDash(InputValue _i)
-    //{
-    //    m_controls.d = _i.Get<float>() != 0;
-    //}
+    void OnDashBack(InputValue _i)
+    {
+        m_movement.b_d = true;
+    }
+    void OnDash(InputValue _i)
+    {
+        m_movement.d = true;
+    }
     #endregion
 
     #region //Attacks

@@ -75,9 +75,17 @@ public class @C_InputSystem : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Dash"",
+                    ""name"": ""Dash-Back"",
                     ""type"": ""Button"",
                     ""id"": ""1ee5017c-fd5c-4732-b782-dc09b418bf18"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Dash"",
+                    ""type"": ""Button"",
+                    ""id"": ""14cf8b52-433f-4e6d-a015-53948b4817ae"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -173,17 +181,6 @@ public class @C_InputSystem : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""8df23a44-041d-49bb-87a5-ec9583c5c3ca"",
                     ""path"": ""<Keyboard>/b"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Block"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""e53b6641-5f69-49cf-94ae-a4b1d2979240"",
-                    ""path"": ""<Keyboard>/shift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -327,10 +324,21 @@ public class @C_InputSystem : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""452a8c1b-8bd8-4459-9758-11b4e8133d72"",
                     ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
+                    ""interactions"": ""MultiTap(tapDelay=0.6),Tap"",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
-                    ""action"": ""Dash"",
+                    ""action"": ""Dash-Back"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""71c84d80-42da-4605-a8cf-f1c835473e28"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": ""MultiTap(tapDelay=0.6),Tap"",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Dash-Back"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -364,6 +372,28 @@ public class @C_InputSystem : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Special"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""85452673-2d64-4fb4-b303-449265ceffc9"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": ""MultiTap(tapDelay=0.6),Tap"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7b23aca6-2279-4086-9e8f-b094230932c0"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": ""MultiTap(tapDelay=0.6),Tap"",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -889,6 +919,7 @@ public class @C_InputSystem : IInputActionCollection, IDisposable
         m_Game_Heavy = m_Game.FindAction("Heavy", throwIfNotFound: true);
         m_Game_Block = m_Game.FindAction("Block", throwIfNotFound: true);
         m_Game_Low = m_Game.FindAction("Low", throwIfNotFound: true);
+        m_Game_DashBack = m_Game.FindAction("Dash-Back", throwIfNotFound: true);
         m_Game_Dash = m_Game.FindAction("Dash", throwIfNotFound: true);
         m_Game_Special = m_Game.FindAction("Special", throwIfNotFound: true);
         // Menu
@@ -955,6 +986,7 @@ public class @C_InputSystem : IInputActionCollection, IDisposable
     private readonly InputAction m_Game_Heavy;
     private readonly InputAction m_Game_Block;
     private readonly InputAction m_Game_Low;
+    private readonly InputAction m_Game_DashBack;
     private readonly InputAction m_Game_Dash;
     private readonly InputAction m_Game_Special;
     public struct GameActions
@@ -968,6 +1000,7 @@ public class @C_InputSystem : IInputActionCollection, IDisposable
         public InputAction @Heavy => m_Wrapper.m_Game_Heavy;
         public InputAction @Block => m_Wrapper.m_Game_Block;
         public InputAction @Low => m_Wrapper.m_Game_Low;
+        public InputAction @DashBack => m_Wrapper.m_Game_DashBack;
         public InputAction @Dash => m_Wrapper.m_Game_Dash;
         public InputAction @Special => m_Wrapper.m_Game_Special;
         public InputActionMap Get() { return m_Wrapper.m_Game; }
@@ -1000,6 +1033,9 @@ public class @C_InputSystem : IInputActionCollection, IDisposable
                 @Low.started -= m_Wrapper.m_GameActionsCallbackInterface.OnLow;
                 @Low.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnLow;
                 @Low.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnLow;
+                @DashBack.started -= m_Wrapper.m_GameActionsCallbackInterface.OnDashBack;
+                @DashBack.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnDashBack;
+                @DashBack.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnDashBack;
                 @Dash.started -= m_Wrapper.m_GameActionsCallbackInterface.OnDash;
                 @Dash.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnDash;
                 @Dash.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnDash;
@@ -1031,6 +1067,9 @@ public class @C_InputSystem : IInputActionCollection, IDisposable
                 @Low.started += instance.OnLow;
                 @Low.performed += instance.OnLow;
                 @Low.canceled += instance.OnLow;
+                @DashBack.started += instance.OnDashBack;
+                @DashBack.performed += instance.OnDashBack;
+                @DashBack.canceled += instance.OnDashBack;
                 @Dash.started += instance.OnDash;
                 @Dash.performed += instance.OnDash;
                 @Dash.canceled += instance.OnDash;
@@ -1141,6 +1180,7 @@ public class @C_InputSystem : IInputActionCollection, IDisposable
         void OnHeavy(InputAction.CallbackContext context);
         void OnBlock(InputAction.CallbackContext context);
         void OnLow(InputAction.CallbackContext context);
+        void OnDashBack(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnSpecial(InputAction.CallbackContext context);
     }
