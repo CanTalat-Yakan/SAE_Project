@@ -64,18 +64,30 @@ public class DamageManager : MonoBehaviour
         EAttackStates currentState_Attack = _playerInfo.Player.m_AttackController.m_CurrentState;
         EMovementStates currentState_Movement = _playerInfo.Player.m_MovementController.m_CurrentState;
 
+
         if (currentState_Attack == EAttackStates.Block
-            || currentState_Movement == EMovementStates.MoveBackwards)
+            || GetBoolofFlag(currentState_Movement, EMovementStates.MoveBackwards))
             return false;
 
-        if(_enemyAttackType == EDamageStates.High 
-            && (currentState_Movement == EMovementStates.Crouch 
-                || currentState_Movement == EMovementStates.Lying))
-            return false;
+        switch (_enemyAttackType)
+        {
+            case EDamageStates.High:
+                {
+                    if (GetBoolofFlag(currentState_Movement, EMovementStates.Crouch)
+                        || GetBoolofFlag(currentState_Movement, EMovementStates.Lying))
+                        return false;
+                    break;
+                }
+            case EDamageStates.Low:
+                {
+                    if (GetBoolofFlag(currentState_Movement, EMovementStates.Jump))
+                        return false;
+                    break;
+                }
+            default:
+                break;
+        }
 
-        if(_enemyAttackType == EDamageStates.Low 
-            && currentState_Movement == EMovementStates.Jump)
-            return false;
 
         return true;
     }
@@ -182,4 +194,9 @@ public class DamageManager : MonoBehaviour
         yield return null;
     }
 
+
+    bool GetBoolofFlag(EMovementStates _currentState_Movement, EMovementStates _compareState)
+    {
+        return (_currentState_Movement & _compareState) != 0;
+    }
 }
