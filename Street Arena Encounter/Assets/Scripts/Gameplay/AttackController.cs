@@ -192,8 +192,10 @@ public class AttackController : MonoBehaviour
             UIManager.Instance.UpdatePlayer_Health();
         }
 
-        AttackManager.Instance.DeactivateSpecialVFX(m_PlayerInfo.IsLeft);
         m_Attacking = false;
+        AttackManager.Instance.DeactivateSpecialVFX(m_PlayerInfo.IsLeft);
+        DamageManager.Instance.FallBack(!m_PlayerInfo.IsLeft);
+
 
         yield return null;
     }
