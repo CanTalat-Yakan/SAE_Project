@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -12,9 +10,7 @@ public enum EPIIconType
 }
 public class InputManager : MonoBehaviour
 {
-    #region //Properties
     public static InputManager Instance { get; private set; }
-    #endregion
 
     #region //Fields
     public GameObject m_Default_Input;
@@ -33,7 +29,6 @@ public class InputManager : MonoBehaviour
     #endregion
 
 
-    #region //Messages
     void Awake()
     {
         if (Instance)
@@ -48,6 +43,7 @@ public class InputManager : MonoBehaviour
         m_PiManager.gameObject.SetActive(true);
         m_PiManager.DisableJoining();
     }
+
     void OnDestroy()
     {
         Instance.RemoveInputs();
@@ -55,7 +51,10 @@ public class InputManager : MonoBehaviour
         Instance.m_PiManager.enabled = true;
     }
 
-
+    /// <summary>
+    /// Message of PlayerInputManager
+    /// </summary>
+    /// <param name="_playerInput">the created playerInput</param>
     void OnPlayerJoined(PlayerInput _playerInput)
     {
 
@@ -91,9 +90,12 @@ public class InputManager : MonoBehaviour
                 break;
         }
     }
-    #endregion
 
     #region //Utilities
+    /// <summary>
+    /// Default input using all input devices available
+    /// </summary>
+    /// <returns></returns>
     public InputMaster GetDefaultInput()
     {
         Instance.m_PiManager.enabled = false;
@@ -101,6 +103,11 @@ public class InputManager : MonoBehaviour
 
         return m_Default_Input.GetComponent<InputMaster>();
     }
+    /// <summary>
+    /// Create an Image with GameObject
+    /// </summary>
+    /// <param name="_piIconType">the PlayerInputIcon</param>
+    /// <param name="_parent">the parent of the image</param>
     public void CreateIcon(EPIIconType _piIconType, Transform _parent)
     {
         switch (_piIconType)
@@ -115,6 +122,9 @@ public class InputManager : MonoBehaviour
                 break;
         }
     }
+    /// <summary>
+    /// Remove all destroy Objects and PlayerInputs
+    /// </summary>
     public void RemoveInputs()
     {
         foreach (GameObject go in m_DestroyGObjCollection)

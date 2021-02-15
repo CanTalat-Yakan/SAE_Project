@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 public enum EAttackStates
 {
@@ -21,6 +20,10 @@ public enum EDamageStates
     Middle,
     Low,
 }
+
+/// <summary>
+/// https://docs.unity3d.com/ScriptReference/AnimatorOverrideController.html
+/// </summary>
 public class AnimationClipOverrides : List<KeyValuePair<AnimationClip, AnimationClip>>
 {
     public AnimationClipOverrides(int capacity) : base(capacity) { }

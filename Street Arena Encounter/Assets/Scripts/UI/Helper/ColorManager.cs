@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,8 +27,11 @@ public class ColorManager : MonoBehaviour
 {
     public static ColorManager Instance { get; private set; }
 
+    #region //Fields
     [SerializeField] List<SColorObject> list = new List<SColorObject>();
     [SerializeField] List<Color> colors = new List<Color>(sizeof(EColorObjectType));
+    #endregion
+
 
     void Awake()
     {
@@ -50,6 +52,7 @@ public class ColorManager : MonoBehaviour
     {
         UpdateColors();
     }
+
 
     void UpdateColors()
     {

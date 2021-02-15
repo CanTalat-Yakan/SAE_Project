@@ -1,15 +1,14 @@
 ﻿using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    #region //Values
     public static UIManager Instance { get; private set; }
 
+    #region //Fields
     [HideInInspector] public bool LOCKED;
 
     [Header("The Canvas")]
@@ -43,7 +42,11 @@ public class UIManager : MonoBehaviour
         Instance = this;
     }
 
+
     #region //Utilities
+    /// <summary>
+    /// Sets up the UI rounds
+    /// </summary>
     public void Setup()
     {
         switch (GameManager.Instance.m_Init.m_GameMode)
@@ -56,6 +59,7 @@ public class UIManager : MonoBehaviour
                     m_roundsGO_R.transform.GetChild(0).gameObject.SetActive(true);
                     GameObject go = m_roundsGO_L.transform.GetChild(0).gameObject;
 
+                    //All rounds Icon
                     if (m_roundsGO_L.transform.childCount != GameManager.Instance.m_Init.m_Rounds)
                         for (int i = 1; i < GameManager.Instance.m_Init.m_Rounds; i++)
                             Instantiate(go, m_roundsGO_L.transform);
@@ -63,6 +67,7 @@ public class UIManager : MonoBehaviour
                         for (int i = 1; i < GameManager.Instance.m_Init.m_Rounds; i++)
                             Instantiate(go, m_roundsGO_R.transform);
 
+                    //All roundsWon Icon
                     for (int i = 0; i < GameManager.Instance.m_Player_L.RoundsWon; i++)
                         if (m_roundsGO_L.transform.childCount >= i)
                             m_roundsGO_L.transform.GetChild(i).GetChild(1).gameObject.SetActive(true);
@@ -179,6 +184,10 @@ public class UIManager : MonoBehaviour
     #endregion
 
     #region //Curoutines
+    /// <summary>
+    /// Deactivates UI-Canvas as long as TimeLine is playing
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator WaitForTimeLine()
     {
         m_canvas.SetActive(false);
@@ -191,6 +200,12 @@ public class UIManager : MonoBehaviour
 
         yield return null;
     }
+    /// <summary>
+    /// Sets the shadowAnimation of Health with duration delay
+    /// </summary>
+    /// <param name="_ofLeftSide">players health</param>
+    /// <param name="_duration">the duration after the Animation starts</param>
+    /// <returns></returns>
     public IEnumerator DamageShadowAni(bool _ofLeftSide, float _duration = 0.2f)
     {
         yield return new WaitForSecondsRealtime(1);
@@ -213,23 +228,31 @@ public class UIManager : MonoBehaviour
 
         yield return null;
     }
+    /// <summary>
+    /// Counts down from UI with Audio
+    /// </summary>
+    /// <param name="_countStart">how many seconds</param>
+    /// <param name="_startText">the comment after timer ends</param>
+    /// <returns></returns>
     public IEnumerator CountDown(int _countStart, string _startText)
     {
-        LOCKED = true;
+        LOCKED = true; //UIManager is locked
 
         for (int i = _countStart; i > 0; i--)
         {
             m_commentGUI.SetText("In " + i);
 
+            //Plays Counting Sound
             AudioManager.Instance.Play(
                 AudioManager.Instance.m_AudioInfo.m_Count[i]);
             yield return new WaitForSeconds(1);
         }
 
-        LOCKED = false;
+        LOCKED = false; //UIManager is unlocked
 
-        m_commentGUI.SetText(_startText);
+        m_commentGUI.SetText(_startText); //Set comment for beginning 
 
+        //Plays Beginning Sound
         AudioManager.Instance.Play(
             AudioManager.Instance.m_AudioInfo.m_Begin[
                 Random.Range(

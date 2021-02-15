@@ -3,11 +3,14 @@ using DG.Tweening;
 
 public class BarAni : MonoBehaviour
 {
+    #region //Fields
     [SerializeField] Ease m_ease;
     [SerializeField] float m_duration = 5;
     [SerializeField] bool m_randomOffsetDuration = false;
     [SerializeField] float m_randomOffsetPos = 100;
     float m_initialPos = 0;
+    #endregion
+
 
     void Start()
     {
@@ -15,6 +18,9 @@ public class BarAni : MonoBehaviour
         Play();
     }
 
+    /// <summary>
+    /// Plays an Animation with the transform.
+    /// </summary>
     void Play()
     {
         float pos = m_initialPos;

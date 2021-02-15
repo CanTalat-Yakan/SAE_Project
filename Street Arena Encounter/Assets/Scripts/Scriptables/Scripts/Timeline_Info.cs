@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Playables;
 
 [CreateAssetMenu(menuName = "Info/TimeLine Info", fileName = "TimeLine Info", order = 3)]

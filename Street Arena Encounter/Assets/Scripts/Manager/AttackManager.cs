@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 [Serializable]
 public struct SThrowingObject
@@ -10,11 +7,14 @@ public struct SThrowingObject
     public GameObject Cap;
     public GameObject Cigarette;
 }
+
 public class AttackManager : MonoBehaviour
 {
+    #region //Properties
     public static AttackManager Instance { get; private set; }
+    #endregion
 
-    #region //Values
+    #region //Fields
     public SThrowingObject m_ThrowingObjectType;
 
     [SerializeField] ParticleSystem m_ps_L;

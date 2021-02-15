@@ -1,16 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using DG.Tweening;
 
 public class ListScrollViewPos : MonoBehaviour, EventInterface
 {
+    #region //Fields
     [SerializeField] GameObject m_list;
     [SerializeField] GameObject m_bar;
     [SerializeField] float m_listPos;
     [SerializeField] bool m_barVisible;
     [SerializeField] bool m_lerp;
     [SerializeField] float m_lerpDuration;
+    #endregion
 
     public void Action()
     {

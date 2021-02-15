@@ -1,15 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class FollowTarget : MonoBehaviour
 {
-    [SerializeField]
-    GameObject m_target;
-    [SerializeField]
-    bool m_2D = false;
-
+    #region //Fields
+    [SerializeField] GameObject m_target;
+    [SerializeField] bool m_2D = false;
     Vector3 destiny;
+    #endregion
 
     void Update()
     {

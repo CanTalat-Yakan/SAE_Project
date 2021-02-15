@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(MovementController))]
 [RequireComponent(typeof(AttackController))]
 public class PlayerController : MonoBehaviour
 {
-    #region //Values
+    #region //Fields
     [HideInInspector] public MovementController m_MovementController;
     [HideInInspector] public AttackController m_AttackController;
     [HideInInspector] public bool m_IsActive;

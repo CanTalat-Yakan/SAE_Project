@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [System.Flags]
 public enum EMovementStates
@@ -29,7 +26,6 @@ public class MovementController : MonoBehaviour
     #endregion
 
 
-    #region //Messages
     void OnCollisionEnter(Collision _collision)
     {
         if (!_collision.gameObject.CompareTag("Platform"))
@@ -44,7 +40,6 @@ public class MovementController : MonoBehaviour
             return;
 
     }
-    #endregion
 
     #region //Utilities
     /// <summary>

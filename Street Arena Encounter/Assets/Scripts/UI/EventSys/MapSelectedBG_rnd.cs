@@ -1,13 +1,15 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class MapSelectedBG_rnd : MonoBehaviour, EventInterface
 {
+    #region //Fields
     [SerializeField] Image m_bg;
     [SerializeField] float m_waitDuration;
     [SerializeField] Sprite[] m_img;
     float tmpTimer;
+    #endregion
+
 
     public void Action()
     {

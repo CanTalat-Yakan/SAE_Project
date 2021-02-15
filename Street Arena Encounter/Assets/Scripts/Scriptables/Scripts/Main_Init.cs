@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.InputSystem;
+﻿using UnityEngine;
 
 [CreateAssetMenu(menuName = "Init/Main Init", fileName = "Main Init", order = 0)]
 public class Main_Init : ScriptableObject
@@ -27,7 +24,7 @@ public class Main_Init : ScriptableObject
 
     public void RandomLevel()
     {
-        m_Level = (ELevels)Random.Range(0, sizeof(ELevels));
+        m_Level = (ELevels)Random.Range(0, 5);
     }
 }
 public enum EGameModes

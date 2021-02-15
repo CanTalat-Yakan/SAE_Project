@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 [CreateAssetMenu(menuName = "Char/Fighter Info", fileName = "Fighter Init", order = 0)]
 public class Fighter_Info : ScriptableObject

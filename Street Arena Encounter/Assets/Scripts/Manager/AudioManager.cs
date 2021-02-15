@@ -1,13 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
+    #region //Properties
     public static AudioManager Instance { get; private set; }
+    #endregion
 
-    #region //Values
+    #region //Fields
     public Audio_Info m_AudioInfo;
 
     AudioSource m_menuMusicSource;
@@ -16,6 +16,7 @@ public class AudioManager : MonoBehaviour
 
     float m_tmpVolume;
     #endregion
+
 
     void Awake()
     {
@@ -51,6 +52,14 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+
+    #region //Utilities
+    /// <summary>
+    /// Creates an AudioSource and returns it.
+    /// </summary>
+    /// <param name="_clip">the AudioClip to play</param>
+    /// <param name="_volume">the volume of the Audiosource</param>
+    /// <returns></returns>
     public AudioSource Play(AudioClip _clip, float _volume = 1)
     {
         AudioSource audioSource = gameObject.AddComponent<AudioSource>();
@@ -70,7 +79,13 @@ public class AudioManager : MonoBehaviour
 
         return audioSource;
     }
-
+    /// <summary>
+    /// Creates two AudioSource, plays them sequential and returns them both.
+    /// </summary>
+    /// <param name="_clip">the AudioClip to play</param>
+    /// <param name="_clip2">the second AudioClip to play</param>
+    /// <param name="_volume">the volume of the Audiosources</param>
+    /// <returns></returns>
     public AudioSource[] PlaySequence(AudioClip _clip, AudioClip _clip2, float _volume = 1)
     {
         AudioSource audioSource = gameObject.AddComponent<AudioSource>();
@@ -186,4 +201,5 @@ public class AudioManager : MonoBehaviour
     {
         Destroy(m_mainAmbientSource);
     }
+    #endregion
 }

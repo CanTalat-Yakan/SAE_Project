@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Security.Permissions;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 
@@ -24,6 +21,7 @@ public class SelectedAni : MonoBehaviour
         Ani();
     }
 
+
     void Ani()
     {
         GameObject gobj = EventSystem.current.currentSelectedGameObject;
@@ -38,12 +36,13 @@ public class SelectedAni : MonoBehaviour
         }
         m_currentGObj = gobj;
     }
-
+    //selected
     void Play(GameObject _gobj)
     {
         _gobj.transform.DOScale(m_scaleFactor, 0.1f);
     }
 
+    //deselected 
     void Return(GameObject _gobj)
     {
         _gobj.transform.localScale = Vector3.one;

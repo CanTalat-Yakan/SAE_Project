@@ -1,14 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class ImageFilledAmountAni : MonoBehaviour
 {
+    #region //Fields
     Image m_image;
     [SerializeField] float m_speed = 2;
     [SerializeField] bool m_sin = false;
+    #endregion
+
 
     void Start()
     {
@@ -25,6 +25,7 @@ public class ImageFilledAmountAni : MonoBehaviour
 
         m_image.fillAmount += add;
     }
+
 
     void ChangeParams()
     {

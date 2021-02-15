@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
 
 enum EMainInitInfoType
 {
@@ -14,9 +11,11 @@ enum EMainInitInfoType
 
 public class ShowInfoFromMainInit : MonoBehaviour
 {
+    #region //Fields
     [SerializeField] Main_Init m_init;
     [SerializeField] EMainInitInfoType m_type;
     [SerializeField] TextMeshProUGUI m_text;
+    #endregion
 
     void Start()
     {

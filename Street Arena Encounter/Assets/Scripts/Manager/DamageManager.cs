@@ -1,13 +1,12 @@
 ﻿using Cinemachine;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DamageManager : MonoBehaviour
 {
     public static DamageManager Instance { get; private set; }
 
-    #region //Values
+    #region //Fields
     [SerializeField] ParticleSystem[] m_ps_L = new ParticleSystem[3];
     [SerializeField] ParticleSystem[] m_ps_R = new ParticleSystem[3];
 
@@ -32,6 +31,16 @@ public class DamageManager : MonoBehaviour
         m_originalShakeIntensity = m_noise.m_FrequencyGain;
     }
 
+
+    #region //Utilities
+    /// <summary>
+    /// Checks distance and Compares state and performs Damage on enemy when able
+    /// </summary>
+    /// <param name="_toLeftSide">the enemy to substract health from</param>
+    /// <param name="_amount">the amount of damage to substract health</param>
+    /// <param name="_range">the range of the attack</param>
+    /// <param name="_damageType">the height of the attack</param>
+    /// <returns></returns>
     public bool DealDamage(bool _toLeftSide, float _amount, float _range, EDamageStates _damageType)
     {
         if (GameManager.Instance.BoolDistance(_range))
@@ -58,7 +67,12 @@ public class DamageManager : MonoBehaviour
 
         return (bool)result;
     }
-
+    /// <summary>
+    /// Compares state of enemy with attack
+    /// </summary>
+    /// <param name="_playerInfo">enemy</param>
+    /// <param name="_enemyAttackType">the height of the attack</param>
+    /// <returns></returns>
     bool? CompareStates(PlayerInformation _playerInfo, EDamageStates _enemyAttackType)
     {
         EAttackStates currentState_Attack = _playerInfo.Player.m_AttackController.m_CurrentState;
@@ -95,15 +109,31 @@ public class DamageManager : MonoBehaviour
         return true;
     }
 
+    /// <summary>
+    /// dashes the enemy back
+    /// </summary>
+    /// <param name="_playerInfo">enemy</param>
+    /// <param name="_force">the force applied to RB</param>
+    /// <param name="_drag">drag applied to RB</param>
     public void Repulsion(PlayerInformation _playerInfo, float _force = 5, float _drag = 20)
     {
         _playerInfo.Player.m_MovementController.Force(_force * -_playerInfo.Forward, _drag);
     }
+    /// <summary>
+    /// dashes the enemy back and puts him on the ground
+    /// </summary>
+    /// <param name="_playerInfo">enemy</param>
+    /// <param name="_force">the force applied to RB</param>
+    /// <param name="_drag">drag applied to RB</param>
     public void FallBack(PlayerInformation _playerInfo, float _force = 5, float _drag = 20)
     {
         _playerInfo.Player.m_MovementController.Force(_force * -_playerInfo.Forward, _drag);
     }
 
+    /// <summary>
+    /// Plays a certain Sound according to the damageType
+    /// </summary>
+    /// <param name="_damageType"></param>
     void PlaySound(EDamageStates _damageType)
     {
         switch (_damageType)
@@ -127,7 +157,15 @@ public class DamageManager : MonoBehaviour
                 break;
         }
     }
+    #endregion
 
+    #region //Coroutines
+    /// <summary>
+    /// Shakes the VMCamera
+    /// </summary>
+    /// <param name="_intensity">the tmpIntensity when shaking</param>
+    /// <param name="_duration">the duration of shaking</param>
+    /// <returns></returns>
     IEnumerator Shake(float _intensity, float _duration)
     {
         m_noise.m_FrequencyGain = _intensity;
@@ -139,6 +177,13 @@ public class DamageManager : MonoBehaviour
 
         yield return null;
     }
+    /// <summary>
+    /// Substracts Damage, plays VFX and PS, Updates UI, Plays Sound and Force
+    /// </summary>
+    /// <param name="_playerInfo"></param>
+    /// <param name="_damageType"></param>
+    /// <param name="_damageAmount"></param>
+    /// <returns></returns>
     IEnumerator PerformDamage(PlayerInformation _playerInfo, EDamageStates _damageType, float _damageAmount)
     {
         //Play AttackSound
@@ -172,6 +217,12 @@ public class DamageManager : MonoBehaviour
 
         yield return null;
     }
+    /// <summary>
+    /// Failed Damge, plays VFX and PS, Plays Sound
+    /// </summary>
+    /// <param name="_playerInfo"></param>
+    /// <param name="_damageType"></param>
+    /// <returns></returns>
     IEnumerator FailedDamage(PlayerInformation _playerInfo, EDamageStates _damageType)
     {
         //Play Sound
@@ -196,10 +247,12 @@ public class DamageManager : MonoBehaviour
 
         yield return null;
     }
+    #endregion
 
-
+    #region //Helper
     bool GetBoolofFlag(EMovementStates _currentState_Movement, EMovementStates _compareState)
     {
         return (_currentState_Movement & _compareState) != 0;
     }
+    #endregion
 }

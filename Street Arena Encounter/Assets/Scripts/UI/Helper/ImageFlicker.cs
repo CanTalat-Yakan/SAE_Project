@@ -1,17 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class ImageFlicker : MonoBehaviour
 {
-    // Params
+    #region //Fields
     [SerializeField] Color m_targetColor;
     [SerializeField] float m_speed = 1f;
-
     Color m_startColor;
     Image m_image;
     float m_intensityOverTime;
+    #endregion
+
 
     void Start()
     {

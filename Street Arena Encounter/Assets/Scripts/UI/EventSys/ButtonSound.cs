@@ -1,13 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
 
 public class ButtonSound : MonoBehaviour
 {
+    #region //Fields
     GameObject m_currentGObj;
     InputSystemUIInputModule m_isuim;
+    #endregion
+
 
     void Start()
     {
@@ -20,6 +21,11 @@ public class ButtonSound : MonoBehaviour
         PlaySelectSound();
     }
 
+
+    #region //Utilities
+    /// <summary>
+    /// Plays a certain Sound when navigating through UI-Elements
+    /// </summary>
     void PlayMoveSound()
     {
         GameObject gobj = EventSystem.current.currentSelectedGameObject;
@@ -30,10 +36,13 @@ public class ButtonSound : MonoBehaviour
             AudioManager.Instance.Play(AudioManager.Instance.m_AudioInfo.m_ButtonMove);
         m_currentGObj = gobj;
     }
-
+    /// <summary>
+    /// Plays a certain Sound when selecting a UI-Element
+    /// </summary>
     void PlaySelectSound()
     {
         if (m_isuim.submit.action.triggered)
             AudioManager.Instance.Play(AudioManager.Instance.m_AudioInfo.m_ButtonSelect);
     }
+    #endregion
 }

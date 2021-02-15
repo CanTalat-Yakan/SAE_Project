@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿using UnityEngine;
 
 [CreateAssetMenu(menuName = "Info/Audio Info", fileName = "Audio Info", order = 2)]
 public class Audio_Info : ScriptableObject

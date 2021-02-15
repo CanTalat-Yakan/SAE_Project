@@ -2,14 +2,13 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
-using UnityEngine.Playables;
 using Cinemachine;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    #region //Values
+    #region //Fields
     [Header("Level Attributes")]
     public Main_Init m_Init;
     public CinemachineVirtualCamera m_CMVCamera;
@@ -55,7 +54,11 @@ public class GameManager : MonoBehaviour
         MenuOverlay();
     }
 
+
     #region //Utilities
+    /// <summary>
+    /// Checks Input and Opens MenuOverlay accordingly
+    /// </summary>
     void MenuOverlay()
     {
         if (!STARTED)
@@ -88,6 +91,9 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    /// <summary>
+    /// Pauses the game and opens menuOverlay or settingsOverlay
+    /// </summary>
     public void Pause()
     {
         if (!SceneManager.GetSceneByName("Settings_Overlay").isLoaded)
@@ -100,6 +106,9 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 0;
     }
+    /// <summary>
+    /// Continues, removes overlay and unlockes game
+    /// </summary>
     public void Continue()
     {
         if (SceneManager.GetSceneByName("Settings_Overlay").isLoaded)
@@ -115,6 +124,9 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         LOCKED = false;
     }
+    /// <summary>
+    /// Resets the players information, round based
+    /// </summary>
     public void ResetPlayers()
     {
         m_Player_L.ResetValues();
@@ -122,93 +134,35 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    #region //Helper
-    public RaycastHit HitRayCast(Vector3 _origin, Vector3 _direction, float _maxDistance)
-    {
-        RaycastHit hit;
-
-        Ray ray = new Ray(
-            _origin,
-            _direction);
-
-        Physics.Raycast(
-            ray,
-            out hit,
-            _maxDistance);
-
-        return hit;
-    }
-    public bool BoolRayCast(Vector3 _origin, Vector3 _direction, float _maxDistance)
-    {
-        Ray ray = new Ray(
-            _origin,
-            _direction);
-
-        return Physics.Raycast(
-            ray,
-            _maxDistance);
-    }
-    public float Map(float _oldValue, float _oldMin, float _oldMax, float _newMin, float _newMax)
-    {
-        float oldRange = _oldMax - _oldMin;
-        float newRange = _newMax - _newMin;
-        float newValue = ((_oldValue - _oldMin) * newRange / oldRange) + _newMin;
-
-        return Mathf.Clamp(newValue, _newMin, _newMax);
-    }
-    public void ActivatePlayers()
-    {
-        m_Player_L.RB.WakeUp();
-        m_Player_R.RB.WakeUp();
-    }
-    public void DeactivatePlayers()
-    {
-        m_Player_L.RB.Sleep();
-        m_Player_R.RB.Sleep();
-    }
-    public bool BoolDistance(float _threshold)
-    {
-        float length = Vector3.Distance(
-            m_Player_L.Player.transform.localPosition,
-            m_Player_R.Player.transform.localPosition);
-
-        return length > _threshold;
-    }
-    public float GetDistance()
-    {
-        return Vector3.Distance(
-            m_Player_L.Player.transform.localPosition,
-            m_Player_R.Player.transform.localPosition);
-    }
-    public float MapDistance(float _threshold)
-    {
-        return Map(
-            Mathf.Abs(GetDistance()),
-            _threshold, 2.3f,
-            0, 1);
-    }
-    #endregion
-
     #region //Coroutine
+    /// <summary>
+    /// Initializes the Game with setup of mouse, player and scenes
+    /// </summary>
+    /// <returns></returns>
     IEnumerator Init()
     {
-        StartCoroutine(SetupPlayer());
+        StartCoroutine(SetupPlayer()); //Setup PlayerInformation
 
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Locked; //Lockes the Cursor and makes it Invisble
         Cursor.visible = false;
+        //Locked and Started reseted
         LOCKED = false;
         STARTED = false;
 
-        DeactivatePlayers();
+        DeactivatePlayers(); //Deactivated Players RBs
 
         if (!SceneManager.GetSceneByName(m_Init.m_Level.ToString()).isLoaded)
-            SceneManager.LoadScene(m_Init.m_Level.ToString(), LoadSceneMode.Additive);
+            SceneManager.LoadScene(m_Init.m_Level.ToString(), LoadSceneMode.Additive);//Loads Level Additive
 
-        StartCoroutine(UnloadScenes());
+        StartCoroutine(UnloadScenes()); //Unloads the obsolete Scenes
 
 
         yield return null;
     }
+    /// <summary>
+    /// Sets up player according to the fighter Information and updates the playerInformation of Left and right
+    /// </summary>
+    /// <returns></returns>
     IEnumerator SetupPlayer()
     {
         //Set Model
@@ -249,6 +203,10 @@ public class GameManager : MonoBehaviour
 
         yield return null;
     }
+    /// <summary>
+    /// Unloads the scene menu, endscreen or overlay
+    /// </summary>
+    /// <returns></returns>
     IEnumerator UnloadScenes()
     {
         if (SceneManager.GetSceneByName("EndScreen_Overlay").isLoaded)
@@ -268,6 +226,87 @@ public class GameManager : MonoBehaviour
 
 
         yield return null;
+    }
+    #endregion
+
+    #region //Helper
+    /// <summary>
+    /// Casts a raycast and returns the hit
+    /// </summary>
+    /// <param name="_origin"></param>
+    /// <param name="_direction"></param>
+    /// <param name="_maxDistance"></param>
+    /// <returns></returns>
+    public RaycastHit HitRayCast(Vector3 _origin, Vector3 _direction, float _maxDistance)
+    {
+        RaycastHit hit;
+
+        Ray ray = new Ray(
+            _origin,
+            _direction);
+
+        Physics.Raycast(
+            ray,
+            out hit,
+            _maxDistance);
+
+        return hit;
+    }
+    /// <summary>
+    /// Casts a rayscast and returns the result if hit
+    /// </summary>
+    /// <param name="_origin"></param>
+    /// <param name="_direction"></param>
+    /// <param name="_maxDistance"></param>
+    /// <returns></returns>
+    public bool BoolRayCast(Vector3 _origin, Vector3 _direction, float _maxDistance)
+    {
+        Ray ray = new Ray(
+            _origin,
+            _direction);
+
+        return Physics.Raycast(
+            ray,
+            _maxDistance);
+    }
+    /// <summary>
+    /// Activates the players rigidbody
+    /// </summary>
+    public void ActivatePlayers()
+    {
+        m_Player_L.RB.WakeUp();
+        m_Player_R.RB.WakeUp();
+    }
+    /// <summary>
+    /// Deactivates the playsers rigidbody
+    /// </summary>
+    public void DeactivatePlayers()
+    {
+        m_Player_L.RB.Sleep();
+        m_Player_R.RB.Sleep();
+    }
+    /// <summary>
+    /// returns the distance of both players with true if the length is greater than the treshold
+    /// </summary>
+    /// <param name="_threshold">the length of the distance between players</param>
+    /// <returns></returns>
+    public bool BoolDistance(float _threshold)
+    {
+        float length = Vector3.Distance(
+            m_Player_L.Player.transform.localPosition,
+            m_Player_R.Player.transform.localPosition);
+
+        return length > _threshold;
+    }
+    /// <summary>
+    /// returns the distance of the two players
+    /// </summary>
+    /// <returns></returns>
+    public float GetDistance()
+    {
+        return Vector3.Distance(
+            m_Player_L.Player.transform.localPosition,
+            m_Player_R.Player.transform.localPosition);
     }
     #endregion
 }

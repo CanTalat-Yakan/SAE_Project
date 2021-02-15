@@ -42,7 +42,7 @@ public struct SAttacks
 }
 public class InputMaster : MonoBehaviour
 {
-    #region //Values
+    #region //Fields
     [HideInInspector] public PlayerInput m_input;
     public SControls m_movement;
     public SAttacks m_attacks;
@@ -58,6 +58,7 @@ public class InputMaster : MonoBehaviour
         m_attacks.ResetValues();
         m_movement.ResetValues();
     }
+
 
     #region //Movement
     void OnMovement(InputValue _i)
