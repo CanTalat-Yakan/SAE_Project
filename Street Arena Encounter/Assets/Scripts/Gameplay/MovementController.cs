@@ -22,7 +22,7 @@ public class MovementController : MonoBehaviour
     #endregion
 
     #region //Properties
-    [HideInInspector] public EMovementStates m_CurrentState { get; private set; }
+    [HideInInspector] public EMovementStates m_CurrentState { get; set; }
     #endregion
 
 
@@ -60,12 +60,19 @@ public class MovementController : MonoBehaviour
 
         m_PlayerInfo.Ani.SetFloat("Move", m_PlayerInfo.Input.m_movement.m * m_PlayerInfo.Forward); //SetAnimator Pramater for Movement
 
+        //StandUp from Laying down
+        if(m_PlayerInfo.Input.m_movement.m != 0)
+        {
+            SetCurrentState(EMovementStates.Lying, false);
+            m_PlayerInfo.Ani.SetTrigger("StandUp");
+        }
+
         //Dash
         if (m_PlayerInfo.Input.m_movement.d)
-            Force(m_PlayerInfo.GP.DashForce * m_PlayerInfo.Forward, 50);
+            Force(m_PlayerInfo.GP.DashForce * (m_PlayerInfo.IsLeft ? m_PlayerInfo.Forward : -m_PlayerInfo.Forward), 50);
         //Dash_Back
         if (m_PlayerInfo.Input.m_movement.b_d)
-            Force(m_PlayerInfo.GP.DashForce * -m_PlayerInfo.Forward, 50);
+            Force(m_PlayerInfo.GP.DashForce * (m_PlayerInfo.IsLeft ? -m_PlayerInfo.Forward : m_PlayerInfo.Forward), 50);
 
         //Chrouching
         m_PlayerInfo.Ani.SetBool("Crouch", m_PlayerInfo.Input.m_movement.c); //SetAnimator Pramater for Crouching
@@ -120,10 +127,16 @@ public class MovementController : MonoBehaviour
         m_desiredDirection.x = 0;
         m_force = 0;
 
+        //Reset Flag
+        m_CurrentState = EMovementStates.Move;
+        m_CurrentState &= ~EMovementStates.Move; 
+        SetHeight();
+
         //Reset Ani-Params
         m_PlayerInfo.Ani.SetFloat("Move", 0);
         m_PlayerInfo.Ani.SetBool("Crouch", false);
         m_PlayerInfo.Ani.SetBool("Jump", false);
+        m_PlayerInfo.Ani.SetTrigger("StandUp");
     }
     /// <summary>
     /// Changes the Flag Enum representing the state the of player
@@ -167,12 +180,12 @@ public class MovementController : MonoBehaviour
 
         if (GetBoolofFlag(EMovementStates.Crouch))
         {
-            size.y *= 0.5f;
+            //size.y *= 0.5f;
             pos.y = m_PlayerInfo.GroundOffset - m_PlayerInfo.GP.CrouchHeight;
         }
         if (GetBoolofFlag(EMovementStates.Lying))
         {
-            size.y *= 0.1f;
+            //size.y *= 0.1f;
             pos.y = m_PlayerInfo.GroundOffset - m_PlayerInfo.GP.CrouchHeight;
         }
 
