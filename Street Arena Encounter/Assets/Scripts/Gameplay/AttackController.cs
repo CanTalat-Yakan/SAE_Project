@@ -46,6 +46,7 @@ public class AttackController : MonoBehaviour
     [HideInInspector] public PlayerInformation m_PlayerInfo;
 
     [HideInInspector] public bool m_Attacking;
+    [HideInInspector] public int m_Penalty;
 
     AnimatorOverrideController m_animatorOverrideController;
     AnimationClipOverrides m_clipOverrides;
@@ -70,6 +71,8 @@ public class AttackController : MonoBehaviour
             m_clipOverrides = new AnimationClipOverrides(m_animatorOverrideController.overridesCount);
             m_animatorOverrideController.GetOverrides(m_clipOverrides);
         }
+
+        StartCoroutine(Penalty());
     }
 
 
@@ -79,6 +82,8 @@ public class AttackController : MonoBehaviour
     /// </summary>
     public void Attack()
     {
+        if (m_Penalty != 0)
+            return;
         if (m_Attacking)
         {
             m_PlayerInfo.Player.m_MovementController.m_CurrentState &= ~EMovementStates.Lying;
@@ -132,14 +137,15 @@ public class AttackController : MonoBehaviour
     IEnumerator Block()
     {
         m_CurrentState = EAttackStates.Block;
-        m_PlayerInfo.Ani.SetTrigger("Attack");
-        m_PlayerInfo.Ani.SetBool("Block", m_Attacking = true);
+        m_PlayerInfo.Ani.SetTrigger("Block");
+        m_PlayerInfo.Ani.SetBool("Blocking", m_Attacking = true);
 
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.4f);
 
         m_CurrentState = EAttackStates.NONE;
-        m_PlayerInfo.Ani.SetBool("Block", m_Attacking = false);
+        m_PlayerInfo.Ani.SetBool("Blocking", m_Attacking = false);
 
+        m_Penalty = 3;
 
         yield return null;
     }
@@ -286,6 +292,16 @@ public class AttackController : MonoBehaviour
 
 
         yield return null;
+    }
+    IEnumerator Penalty()
+    {
+        while (true)
+        {
+            yield return new WaitForEndOfFrame();
+
+            m_Penalty--;
+            m_Penalty = Mathf.Max(0, m_Penalty);
+        }
     }
     #endregion
 }
