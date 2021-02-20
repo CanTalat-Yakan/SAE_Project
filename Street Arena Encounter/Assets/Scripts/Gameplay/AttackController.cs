@@ -147,6 +147,7 @@ public class AttackController : MonoBehaviour
 
         m_Penalty = 3;
 
+
         yield return null;
     }
     IEnumerator Special()
@@ -224,11 +225,15 @@ public class AttackController : MonoBehaviour
             attack.Damage_Range,
             attack.Activation_FrameTime,
             attack.Damage_FrameTime,
-            attack.FreezeTime)); ;
+            attack.FreezeTime));
 
         StartCoroutine(Recovery(
-            attack.State,
-            attack.Activation_FrameTime + attack.Damage_FrameTime + attack.Recovery_FrameTime));
+            attack.Activation_FrameTime + 
+            attack.Damage_FrameTime + 
+            attack.Recovery_FrameTime,
+            attack.Penalty_FrameTime));
+
+
         yield return null;
     }
     IEnumerator Activation(AnimationClip _animationClip, EAttackStates _state, bool _dash = false)
@@ -247,7 +252,7 @@ public class AttackController : MonoBehaviour
 
         yield return null;
     }
-    IEnumerator Damage(EDamageStates _damageType, float _damageAmount, float _range, float _activationFrameTime, float _damageFrameTime, bool _freezeTime = false)
+    IEnumerator Damage(EDamageStates _damageType, float _damageAmount, float _range, int _activationFrameTime, int _damageFrameTime, bool _freezeTime = false)
     {
         for (int i = 0; i < _activationFrameTime; i++)
             yield return new WaitForEndOfFrame();
@@ -280,7 +285,7 @@ public class AttackController : MonoBehaviour
 
         yield return null;
     }
-    IEnumerator Recovery(EAttackStates _state, float _recoveryFrameTime)
+    IEnumerator Recovery(int _recoveryFrameTime, int _penaltyFrameTime)
     {
         for (int i = 0; i < _recoveryFrameTime; i++)
             yield return new WaitForEndOfFrame();
@@ -290,6 +295,7 @@ public class AttackController : MonoBehaviour
 
         m_PlayerInfo.Ani.SetBool("Attacking", m_Attacking = false);
 
+        m_Penalty = _penaltyFrameTime;
 
         yield return null;
     }
