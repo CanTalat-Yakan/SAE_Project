@@ -55,8 +55,8 @@ public class AttackManager : MonoBehaviour
     {
         if (_fromLeft)
             SetSpecialVFX(
-                true, 
-                m_ps_L, 
+                true,
+                m_ps_L,
                 GameManager.Instance.m_Player_L.GetMaterial);
         else
             SetSpecialVFX(
@@ -83,15 +83,15 @@ public class AttackManager : MonoBehaviour
     void SetSpecialVFX(bool _activate, ParticleSystem _ps, Material _material)
     {
         if (_activate)
-            {
-                _ps.Play();
-                _material.SetColor("_EmissionColor", Color.red);
-            }
-            else
-            {
-                _ps.Stop();
-                _material.SetColor("_EmissionColor", Color.black);
-            }
+        {
+            _ps.Play();
+            _material.SetColor("_EmissionColor", Color.red);
+        }
+        else
+        {
+            _ps.Stop();
+            _material.SetColor("_EmissionColor", Color.black);
+        }
     }
     #endregion
 }
