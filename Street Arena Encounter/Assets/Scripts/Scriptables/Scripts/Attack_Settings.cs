@@ -11,9 +11,10 @@ public struct SFrameBasedAtackSettings
     public float Damage_Range;
     public bool Dash;
     public bool FreezeTime;
-    public float Activation_FrameTime;
-    public float Damage_FrameTime;
-    public float Recovery_FrameTime;
+    public int Activation_FrameTime;
+    public int Damage_FrameTime;
+    public int Recovery_FrameTime;
+    public int Penalty_FrameTime;
 }
 
 [CreateAssetMenu(menuName = "Settings/Attack Settings", fileName = "Attack Settings", order = 2)]
