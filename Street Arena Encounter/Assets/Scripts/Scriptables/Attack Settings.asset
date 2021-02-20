@@ -23,6 +23,7 @@ MonoBehaviour:
     Activation_FrameTime: 15
     Damage_FrameTime: 2
     Recovery_FrameTime: 20
+    Penalty_FrameTime: 3
   - State: 3
     AnimationClip: {fileID: 7400000, guid: a01ba11347c55d348b5e71d7a6fa1d65, type: 2}
     DamageType: 1
@@ -33,6 +34,7 @@ MonoBehaviour:
     Activation_FrameTime: 20
     Damage_FrameTime: 2
     Recovery_FrameTime: 20
+    Penalty_FrameTime: 4
   - State: 4
     AnimationClip: {fileID: 7400000, guid: 297faa367899c0d49a763e0900bfa015, type: 2}
     DamageType: 2
@@ -43,6 +45,7 @@ MonoBehaviour:
     Activation_FrameTime: 8
     Damage_FrameTime: 3
     Recovery_FrameTime: 4
+    Penalty_FrameTime: 0
   - State: 5
     AnimationClip: {fileID: 7400000, guid: 297faa367899c0d49a763e0900bfa015, type: 2}
     DamageType: 2
@@ -53,6 +56,7 @@ MonoBehaviour:
     Activation_FrameTime: 8
     Damage_FrameTime: 3
     Recovery_FrameTime: 4
+    Penalty_FrameTime: 0
   - State: 6
     AnimationClip: {fileID: 7400000, guid: 297faa367899c0d49a763e0900bfa015, type: 2}
     DamageType: 3
@@ -63,6 +67,7 @@ MonoBehaviour:
     Activation_FrameTime: 10
     Damage_FrameTime: 3
     Recovery_FrameTime: 6
+    Penalty_FrameTime: 0
   - State: 7
     AnimationClip: {fileID: 7400000, guid: 297faa367899c0d49a763e0900bfa015, type: 2}
     DamageType: 3
@@ -73,3 +78,4 @@ MonoBehaviour:
     Activation_FrameTime: 10
     Damage_FrameTime: 3
     Recovery_FrameTime: 6
+    Penalty_FrameTime: 2
