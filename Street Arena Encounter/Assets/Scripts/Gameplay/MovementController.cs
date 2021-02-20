@@ -3,6 +3,7 @@
 [System.Flags]
 public enum EMovementStates
 {
+    NONE = 0,
     Idle = 1 << 0,
     Move = 1 << 1,
     MoveBackwards = 1 << 2,
@@ -128,8 +129,7 @@ public class MovementController : MonoBehaviour
         m_force = 0;
 
         //Reset Flag
-        m_CurrentState = EMovementStates.Move;
-        m_CurrentState &= ~EMovementStates.Move; 
+        m_CurrentState = EMovementStates.NONE;
         SetHeight();
 
         //Reset Ani-Params
@@ -178,16 +178,13 @@ public class MovementController : MonoBehaviour
         Vector3 pos = m_PlayerInfo.Ani.gameObject.transform.localPosition;
         pos.y = m_PlayerInfo.GroundOffset;
 
+
         if (GetBoolofFlag(EMovementStates.Crouch))
-        {
-            //size.y *= 0.5f;
             pos.y = m_PlayerInfo.GroundOffset - m_PlayerInfo.GP.CrouchHeight;
-        }
-        if (GetBoolofFlag(EMovementStates.Lying))
-        {
-            //size.y *= 0.1f;
-            pos.y = m_PlayerInfo.GroundOffset - m_PlayerInfo.GP.CrouchHeight;
-        }
+        else if (GetBoolofFlag(EMovementStates.Lying))
+            pos.y = m_PlayerInfo.GroundOffset - m_PlayerInfo.GP.LyingHeight;
+        else
+            pos.y = m_PlayerInfo.GroundOffset;
 
 
         //Set the Size of the Collider from Values in GP-Settings
