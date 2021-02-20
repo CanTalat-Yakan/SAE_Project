@@ -268,7 +268,8 @@ public class DamageManager : MonoBehaviour
         //Shake
         StartCoroutine(Shake(25, 0.2f)); //Shakes the vmcamera
 
-        UIManager.Instance.UpdatePlayer_Health();
+        //PenaltyTime
+        _playerInfo.Player.m_AttackController.m_Penalty = 14;
 
 
         yield return null;
