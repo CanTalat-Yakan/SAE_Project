@@ -233,6 +233,7 @@ public class AttackController : MonoBehaviour
         m_clipOverrides["Punching"] = _animationClip;
         m_animatorOverrideController.ApplyOverrides(m_clipOverrides);
 
+        m_PlayerInfo.Ani.SetTrigger("Attack");
         m_PlayerInfo.Ani.SetBool("Attacking", m_Attacking = true);
 
 
