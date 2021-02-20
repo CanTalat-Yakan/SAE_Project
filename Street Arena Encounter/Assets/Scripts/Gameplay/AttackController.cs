@@ -81,6 +81,7 @@ public class AttackController : MonoBehaviour
     {
         if (m_Attacking)
         {
+            m_PlayerInfo.Player.m_MovementController.m_CurrentState &= ~EMovementStates.Lying;
             ComboAttack();
             return;
         }
@@ -131,6 +132,7 @@ public class AttackController : MonoBehaviour
     IEnumerator Block()
     {
         m_CurrentState = EAttackStates.Block;
+        m_PlayerInfo.Ani.SetTrigger("Attack");
         m_PlayerInfo.Ani.SetBool("Block", m_Attacking = true);
 
         yield return new WaitForSeconds(0.3f);
