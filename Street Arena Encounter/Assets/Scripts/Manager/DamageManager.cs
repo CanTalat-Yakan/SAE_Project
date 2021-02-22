@@ -54,11 +54,10 @@ public class DamageManager : MonoBehaviour
             ? GameManager.Instance.m_Player_L
             : GameManager.Instance.m_Player_R;
 
-        bool? result = CompareStates(playerInfo, _damageType);
 
-        if (result is null)
-            return false;
-        else if ((bool)result)
+        bool result = CompareStates(playerInfo, _damageType);
+
+        if (result)
             StartCoroutine(PerformDamage(
                 playerInfo,
                 _damageType,
@@ -68,7 +67,8 @@ public class DamageManager : MonoBehaviour
                 playerInfo_Enemy,
                 _damageType));
 
-        return (bool)result;
+
+        return result;
     }
     public void PlayerIsDead(bool _toLeftSide)
     {
@@ -88,7 +88,7 @@ public class DamageManager : MonoBehaviour
     /// <param name="_playerInfo">enemy</param>
     /// <param name="_enemyAttackType">the height of the attack</param>
     /// <returns></returns>
-    bool? CompareStates(PlayerInformation _playerInfo, EDamageStates _enemyAttackType)
+    bool CompareStates(PlayerInformation _playerInfo, EDamageStates _enemyAttackType)
     {
         EAttackStates currentState_Attack = _playerInfo.Player.m_AttackController.m_CurrentState;
         EMovementStates currentState_Movement = _playerInfo.Player.m_MovementController.m_CurrentState;
@@ -98,8 +98,8 @@ public class DamageManager : MonoBehaviour
         {
             case EDamageStates.High:
                 {
-                    if (GetBoolofFlag(currentState_Movement, EMovementStates.Crouch)
-                        || GetBoolofFlag(currentState_Movement, EMovementStates.Lying)
+                    if (currentState_Attack == EAttackStates.Block
+                        || GetBoolofFlag(currentState_Movement, EMovementStates.Crouch)
                         || GetBoolofFlag(currentState_Movement, EMovementStates.Lying))
                         return false;
                     break;
