@@ -280,7 +280,9 @@ public class GameManager : MonoBehaviour
     public void DeactivatePlayers()
     {
         m_Player_L.RB.Sleep();
+        m_Player_L.Player.m_MovementController.DefaultDir();
         m_Player_R.RB.Sleep();
+        m_Player_R.Player.m_MovementController.DefaultDir();
     }
     /// <summary>
     /// returns the distance of both players with true if the length is greater than the treshold
