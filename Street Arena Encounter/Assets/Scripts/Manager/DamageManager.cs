@@ -80,7 +80,6 @@ public class DamageManager : MonoBehaviour
         AttackManager.Instance.DeactivateSpecialVFX(_toLeftSide);
 
         playerInfo.Player.m_MovementController.m_CurrentState = EMovementStates.Lying;
-
         playerInfo.Ani.SetTrigger("Lying");
     }
     /// <summary>
@@ -212,6 +211,9 @@ public class DamageManager : MonoBehaviour
     /// <returns></returns>
     IEnumerator PerformDamage(PlayerInformation _playerInfo, EDamageStates _damageType, float _damageAmount)
     {
+        //Stops any Attack
+        _playerInfo.Player.m_AttackController.Stop();
+        
         //Play AttackSound
         PlaySound(_damageType);
 
