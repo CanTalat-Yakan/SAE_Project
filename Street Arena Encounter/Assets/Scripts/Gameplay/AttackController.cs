@@ -296,7 +296,7 @@ public class AttackController : MonoBehaviour
             yield return new WaitForEndOfFrame();
 
 
-        if (m_damaged)
+        if (!m_damaged)
             m_Penalty = _penaltyFrameTime;
 
         m_CurrentState = EAttackStates.NONE;
