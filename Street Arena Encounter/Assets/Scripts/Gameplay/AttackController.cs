@@ -88,7 +88,7 @@ public class AttackController : MonoBehaviour
             return;
         if (m_Attacking)
         {
-            m_PlayerInfo.Player.m_MovementController.m_CurrentState &= ~EMovementStates.Lying;
+            m_PlayerInfo.Player.m_MovementController.StandUp();
             ComboAttack();
             return;
         }
@@ -132,6 +132,19 @@ public class AttackController : MonoBehaviour
         m_PlayerInfo.Ani.SetBool("Attacking", false);
 
         AttackManager.Instance.DeactivateSpecialVFX(m_PlayerInfo.IsLeft);
+    }
+    public void Stop()
+    {
+        StopAllCoroutines();
+        StartCoroutine(Penalty());
+
+        m_CurrentState = EAttackStates.NONE;
+        m_Attacking = false;
+
+        m_PlayerInfo.Ani.SetBool("Block", false);
+        m_PlayerInfo.Ani.SetBool("Attacking", false);
+
+        m_PlayerInfo.Player.m_MovementController.StandUp();
     }
     #endregion
 
