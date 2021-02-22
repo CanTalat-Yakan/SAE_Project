@@ -50,6 +50,8 @@ public class AttackController : MonoBehaviour
 
     AnimatorOverrideController m_animatorOverrideController;
     AnimationClipOverrides m_clipOverrides;
+
+    bool m_damaged;
     #endregion
 
     #region //Properties
@@ -172,7 +174,10 @@ public class AttackController : MonoBehaviour
 
         if (!damaged)
         {
+            m_Penalty = 100;
+
             yield return new WaitForSeconds(1);
+
             m_Attacking = false;
         }
         else
@@ -199,11 +204,12 @@ public class AttackController : MonoBehaviour
                 GameManager.Instance.m_Player_L.Health -= 35;
 
             UIManager.Instance.UpdatePlayer_Health();
+
+            DamageManager.Instance.FallBack(!m_PlayerInfo.IsLeft);
         }
 
         m_Attacking = false;
         AttackManager.Instance.DeactivateSpecialVFX(m_PlayerInfo.IsLeft);
-        DamageManager.Instance.FallBack(!m_PlayerInfo.IsLeft);
 
 
         yield return null;
@@ -228,8 +234,8 @@ public class AttackController : MonoBehaviour
             attack.FreezeTime));
 
         StartCoroutine(Recovery(
-            attack.Activation_FrameTime + 
-            attack.Damage_FrameTime + 
+            attack.Activation_FrameTime +
+            attack.Damage_FrameTime +
             attack.Recovery_FrameTime,
             attack.Penalty_FrameTime));
 
@@ -258,10 +264,10 @@ public class AttackController : MonoBehaviour
             yield return new WaitForEndOfFrame();
 
 
-        bool damaged = false;
+        m_damaged = false;
         for (int i = 0; i < _damageFrameTime; i++)
         {
-            if (damaged = DamageManager.Instance.DealDamage(
+            if (m_damaged = DamageManager.Instance.DealDamage(
                    !m_PlayerInfo.IsLeft,
                    _damageAmount,
                    _range,
@@ -271,7 +277,7 @@ public class AttackController : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
 
-        if (damaged)
+        if (m_damaged)
             if (_freezeTime)
             {
                 Time.timeScale = 0.1f;
@@ -282,7 +288,6 @@ public class AttackController : MonoBehaviour
                 Time.timeScale = 1;
             }
 
-
         yield return null;
     }
     IEnumerator Recovery(int _recoveryFrameTime, int _penaltyFrameTime)
@@ -291,11 +296,13 @@ public class AttackController : MonoBehaviour
             yield return new WaitForEndOfFrame();
 
 
+        if (m_damaged)
+            m_Penalty = _penaltyFrameTime;
+
         m_CurrentState = EAttackStates.NONE;
 
         m_PlayerInfo.Ani.SetBool("Attacking", m_Attacking = false);
 
-        m_Penalty = _penaltyFrameTime;
 
         yield return null;
     }
