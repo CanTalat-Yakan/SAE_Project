@@ -74,6 +74,10 @@ public class RoundManager : MonoBehaviour
         //Player_R Won
         if (GameManager.Instance.m_Player_L.Health < GameManager.Instance.m_Player_R.Health)
             _roundResult = false;
+
+        //Play DeadAni
+        if (_roundResult != null)
+            DamageManager.Instance.PlayerIsDead((bool)!_roundResult);
     }
     /// <summary>
     /// Updates the round in ui and local variables
@@ -229,7 +233,7 @@ public class RoundManager : MonoBehaviour
         //false     => rightPlayer Won, then
         //null      => Tie
         if (m_roundResult == null)
-            UIManager.Instance.SetComment_Tie(); 
+            UIManager.Instance.SetComment_Tie();
         else
             UIManager.Instance.SetComment_PlayerWon((bool)m_roundResult);
 
