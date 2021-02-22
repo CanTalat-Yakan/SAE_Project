@@ -62,7 +62,7 @@ public class MovementController : MonoBehaviour
         m_PlayerInfo.Ani.SetFloat("Move", m_PlayerInfo.Input.m_movement.m * m_PlayerInfo.Forward); //SetAnimator Pramater for Movement
 
         //StandUp from Laying down
-        if(m_PlayerInfo.Input.m_movement.m != 0)
+        if(m_PlayerInfo.Input.m_movement.m != 0 && GetBoolofFlag(EMovementStates.Lying))
         {
             SetCurrentState(EMovementStates.Lying, false);
             m_PlayerInfo.Ani.SetTrigger("StandUp");
@@ -245,6 +245,11 @@ public class MovementController : MonoBehaviour
             xPos,
             yPos,
             0);
+    }
+    public void StandUp()
+    {
+        SetCurrentState(EMovementStates.Lying, false);
+        SetHeight();
     }
     #endregion
 
