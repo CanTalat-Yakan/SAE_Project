@@ -15,5 +15,5 @@ MonoBehaviour:
   Name: Squirrely
   Image: {fileID: 21300000, guid: fe639789b22d4714fa478783748d97f4, type: 3}
   Model: {fileID: 919132149155446097, guid: 626f228dcdb1a1b4f840ed74f8a09817, type: 3}
-  AnimatorOC: {fileID: 22100000, guid: c7912780a62320448a434438d5626ba2, type: 2}
+  AnimatorOC: {fileID: 22100000, guid: 684c6b54988bbf143b5e760b503a79fa, type: 2}
   GroundOffset: 1.02

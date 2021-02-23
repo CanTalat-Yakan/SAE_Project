@@ -15,5 +15,5 @@ MonoBehaviour:
   Name: Planty
   Image: {fileID: 21300000, guid: eedd8f9fbad1a8e428a7dc606380c40a, type: 3}
   Model: {fileID: 919132149155446097, guid: 1b3817891e5da4f4eb6348b90e5ffc7c, type: 3}
-  AnimatorOC: {fileID: 22100000, guid: c7912780a62320448a434438d5626ba2, type: 2}
+  AnimatorOC: {fileID: 22100000, guid: 684c6b54988bbf143b5e760b503a79fa, type: 2}
   GroundOffset: 0.9
