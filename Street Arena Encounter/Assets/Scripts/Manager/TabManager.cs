@@ -47,17 +47,18 @@ public class TabManager : MonoBehaviour
         if (m_panels.Count == 0)
             return;
 
-        if (m_uiInput.cancel.action.ReadValue<float>() != 0)
-        {
-            if (m_panelIndex <= 3)
-                SetPreviousIndex();
-            else
+        if (m_uiInput)
+            if (m_uiInput.cancel.action.ReadValue<float>() != 0)
             {
-                //returns to home page when going back past the play panel
-                SetPageIndex(0);
-                SetPageIndex(0);
+                if (m_panelIndex <= 3)
+                    SetPreviousIndex();
+                else
+                {
+                    //returns to home page when going back past the play panel
+                    SetPageIndex(0);
+                    SetPageIndex(0);
+                }
             }
-        }
 
         //when in play panel then delete all playerInputs
         if (m_panelIndex == 3)
