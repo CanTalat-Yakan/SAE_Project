@@ -1049,19 +1049,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71208249934c35b4289c48407cc30699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 50
-    m_Right: 75
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 0
-  m_fitType: 3
-  m_rows: 1
-  m_columns: 5
-  m_cellSize: {x: 496.2, y: 900}
-  m_spacing: {x: 24.5, y: 0}
-  m_fitX: 1
-  m_fitY: 1
 --- !u!1 &76724198
 GameObject:
   m_ObjectHideFlags: 0
@@ -48723,6 +48710,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Default_Input: {fileID: 8203506776049356901}
+  m_InputSelectionInfo: {fileID: 0}
   m_DestroyGObjCollection: []
   m_PiManager: {fileID: 0}
   m_PlayerL_Input: {fileID: 0}
