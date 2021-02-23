@@ -55,9 +55,11 @@ public class DamageManager : MonoBehaviour
             : GameManager.Instance.m_Player_R;
 
 
-        bool result = CompareStates(playerInfo, _damageType);
+        bool? result = CompareStates(playerInfo, _damageType);
 
-        if (result)
+        if (result is null)
+            return false;
+        else if ((bool)result)
             StartCoroutine(PerformDamage(
                 playerInfo,
                 _damageType,
@@ -68,7 +70,7 @@ public class DamageManager : MonoBehaviour
                 _damageType));
 
 
-        return result;
+        return (bool)result;
     }
     public void PlayerIsDead(bool _toLeftSide)
     {
@@ -88,7 +90,7 @@ public class DamageManager : MonoBehaviour
     /// <param name="_playerInfo">enemy</param>
     /// <param name="_enemyAttackType">the height of the attack</param>
     /// <returns></returns>
-    bool CompareStates(PlayerInformation _playerInfo, EDamageStates _enemyAttackType)
+    bool? CompareStates(PlayerInformation _playerInfo, EDamageStates _enemyAttackType)
     {
         EAttackStates currentState_Attack = _playerInfo.Player.m_AttackController.m_CurrentState;
         EMovementStates currentState_Movement = _playerInfo.Player.m_MovementController.m_CurrentState;
@@ -98,23 +100,28 @@ public class DamageManager : MonoBehaviour
         {
             case EDamageStates.High:
                 {
-                    if (currentState_Attack == EAttackStates.Block
-                        || GetBoolofFlag(currentState_Movement, EMovementStates.Crouch)
-                        || GetBoolofFlag(currentState_Movement, EMovementStates.Lying))
+                    if (GetBoolofFlag(currentState_Movement, EMovementStates.Lying)
+                        || GetBoolofFlag(currentState_Movement, EMovementStates.Crouch))
+                        return null;
+                    else if (currentState_Attack == EAttackStates.Block)
                         return false;
                     break;
                 }
             case EDamageStates.Middle:
                 {
-                    if (currentState_Attack == EAttackStates.Block
-                        || GetBoolofFlag(currentState_Movement, EMovementStates.MoveBackwards)
-                        || GetBoolofFlag(currentState_Movement, EMovementStates.Lying))
+                    if (GetBoolofFlag(currentState_Movement, EMovementStates.Lying))
+                        return null;
+                    else if (currentState_Attack == EAttackStates.Block
+                        || GetBoolofFlag(currentState_Movement, EMovementStates.MoveBackwards))
                         return false;
                     break;
                 }
             case EDamageStates.Low:
                 {
                     if (GetBoolofFlag(currentState_Movement, EMovementStates.Jump))
+                        return null;
+                    else if (currentState_Attack == EAttackStates.Block
+                        || GetBoolofFlag(currentState_Movement, EMovementStates.MoveBackwards))
                         return false;
                     break;
                 }
