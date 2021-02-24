@@ -40482,18 +40482,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1761389535}
-        m_TargetAssemblyTypeName: InfoBoxManager, Assembly-CSharp
-        m_MethodName: UpdateList
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 388376158}
         m_TargetAssemblyTypeName: FighterSelection, Assembly-CSharp
         m_MethodName: SetFighterInfo_L
