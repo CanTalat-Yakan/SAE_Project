@@ -76,7 +76,7 @@ public class RoundManager : MonoBehaviour
             _roundResult = false;
 
         //Play DeadAni
-        if (_roundResult != null)
+        if (_roundResult != null && Check_PlayerDead())
             DamageManager.Instance.PlayerIsDead((bool)!_roundResult);
     }
     /// <summary>
