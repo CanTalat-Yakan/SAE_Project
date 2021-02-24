@@ -128,7 +128,7 @@ public class AttackController : MonoBehaviour
         m_CurrentState = EAttackStates.NONE;
         m_Attacking = false;
 
-        m_PlayerInfo.Ani.SetBool("Block", false);
+        m_PlayerInfo.Ani.SetBool("Blocking", false);
         m_PlayerInfo.Ani.SetBool("Attacking", false);
 
         AttackManager.Instance.DeactivateSpecialVFX(m_PlayerInfo.IsLeft);
@@ -141,7 +141,7 @@ public class AttackController : MonoBehaviour
         m_CurrentState = EAttackStates.NONE;
         m_Attacking = false;
 
-        m_PlayerInfo.Ani.SetBool("Block", false);
+        m_PlayerInfo.Ani.SetBool("Blocking", false);
         m_PlayerInfo.Ani.SetBool("Attacking", false);
 
         m_PlayerInfo.Player.m_MovementController.StandUp();

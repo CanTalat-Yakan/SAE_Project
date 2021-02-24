@@ -65,7 +65,7 @@ public class MovementController : MonoBehaviour
         if(m_PlayerInfo.Input.m_movement.m != 0 && GetBoolofFlag(EMovementStates.Lying))
         {
             SetCurrentState(EMovementStates.Lying, false);
-            m_PlayerInfo.Ani.SetTrigger("StandUp");
+            m_PlayerInfo.Ani.SetBool("OnGround", false);
         }
 
         //Dash
@@ -118,9 +118,9 @@ public class MovementController : MonoBehaviour
     {
         //Reset Pos
         m_PlayerInfo.RB.gameObject.transform.position = new Vector3(
-            m_PlayerInfo.IsLeft ?
-                -m_PlayerInfo.GP.PlayerStartPos :
-                m_PlayerInfo.GP.PlayerStartPos,
+            m_PlayerInfo.IsLeft
+                ? -m_PlayerInfo.GP.PlayerStartPos
+                : m_PlayerInfo.GP.PlayerStartPos,
             0,
             0);
 
@@ -136,7 +136,7 @@ public class MovementController : MonoBehaviour
         m_PlayerInfo.Ani.SetFloat("Move", 0);
         m_PlayerInfo.Ani.SetBool("Crouch", false);
         m_PlayerInfo.Ani.SetBool("Jump", false);
-        m_PlayerInfo.Ani.SetTrigger("StandUp");
+        m_PlayerInfo.Ani.SetBool("OnGround", false);
     }
     /// <summary>
     /// Changes the Flag Enum representing the state the of player
@@ -249,6 +249,7 @@ public class MovementController : MonoBehaviour
     public void StandUp()
     {
         SetCurrentState(EMovementStates.Lying, false);
+        m_PlayerInfo.Ani.SetBool("OnGround", false);
         SetHeight();
     }
     #endregion

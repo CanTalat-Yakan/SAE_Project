@@ -83,6 +83,7 @@ public class DamageManager : MonoBehaviour
 
         playerInfo.Player.m_MovementController.m_CurrentState = EMovementStates.Lying;
         playerInfo.Ani.SetTrigger("Lying");
+        playerInfo.Ani.SetBool("OnGround", true);
     }
     /// <summary>
     /// Compares state of enemy with attack
@@ -160,6 +161,7 @@ public class DamageManager : MonoBehaviour
 
         playerInfo.Player.m_MovementController.m_CurrentState = EMovementStates.Lying;
         playerInfo.Ani.SetTrigger("Lying");
+        playerInfo.Ani.SetBool("OnGround", true);
     }
 
     /// <summary>
@@ -220,7 +222,7 @@ public class DamageManager : MonoBehaviour
     {
         //Stops any Attack
         _playerInfo.Player.m_AttackController.Stop();
-        
+
         //Play AttackSound
         PlaySound(_damageType);
 
