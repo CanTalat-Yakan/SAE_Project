@@ -96,24 +96,24 @@ public class AttackController : MonoBehaviour
         if (m_PlayerInfo.Input.m_attacks.block)
             StartCoroutine(Block());
 
-        if (m_PlayerInfo.Input.m_attacks.heavy)
+
+        else if (m_PlayerInfo.Input.m_attacks.heavy)
             StartCoroutine(Base(EAttackStates.F_HeavyAttack));
-        if (m_PlayerInfo.Input.m_attacks.b_heavy)
+        else if (m_PlayerInfo.Input.m_attacks.b_heavy)
             StartCoroutine(Base(EAttackStates.B_HeavyAttack));
 
-
-        if (m_PlayerInfo.Input.m_attacks.light)
+        else if (m_PlayerInfo.Input.m_attacks.light)
             StartCoroutine(Base(EAttackStates.F_LightAttack));
-        if (m_PlayerInfo.Input.m_attacks.b_light)
+        else if (m_PlayerInfo.Input.m_attacks.b_light)
             StartCoroutine(Base(EAttackStates.B_LightAttack));
 
-
-        if (m_PlayerInfo.Input.m_attacks.low)
+        else if (m_PlayerInfo.Input.m_attacks.low)
             StartCoroutine(Base(EAttackStates.F_LowAttack));
-        if (m_PlayerInfo.Input.m_attacks.b_low)
+        else if (m_PlayerInfo.Input.m_attacks.b_low)
             StartCoroutine(Base(EAttackStates.B_LowAttack));
 
-        if (m_PlayerInfo.Input.m_attacks.special)
+
+        else if (m_PlayerInfo.Input.m_attacks.special)
             StartCoroutine(Special());
     }
     void ComboAttack()
