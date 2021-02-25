@@ -50,7 +50,7 @@ public class DamageManager : MonoBehaviour
         PlayerInformation playerInfo = _toLeftSide
             ? GameManager.Instance.m_Player_L
             : GameManager.Instance.m_Player_R;
-        PlayerInformation playerInfo_Enemy = !_toLeftSide
+        PlayerInformation playerInfo_Attacker = !_toLeftSide
             ? GameManager.Instance.m_Player_L
             : GameManager.Instance.m_Player_R;
 
@@ -66,7 +66,7 @@ public class DamageManager : MonoBehaviour
                 _amount));
         else
             StartCoroutine(FailedDamage(
-                playerInfo_Enemy,
+                playerInfo_Attacker,
                 _damageType));
 
 
@@ -284,6 +284,9 @@ public class DamageManager : MonoBehaviour
 
         //Shake
         StartCoroutine(Shake(25, 0.2f)); //Shakes the vmcamera
+
+        //Penalty
+        _playerInfo.Player.m_AttackController.m_Penalty = 60;
 
 
         yield return null;
